@@ -6,19 +6,19 @@ const SectionsScreen = (props) => {
   return (
     <View style = {styles.container}>
       <View style={styles.button}>
-        <Button title ="Sección 1" onPress = {() => props.navigation.navigate('Listado de Compras')}/>
+        <Button title ="Coductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Sección 2" onPress = {() => props.navigation.navigate('Listado de Sembrados')}/>
+        <Button title ="Sección 2" onPress = {() => props.navigation.navigate('Sección 2')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Sección 3" onPress = {() => props.navigation.navigate('Listado de Trasplantes')}/>
+        <Button title ="Sección 3" onPress = {() => props.navigation.navigate('Sección 3')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Sección 4" onPress = {() => props.navigation.navigate('Listado de Crecimientos')}/>
+        <Button title ="Sección 4" onPress = {() => props.navigation.navigate('Sección 4')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Sección 5" onPress = {() => props.navigation.navigate('Listado de Cosechas')}/>
+        <Button title ="Sección 5" onPress = {() => props.navigation.navigate('Sección 5')}/>
       </View>
     </View>
   );

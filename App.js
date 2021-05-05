@@ -7,6 +7,9 @@ import 'react-native-gesture-handler';
 import LoginScreen from './Screens/Login/LoginScreen';
 import SectionsScreen from './Screens/Sections/SectionsScreen';
 
+import ListDriverScreen from './Screens/Drivers/ListDriverScreen';
+import AddDriverScreen from './Screens/Drivers/AddDriverScreen';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -16,6 +19,9 @@ export default function App() {
           
           <Stack.Screen name="Iniciar Sesión" component={LoginScreen} />
           <Stack.Screen name="Secciones" component={SectionsScreen} />
+
+          <Stack.Screen name="Lista de Conductores" component={ListDriverScreen} />
+          <Stack.Screen name="Agregar Conductor" component={AddDriverScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>
