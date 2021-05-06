@@ -5,62 +5,73 @@ import firebase from '../../database/firebase';
 
 const ListDriverScreen = (props) => {
 
-  const [crecimientos, setCrecimientos] = useState([]);
+  const [drivers, setDrivers] = useState([]);
 
   useEffect(() => {
     firebase.db.collection("Conductores").onSnapshot((querySnapshot) => {
-      const crecimientos = [];
+      const drivers = [];
       querySnapshot.docs.forEach((doc) => {
-        const { tipoPlanta, fechaTrasplante, ph, agregadoPH} = doc.data();
-        crecimientos.push({
+        const { nameDriver, rutDriver, inductionDate, examDate, municipalLicenseDate, internalLicenseDate} = doc.data();
+        drivers.push({
           id: doc.id,
-          tipoPlanta,
-          fechaTrasplante,
-          ph,
-          agregadoPH
+          nameDriver,
+          rutDriver,
+          inductionDate,
+          examDate,
+          municipalLicenseDate,
+          internalLicenseDate
         });
       });
-      setCrecimientos(crecimientos);
+      setDrivers(drivers);
     });
   }, []);
 
-  var fechaCritica = (fechaLimite) => {
+  var criticalDate = (inductionDate, examDate, municipalLicenseDate, internalLicenseDate) => {
     
-    var dia = new Date().getDate(); 
-    var mes = new Date().getMonth() + 1; 
-    var ano = new Date().getFullYear(); 
+    var day = new Date().getDate(); 
+    var month = new Date().getMonth() + 1; 
+    var year = new Date().getFullYear(); 
 
-    if(dia < 10){
-      dia = "0" + dia
+    if(day < 10){
+      day = "0" + day;
     }
-    if(mes < 10){
-      mes = "0" + mes
+    if(month < 10){
+      month = "0" + month;
     }
 
-    var fechaHoy = ano + "-" + mes + "-" + dia;
+    var todayDate = year + "-" + month + "-" + day;
 
-    var restaFechas = new Date(fechaHoy).getTime() - new Date(fechaLimite).getTime();
-    var valorNumerico = Math.floor(restaFechas / (1000 * 60 * 60 * 24));
+    var subtractionDates = new Date(todayDate).getTime() - new Date(inductionDate).getTime();
+    var numericInductionDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
-    var critico = false
+    var subtractionDates = new Date(todayDate).getTime() - new Date(examDate).getTime();
+    var numericExamDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
-    if((valorNumerico >= -2)){
-      critico = true;
+    var subtractionDates = new Date(todayDate).getTime() - new Date(municipalLicenseDate).getTime();
+    var numericMunicipalLicenseDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+
+    var subtractionDates = new Date(todayDate).getTime() - new Date(internalLicenseDate).getTime();
+    var numericInternalLicenseDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+
+    var critical = false;
+
+    if((numericInductionDate >= -30) || (numericExamDate >= -30) || (numericMunicipalLicenseDate >= -30) || (numericInternalLicenseDate >= -30)){
+      critical = true;
     }
-    return critico
+    return critical;
   }
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title = "Agregar Crecimiento" onPress = {() => props.navigation.navigate('Agregar Crecimiento')}/>
+        <Button title = "Agregar Conductor" onPress = {() => props.navigation.navigate('Agregar Conductor')}/>
         {
-          crecimientos.map(crecimiento => {
+          drivers.map(driver => {
             return(
-              <ListItem key={crecimiento.id} bottomDivider
+              <ListItem key={driver.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Crecimiento", {
-                    crecimientoId: crecimiento.id,
+                  props.navigation.navigate("Detalles del Conductor", {
+                    driverId: driver.id,
                   });
                 }}
               >
@@ -68,14 +79,14 @@ const ListDriverScreen = (props) => {
                 <Avatar
                   source={{
                     uri:
-                      "https://images.vexels.com/media/users/3/127670/isolated/lists/1c400fa105ae69ed69e526f8a4a96a76-tina-de-planta-de-flor-plana.png",
+                      "https://static.thenounproject.com/png/3117331-200.png",
                   }}
                   rounded
                 />
-                <View style={fechaCritica(crecimiento.fechaTrasplante) ? styles.rojo : styles.verde}>
+                <View style={criticalDate(driver.inductionDate, driver.examDate, driver.municipalLicenseDate, driver.internalLicenseDate) ? styles.red : styles.blue}>
                   <ListItem.Content>
-                    <ListItem.Title>{crecimiento.tipoPlanta}</ListItem.Title>
-                    <ListItem.Subtitle>{"Código: " + crecimiento.id}</ListItem.Subtitle>
+                    <ListItem.Title style={styles.text} >{driver.nameDriver}</ListItem.Title>
+                    <ListItem.Subtitle style={styles.text} >{driver.rutDriver}</ListItem.Subtitle>
                   </ListItem.Content>
                 </View>
               </ListItem>
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
       width: 250,
       height: 60
     },
-    rojo: {
+    red: {
       elevation: 8,
       backgroundColor: "red",
       borderRadius: 10,
@@ -112,15 +123,18 @@ const styles = StyleSheet.create({
       width: 250,
       height: 60
     },
-    verde: {
+    blue: {
       elevation: 8,
-      backgroundColor: "green",
+      backgroundColor: "#100c4c",
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
       width: 250,
       height: 60
     },
+    text: {
+      color: "white"
+    }
   });
 
 export default ListDriverScreen;

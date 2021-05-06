@@ -7,29 +7,34 @@ import firebase from '../../database/firebase';
 const AddDriverScreen = (props) => {
   
     const [state, setState] = useState({
-        tipoPlanta: '',
-        fechaTrasplante: '',
-        ph: '',
-        agregadoPH: ''
+        nameDriver: '',
+        rutDriver: '',
+        inductionDate: '',
+        examDate: '',
+        municipalLicenseDate: '',
+        internalLicenseDate: ''
       });
     
       const handleChangeText = (value, dato) => {
         setState({ ...state, [dato]: value });
       };
     
-      const guardarDatos = async () => {
-        if (state.tipoPlanta === "" || state.fechaTrasplante === "" || state.ph === "") {
+      const saveData = async () => {
+        if (state.nameDriver === "" || state.rutDriver === "" || state.inductionDate === "" || state.examDate === "" || state.municipalLicenseDate === "" || state.internalLicenseDate === "") {
           Alert.alert("Debes completar los Campos")
         } else {
     
           try {
             await firebase.db.collection("Conductores").add({
-              tipoPlanta: state.tipoPlanta,
-              fechaTrasplante: state.fechaTrasplante,
-              ph: state.ph,
-              agregadoPH: state.agregadoPH
+              nameDriver: state.nameDriver,
+              rutDriver: state.rutDriver,
+              inductionDate: state.inductionDate,
+              examDate: state.examDate,
+              municipalLicenseDate: state.municipalLicenseDate,
+              internalLicenseDate: state.internalLicenseDate
             });
-            Alert.alert("Datos Ingresados!")
+            Alert.alert("Datos Ingresados!");
+            props.navigation.navigate('Lista de Conductores');
     
           } catch (error) {
             console.log(error)
@@ -43,18 +48,26 @@ const AddDriverScreen = (props) => {
       
             <View style={styles.text}>
               < TextInput 
-                placeholder="Ingrese Tipo de Planta"
-                onChangeText={(value) => handleChangeText(value, "tipoPlanta")}
-                value={state.tipoPlanta}
+                placeholder="  Ingrese Nombre del Conductor"
+                onChangeText={(value) => handleChangeText(value, "nameDriver")}
+                value={state.nameDriver}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Ingrese RUT o Pasaporte"
+                onChangeText={(value) => handleChangeText(value, "rutDriver")}
+                value={state.rutDriver}
               />
             </View>
 
             <View style={styles.text}>
               <DatePicker
-                style={{width: 200}}
-                date={state.fechaTrasplante}
+                style={{width: 250}}
+                date={state.inductionDate}
                 mode="date"
-                placeholder="Ingrese Fecha de Trasplante"
+                placeholder="Ingrese Fecha de Vencimiento de Inducción"
                 format="YYYY-MM-DD"
                 minDate="2019-05-01"
                 confirmBtnText="Confirm"
@@ -70,29 +83,91 @@ const AddDriverScreen = (props) => {
                     marginLeft: 36
                   }
                 }}
-                onDateChange={(value) => handleChangeText(value, "fechaTrasplante")}
-                value={state.fechaTrasplante}
-              />
-            </View>
-      
-            <View style={styles.text}>
-              < TextInput
-                placeholder="Ingrese PH"
-                onChangeText={(value) => handleChangeText(value, "ph")}
-                value={state.ph}
+                onDateChange={(value) => handleChangeText(value, "inductionDate")}
+                value={state.inductionDate}
               />
             </View>
 
             <View style={styles.text}>
-              < TextInput
-                placeholder="¿Agregó algo para modificar el PH (Opcional)"
-                onChangeText={(value) => handleChangeText(value, "agregadoPH")}
-                value={state.agregadoPH}
+              <DatePicker
+                style={{width: 250}}
+                date={state.examDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento de Examen"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "examDate")}
+                value={state.examDate}
+              />
+            </View>
+
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={state.municipalLicenseDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento de Licencia Municipal"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "municipalLicenseDate")}
+                value={state.municipalLicenseDate}
+              />
+            </View>
+
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={state.internalLicenseDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento de Licencia Interna"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "internalLicenseDate")}
+                value={state.internalLicenseDate}
               />
             </View>
       
             <View style={styles.button}>
-              <Button title ="Guardar Datos" onPress = {() => guardarDatos()}/>
+              <Button title ="Guardar Datos" onPress = {() => saveData()}/>
             </View>
             
           </ScrollView>
@@ -124,6 +199,7 @@ const styles = StyleSheet.create({
         padding: 0,
         marginBottom: 15,
         borderBottomWidth: 1,
+        borderRadius: 8,
         borderBottomColor: "#cccccc",
         backgroundColor: "white",
     },

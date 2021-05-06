@@ -9,6 +9,11 @@ import SectionsScreen from './Screens/Sections/SectionsScreen';
 
 import ListDriverScreen from './Screens/Drivers/ListDriverScreen';
 import AddDriverScreen from './Screens/Drivers/AddDriverScreen';
+import DetailsDriverScreen from './Screens/Drivers/DetailsDriverScreen';
+
+import AddPickupTruckScreen from './Screens/PickupTrucks/AddPickupTruckScreen';
+
+
 
 const Stack = createStackNavigator();
 
@@ -22,6 +27,9 @@ export default function App() {
 
           <Stack.Screen name="Lista de Conductores" component={ListDriverScreen} />
           <Stack.Screen name="Agregar Conductor" component={AddDriverScreen} />
+          <Stack.Screen name="Detalles del Conductor" component={DetailsDriverScreen} />
+
+          <Stack.Screen name="Agregar Camioneta" component={AddPickupTruckScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>
