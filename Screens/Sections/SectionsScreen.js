@@ -9,7 +9,7 @@ const SectionsScreen = (props) => {
         <Button title ="Coductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Camionetas" onPress = {() => props.navigation.navigate('Agregar Camioneta')}/>
+        <Button title ="Camionetas" onPress = {() => props.navigation.navigate('Lista de Camionetas')}/>
       </View>
       <View style={styles.button}>
         <Button title ="Sección 3" onPress = {() => props.navigation.navigate('Sección 3')}/>

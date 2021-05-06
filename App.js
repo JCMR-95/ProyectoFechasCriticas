@@ -11,7 +11,9 @@ import ListDriverScreen from './Screens/Drivers/ListDriverScreen';
 import AddDriverScreen from './Screens/Drivers/AddDriverScreen';
 import DetailsDriverScreen from './Screens/Drivers/DetailsDriverScreen';
 
+import ListPickupTruckScreen from './Screens/PickupTrucks/ListPickupTruckScreen';
 import AddPickupTruckScreen from './Screens/PickupTrucks/AddPickupTruckScreen';
+import DetailsPickupTruckScreen from './Screens/PickupTrucks/DetailsPickupTruckScreen';
 
 
 
@@ -29,7 +31,9 @@ export default function App() {
           <Stack.Screen name="Agregar Conductor" component={AddDriverScreen} />
           <Stack.Screen name="Detalles del Conductor" component={DetailsDriverScreen} />
 
+          <Stack.Screen name="Lista de Camionetas" component={ListPickupTruckScreen} />
           <Stack.Screen name="Agregar Camioneta" component={AddPickupTruckScreen} />
+          <Stack.Screen name="Detalles de Camioneta" component={DetailsPickupTruckScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

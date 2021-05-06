@@ -10,48 +10,46 @@ import {
 } from "react-native";
 import firebase from '../../database/firebase';
 
-const DetailsDriverScreen = (props) => {
+const DetailsPickupTruckScreen = (props) => {
 
     const initialState = {
-        nameDriver: '',
-        rutDriver: '',
-        inductionDate: '',
-        examDate: '',
-        municipalLicenseDate: '',
-        internalLicenseDate: ''
+        patentPickupTrack: '',
+        circulationPermitDate: '',
+        homologationPermitDate: '',
+        accidentInsuranceDate: ''
     };
 
-    const [driver, setDriver] = useState(initialState);
+    const [pickupTruck, setPickupTruck] = useState(initialState);
     const [loading, setLoading] = useState(true);
 
     const handleChangeText = (value, dato) => {
-        setDriver({ ...driver, [dato]: value });
+        setPickupTruck({ ...pickupTruck, [dato]: value });
     };
 
-    const getDriver = async(id) => {
-        const dbRef = firebase.db.collection("Conductores").doc(id);
+    const getPickupTruck = async(id) => {
+        const dbRef = firebase.db.collection("Camionetas").doc(id);
         const doc = await dbRef.get();
-        const driver = doc.data();
-        setDriver({ ...driver, id: doc.id });
+        const pickupTruck = doc.data();
+        setPickupTruck({ ...pickupTruck, id: doc.id });
         setLoading(false);
     }
 
-    const deleteDriver = async () => {
+    const deletePickupTruck = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("Conductores")
-        .doc(props.route.params.driverId);
+        .collection("Camionetas")
+        .doc(props.route.params.pickupTruckId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Conductores");
+        props.navigation.navigate("Lista de Camionetas");
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Conductor",
-        "¿Estás seguro de borrar este Conductor?",
+        "Borrar Camioneta",
+        "¿Estás seguro de borrar esta Camioneta?",
         [
-            { text: "Sí", onPress: () => deleteDriver() },
+            { text: "Sí", onPress: () => deletePickupTruck() },
             { text: "No" },
         ],
         {
@@ -88,7 +86,7 @@ const DetailsDriverScreen = (props) => {
 
 
     useEffect(() => {
-        getDriver(props.route.params.driverId)
+        getPickupTruck(props.route.params.pickupTruckId)
     }, [])
 
     if (loading) {
@@ -106,54 +104,39 @@ const DetailsDriverScreen = (props) => {
       
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "nameDriver")}
-                    value={driver.nameDriver}
+                    onChangeText={(value) => handleChangeText(value, "patentPickupTrack")}
+                    value={pickupTruck.patentPickupTrack}
                     editable={false}
                 />
             </View>
 
-            <View style={styles.text}>
-                < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "rutDriver")}
-                    value={driver.rutDriver}
-                    editable={false}
-                />
-            </View>
 
-            <View style={criticalDate(driver.inductionDate) ? styles.criticalText : styles.text}>
+            <View style={criticalDate(pickupTruck.circulationPermitDate) ? styles.criticalText : styles.text}>
                 < TextInput
-                    value={"Fecha de Inducción: " + driver.inductionDate}
+                    value={"Permiso de Circulación: " + pickupTruck.circulationPermitDate}
                     editable={false}
-                    onChangeText={(value) => handleChangeText(value, "inductionDate")}
+                    onChangeText={(value) => handleChangeText(value, "circulationPermitDate")}
                 />
             </View>
 
-            <View style={criticalDate(driver.examDate) ? styles.criticalText : styles.text}>
+            <View style={criticalDate(pickupTruck.homologationPermitDate) ? styles.criticalText : styles.text}>
                 < TextInput
-                    value={"Fecha de Examen: " + driver.examDate}
+                    value={"Permiso de Homologación: " + pickupTruck.homologationPermitDate}
                     editable={false}
-                    onChangeText={(value) => handleChangeText(value, "examDate")}
+                    onChangeText={(value) => handleChangeText(value, "homologationPermitDate")}
                 />
             </View>  
 
-            <View style={criticalDate(driver.municipalLicenseDate) ? styles.criticalText : styles.text}>
+            <View style={criticalDate(pickupTruck.accidentInsuranceDate) ? styles.criticalText : styles.text}>
                 < TextInput
-                    value={"Fecha de Licencia Municipal: " + driver.municipalLicenseDate}
+                    value={"Seguro de Accidentes: " + pickupTruck.accidentInsuranceDate}
                     editable={false}
-                    onChangeText={(value) => handleChangeText(value, "municipalLicenseDate")}
+                    onChangeText={(value) => handleChangeText(value, "accidentInsuranceDate")}
                 />
             </View>  
-
-            <View style={criticalDate(driver.internalLicenseDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Licencia Interna: " + driver.internalLicenseDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "internalLicenseDate")}
-                />
-            </View>    
       
             <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Conductor" onPress = {() => confirmationAlert()}/>
+                <Button color = "red" title ="Eliminar Camioneta" onPress = {() => confirmationAlert()}/>
             </View>
             
           </ScrollView>
@@ -199,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsDriverScreen;
+export default DetailsPickupTruckScreen;

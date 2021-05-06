@@ -29,7 +29,7 @@ const AddPickupTruckScreen = (props) => {
                     accidentInsuranceDate: state.accidentInsuranceDate
                 });
                 Alert.alert("Datos Ingresados!");
-                //props.navigation.navigate('Lista de Camionetas');
+                props.navigation.navigate('Lista de Camionetas');
         
             } catch (error) {
                 console.log(error)
