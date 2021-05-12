@@ -126,33 +126,7 @@ const AddPickupTruckScreen = (props) => {
                     value={state.accidentInsuranceDate}
                 />
                 </View>
-
-                <View style={styles.text}>
-                <DatePicker
-                    style={{width: 250}}
-                    date={state.internalLicenseDate}
-                    mode="date"
-                    placeholder="Ingrese Fecha de Licencia Interna"
-                    format="YYYY-MM-DD"
-                    minDate="2019-05-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    }}
-                    onDateChange={(value) => handleChangeText(value, "internalLicenseDate")}
-                    value={state.internalLicenseDate}
-                />
-                </View>
-        
+       
                 <View style={styles.button}>
                 <Button title ="Guardar Datos" onPress = {() => saveData()}/>
                 </View>
