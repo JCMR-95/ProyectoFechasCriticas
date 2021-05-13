@@ -8,7 +8,7 @@ const ListPickupTruckScreen = (props) => {
   const [pickupTrucks, setPickupTrucks] = useState([]);
 
   useEffect(() => {
-    firebase.db.collection("Camionetas").onSnapshot((querySnapshot) => {
+    firebase.db.collection("CamionetasCMCC").onSnapshot((querySnapshot) => {
       const pickupTrucks = [];
       querySnapshot.docs.forEach((doc) => {
         const { patentPickupTrack, circulationPermitDate, homologationPermitDate, accidentInsuranceDate} = doc.data();
@@ -59,13 +59,13 @@ const ListPickupTruckScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title = "Agregar Camioneta" onPress = {() => props.navigation.navigate('Agregar Camioneta')}/>
+        <Button title = "Agregar Camioneta" onPress = {() => props.navigation.navigate('Agregar Camioneta CMCC')}/>
         {
           pickupTrucks.map(pickupTruck => {
             return(
               <ListItem key={pickupTruck.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Camioneta", {
+                  props.navigation.navigate("Detalles de Camioneta CMCC", {
                     pickupTruckId: pickupTruck.id,
                   });
                 }}

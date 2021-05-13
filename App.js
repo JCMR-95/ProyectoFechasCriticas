@@ -11,10 +11,13 @@ import ListDriverScreen from './Screens/Drivers/ListDriverScreen';
 import AddDriverScreen from './Screens/Drivers/AddDriverScreen';
 import DetailsDriverScreen from './Screens/Drivers/DetailsDriverScreen';
 
-import ListPickupTruckScreen from './Screens/PickupTrucks/ListPickupTruckScreen';
-import AddPickupTruckScreen from './Screens/PickupTrucks/AddPickupTruckScreen';
-import DetailsPickupTruckScreen from './Screens/PickupTrucks/DetailsPickupTruckScreen';
+import CMCCListPickupTruckScreen from './Screens/PickupTrucksCMCC/ListPickupTruckScreen';
+import CMCCAddPickupTruckScreen from './Screens/PickupTrucksCMCC/AddPickupTruckScreen';
+import CMCCDetailsPickupTruckScreen from './Screens/PickupTrucksCMCC/DetailsPickupTruckScreen';
 
+import SPENCEListPickupTruckScreen from './Screens/PickupTrucksSPENCE/ListPickupTruckScreen';
+import SPENCEAddPickupTruckScreen from './Screens/PickupTrucksSPENCE/AddPickupTruckScreen';
+import SPENCEDetailsPickupTruckScreen from './Screens/PickupTrucksSPENCE/DetailsPickupTruckScreen';
 
 
 const Stack = createStackNavigator();
@@ -31,9 +34,13 @@ export default function App() {
           <Stack.Screen name="Agregar Conductor" component={AddDriverScreen} />
           <Stack.Screen name="Detalles del Conductor" component={DetailsDriverScreen} />
 
-          <Stack.Screen name="Lista de Camionetas" component={ListPickupTruckScreen} />
-          <Stack.Screen name="Agregar Camioneta" component={AddPickupTruckScreen} />
-          <Stack.Screen name="Detalles de Camioneta" component={DetailsPickupTruckScreen} />
+          <Stack.Screen name="Lista de Camionetas CMCC" component={CMCCListPickupTruckScreen} />
+          <Stack.Screen name="Agregar Camioneta CMCC" component={CMCCAddPickupTruckScreen} />
+          <Stack.Screen name="Detalles de Camioneta CMCC" component={CMCCDetailsPickupTruckScreen} />
+
+          <Stack.Screen name="Lista de Camionetas SPENCE" component={SPENCEListPickupTruckScreen} />
+          <Stack.Screen name="Agregar Camioneta SPENCE" component={SPENCEAddPickupTruckScreen} />
+          <Stack.Screen name="Detalles de Camioneta SPENCE" component={SPENCEDetailsPickupTruckScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

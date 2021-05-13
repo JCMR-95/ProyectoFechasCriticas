@@ -27,7 +27,7 @@ const DetailsPickupTruckScreen = (props) => {
     };
 
     const getPickupTruck = async(id) => {
-        const dbRef = firebase.db.collection("Camionetas").doc(id);
+        const dbRef = firebase.db.collection("CamionetasSPENCE").doc(id);
         const doc = await dbRef.get();
         const pickupTruck = doc.data();
         setPickupTruck({ ...pickupTruck, id: doc.id });
@@ -37,11 +37,11 @@ const DetailsPickupTruckScreen = (props) => {
     const deletePickupTruck = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("Camionetas")
+        .collection("CamionetasSPENCE")
         .doc(props.route.params.pickupTruckId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Camionetas");
+        props.navigation.navigate("Lista de Camionetas SPENCE");
     };
 
     const confirmationAlert = () => {

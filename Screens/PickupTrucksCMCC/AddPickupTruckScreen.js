@@ -22,14 +22,14 @@ const AddPickupTruckScreen = (props) => {
         } else {
     
             try {
-                await firebase.db.collection("Camionetas").add({
+                await firebase.db.collection("CamionetasCMCC").add({
                     patentPickupTrack: state.patentPickupTrack,
                     circulationPermitDate: state.circulationPermitDate,
                     homologationPermitDate: state.homologationPermitDate,
                     accidentInsuranceDate: state.accidentInsuranceDate
                 });
                 Alert.alert("Datos Ingresados!");
-                props.navigation.navigate('Lista de Camionetas');
+                props.navigation.navigate('Lista de Camionetas CMCC');
         
             } catch (error) {
                 console.log(error)
