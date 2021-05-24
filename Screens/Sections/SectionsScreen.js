@@ -15,10 +15,7 @@ const SectionsScreen = (props) => {
         <Button title ="Camionetas - CMCC" onPress = {() => props.navigation.navigate('Lista de Camionetas CMCC')}/>
       </View>
       <View style={styles.button}>
-        <Button title ="Sección 4" onPress = {() => props.navigation.navigate('Sección 4')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Sección 5" onPress = {() => props.navigation.navigate('Sección 5')}/>
+        <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
       </View>
     </View>
   );

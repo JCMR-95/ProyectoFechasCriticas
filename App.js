@@ -19,6 +19,12 @@ import SPENCEListPickupTruckScreen from './Screens/PickupTrucksSPENCE/ListPickup
 import SPENCEAddPickupTruckScreen from './Screens/PickupTrucksSPENCE/AddPickupTruckScreen';
 import SPENCEDetailsPickupTruckScreen from './Screens/PickupTrucksSPENCE/DetailsPickupTruckScreen';
 
+import ListReportFTEScreen from './Screens/ReportFTE/ListReportFTEScreen';
+import AddReportFTEScreen from './Screens/ReportFTE/AddReportFTEScreen';
+import DetailsReportFTEScreen from './Screens/ReportFTE/DetailsReportFTEScreen';
+
+
+
 
 const Stack = createStackNavigator();
 
@@ -41,6 +47,10 @@ export default function App() {
           <Stack.Screen name="Lista de Camionetas SPENCE" component={SPENCEListPickupTruckScreen} />
           <Stack.Screen name="Agregar Camioneta SPENCE" component={SPENCEAddPickupTruckScreen} />
           <Stack.Screen name="Detalles de Camioneta SPENCE" component={SPENCEDetailsPickupTruckScreen} />
+
+          <Stack.Screen name="Lista de Reportes FTE" component={ListReportFTEScreen} />
+          <Stack.Screen name="Agregar Reporte FTE" component={AddReportFTEScreen} />
+          <Stack.Screen name="Detalles de Reporte FTE" component={DetailsReportFTEScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>
