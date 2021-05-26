@@ -9,7 +9,8 @@ const AddPickupTruckScreen = (props) => {
         patentPickupTrack: '',
         circulationPermitDate: '',
         homologationPermitDate: '',
-        accidentInsuranceDate: ''
+        accidentInsuranceDate: '',
+        tagDate: ''
     });
     
     const handleChangeText = (value, dato) => {
@@ -17,7 +18,7 @@ const AddPickupTruckScreen = (props) => {
     };
     
     const saveData = async () => {
-        if (state.patentPickupTrack === "" || state.circulationPermitDate === "" || state.homologationPermitDate === "" || state.accidentInsuranceDate === "") {
+        if (state.patentPickupTrack === "" || state.circulationPermitDate === "" || state.homologationPermitDate === "" || state.accidentInsuranceDate === "" || state.tagDate === "") {
             Alert.alert("Debes completar los Campos")
         } else {
     
@@ -26,7 +27,8 @@ const AddPickupTruckScreen = (props) => {
                     patentPickupTrack: state.patentPickupTrack,
                     circulationPermitDate: state.circulationPermitDate,
                     homologationPermitDate: state.homologationPermitDate,
-                    accidentInsuranceDate: state.accidentInsuranceDate
+                    accidentInsuranceDate: state.accidentInsuranceDate,
+                    tagDate: state.tagDate
                 });
                 Alert.alert("Datos Ingresados!");
                 props.navigation.navigate('Lista de Camionetas SPENCE');
@@ -124,6 +126,32 @@ const AddPickupTruckScreen = (props) => {
                     }}
                     onDateChange={(value) => handleChangeText(value, "accidentInsuranceDate")}
                     value={state.accidentInsuranceDate}
+                />
+                </View>
+
+                <View style={styles.text}>
+                <DatePicker
+                    style={{width: 250}}
+                    date={state.tagDate}
+                    mode="date"
+                    placeholder="Ingrese Fecha de Vencimiento de Etiqueta de Inspección"
+                    format="YYYY-MM-DD"
+                    minDate="2019-05-01"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    }}
+                    onDateChange={(value) => handleChangeText(value, "tagDate")}
+                    value={state.tagDate}
                 />
                 </View>
        

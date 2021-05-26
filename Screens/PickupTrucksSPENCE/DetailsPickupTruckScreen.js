@@ -16,7 +16,8 @@ const DetailsPickupTruckScreen = (props) => {
         patentPickupTrack: '',
         circulationPermitDate: '',
         homologationPermitDate: '',
-        accidentInsuranceDate: ''
+        accidentInsuranceDate: '',
+        tagDate: ''
     };
 
     const [pickupTruck, setPickupTruck] = useState(initialState);
@@ -133,7 +134,15 @@ const DetailsPickupTruckScreen = (props) => {
                     editable={false}
                     onChangeText={(value) => handleChangeText(value, "accidentInsuranceDate")}
                 />
-            </View>  
+            </View>
+
+            <View style={criticalDate(pickupTruck.tagDate) ? styles.criticalText : styles.text}>
+                < TextInput
+                    value={"Etiqueta de Inspección: " + pickupTruck.tagDate}
+                    editable={false}
+                    onChangeText={(value) => handleChangeText(value, "tagDate")}
+                />
+            </View>   
       
             <View style={styles.button}>
                 <Button color = "red" title ="Eliminar Camioneta" onPress = {() => confirmationAlert()}/>

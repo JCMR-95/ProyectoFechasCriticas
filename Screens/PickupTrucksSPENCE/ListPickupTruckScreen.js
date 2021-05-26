@@ -11,20 +11,21 @@ const ListPickupTruckScreen = (props) => {
     firebase.db.collection("CamionetasSPENCE").onSnapshot((querySnapshot) => {
       const pickupTrucks = [];
       querySnapshot.docs.forEach((doc) => {
-        const { patentPickupTrack, circulationPermitDate, homologationPermitDate, accidentInsuranceDate} = doc.data();
+        const { patentPickupTrack, circulationPermitDate, homologationPermitDate, accidentInsuranceDate, tagDate} = doc.data();
         pickupTrucks.push({
           id: doc.id,
           patentPickupTrack,
           circulationPermitDate,
           homologationPermitDate,
-          accidentInsuranceDate
+          accidentInsuranceDate,
+          tagDate
         });
       });
       setPickupTrucks(pickupTrucks);
     });
   }, []);
 
-  var criticalDate = (circulationPermitDate, homologationPermitDate, accidentInsuranceDate) => {
+  var criticalDate = (circulationPermitDate, homologationPermitDate, accidentInsuranceDate, tagDate) => {
     
     var day = new Date().getDate(); 
     var month = new Date().getMonth() + 1; 
@@ -48,9 +49,12 @@ const ListPickupTruckScreen = (props) => {
     var subtractionDates = new Date(todayDate).getTime() - new Date(accidentInsuranceDate).getTime();
     var numericAccidentInsuranceDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
+    var subtractionDates = new Date(todayDate).getTime() - new Date(tagDate).getTime();
+    var numericTagDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+
     var critical = false;
 
-    if((numericCirculationPermitDate >= -30) || (numericHomologationPermitDate >= -30) || (numericAccidentInsuranceDate >= -30)){
+    if((numericCirculationPermitDate >= -30) || (numericHomologationPermitDate >= -30) || (numericAccidentInsuranceDate >= -30) || (numericTagDate >= -30)){
       critical = true;
     }
     return critical;
@@ -78,7 +82,7 @@ const ListPickupTruckScreen = (props) => {
                   }}
                   rounded
                 />
-                <View style={criticalDate(pickupTruck.circulationPermitDate, pickupTruck.homologationPermitDate, pickupTruck.accidentInsuranceDate) ? styles.red : styles.blue}>
+                <View style={criticalDate(pickupTruck.circulationPermitDate, pickupTruck.homologationPermitDate, pickupTruck.accidentInsuranceDate, pickupTruck.tagDate) ? styles.red : styles.blue}>
                   <ListItem.Content>
                     <ListItem.Title style={styles.text} >{pickupTruck.patentPickupTrack}</ListItem.Title>
                   </ListItem.Content>
