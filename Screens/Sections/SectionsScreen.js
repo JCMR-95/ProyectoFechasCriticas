@@ -17,6 +17,9 @@ const SectionsScreen = (props) => {
       <View style={styles.button}>
         <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
       </View>
+      <View style={styles.button}>
+        <Button title ="Kilómetros de Camionetas" onPress = {() => props.navigation.navigate('Lista de Kilómetros')}/>
+      </View>
     </View>
   );
 }

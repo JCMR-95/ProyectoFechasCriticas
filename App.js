@@ -23,8 +23,9 @@ import ListReportFTEScreen from './Screens/ReportFTE/ListReportFTEScreen';
 import AddReportFTEScreen from './Screens/ReportFTE/AddReportFTEScreen';
 import DetailsReportFTEScreen from './Screens/ReportFTE/DetailsReportFTEScreen';
 
-
-
+import ListLimitKilometresScreen from './Screens/LimitKilometres/ListLimitKilometresScreen';
+import AddLimitKilometresScreen from './Screens/LimitKilometres/AddLimitKilometresScreen';
+import DetailsLimitKilometresScreen from './Screens/LimitKilometres/DetailsLimitKilometresScreen';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,10 @@ export default function App() {
           <Stack.Screen name="Lista de Reportes FTE" component={ListReportFTEScreen} />
           <Stack.Screen name="Agregar Reporte FTE" component={AddReportFTEScreen} />
           <Stack.Screen name="Detalles de Reporte FTE" component={DetailsReportFTEScreen} />
+
+          <Stack.Screen name="Lista de Kilómetros" component={ListLimitKilometresScreen} />
+          <Stack.Screen name="Agregar Kilómetros" component={AddLimitKilometresScreen} />
+          <Stack.Screen name="Detalles de Kilómetros" component={DetailsLimitKilometresScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>
