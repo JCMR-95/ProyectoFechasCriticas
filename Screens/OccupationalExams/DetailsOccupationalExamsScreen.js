@@ -10,48 +10,45 @@ import {
 } from "react-native";
 import firebase from '../../database/firebase';
 
-const DetailsDriverScreen = (props) => {
+const DetailsOccupationalExamsScreen = (props) => {
 
     const initialState = {
-        nameDriver: '',
-        rutDriver: '',
-        inductionDate: '',
-        examDate: '',
-        municipalLicenseDate: '',
-        internalLicenseDate: ''
+        name: '',
+        rut: '',
+        examDate: ''
     };
 
-    const [driver, setDriver] = useState(initialState);
+    const [exam, setExam] = useState(initialState);
     const [loading, setLoading] = useState(true);
 
     const handleChangeText = (value, dato) => {
-        setDriver({ ...driver, [dato]: value });
+        setExam({ ...exam, [dato]: value });
     };
 
-    const getDriver = async(id) => {
-        const dbRef = firebase.db.collection("Conductores").doc(id);
+    const getExam = async(id) => {
+        const dbRef = firebase.db.collection("Examenes").doc(id);
         const doc = await dbRef.get();
-        const driver = doc.data();
-        setDriver({ ...driver, id: doc.id });
+        const exam = doc.data();
+        setExam({ ...exam, id: doc.id });
         setLoading(false);
     }
 
-    const deleteDriver = async () => {
+    const deleteExam = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("Conductores")
-        .doc(props.route.params.driverId);
+        .collection("Examenes")
+        .doc(props.route.params.examId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Conductores");
+        props.navigation.navigate("Lista de Exámenes");
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Conductor",
-        "¿Estás seguro de borrar este Conductor?",
+        "Borrar Examen",
+        "¿Estás seguro de borrar este Examen?",
         [
-            { text: "Sí", onPress: () => deleteDriver() },
+            { text: "Sí", onPress: () => deleteExam() },
             { text: "No" },
         ],
         {
@@ -88,7 +85,7 @@ const DetailsDriverScreen = (props) => {
 
 
     useEffect(() => {
-        getDriver(props.route.params.driverId)
+        getExam(props.route.params.examId)
     }, [])
 
     if (loading) {
@@ -106,54 +103,31 @@ const DetailsDriverScreen = (props) => {
       
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "nameDriver")}
-                    value={driver.nameDriver}
+                    onChangeText={(value) => handleChangeText(value, "name")}
+                    value={exam.name}
                     editable={false}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "rutDriver")}
-                    value={driver.rutDriver}
+                    onChangeText={(value) => handleChangeText(value, "rut")}
+                    value={exam.rut}
                     editable={false}
                 />
             </View>
 
-            <View style={criticalDate(driver.inductionDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Inducción: " + driver.inductionDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "inductionDate")}
-                />
-            </View>
 
-            <View style={criticalDate(driver.examDate) ? styles.criticalText : styles.text}>
+            <View style={criticalDate(exam.examDate) ? styles.criticalText : styles.text}>
                 < TextInput
-                    value={"Fecha de Examen Ocupacional: " + driver.examDate}
+                    value={"Fecha de Examen Ocupacional: " + exam.examDate}
                     editable={false}
                     onChangeText={(value) => handleChangeText(value, "examDate")}
                 />
             </View>  
-
-            <View style={criticalDate(driver.municipalLicenseDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Licencia Municipal: " + driver.municipalLicenseDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "municipalLicenseDate")}
-                />
-            </View>  
-
-            <View style={criticalDate(driver.internalLicenseDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Licencia Interna: " + driver.internalLicenseDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "internalLicenseDate")}
-                />
-            </View>    
       
             <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Conductor" onPress = {() => confirmationAlert()}/>
+                <Button color = "red" title ="Eliminar Examen" onPress = {() => confirmationAlert()}/>
             </View>
             
           </ScrollView>
@@ -199,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsDriverScreen;
+export default DetailsOccupationalExamsScreen;

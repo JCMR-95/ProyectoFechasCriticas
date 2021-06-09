@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ProyectoFechasCriticas",
-    "slug": "ProyectoFechasCriticas",
+    "name": "Plan Seguridad",
+    "slug": "PlanSeguridad",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fechascriticas.ProyectoFechasCriticas",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -3,27 +3,27 @@ import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
-const ListReportFTEScreen = (props) => {
+const ListOccupationalExamsScreen = (props) => {
 
-  const [reports, setReports] = useState([]);
+  const [exams, setExams] = useState([]);
 
   useEffect(() => {
-    firebase.db.collection("ReportesFTE").onSnapshot((querySnapshot) => {
-      const reports = [];
+    firebase.db.collection("Examenes").onSnapshot((querySnapshot) => {
+      const exams = [];
       querySnapshot.docs.forEach((doc) => {
-        const { deliveryDate, contractHour, accreditsHour } = doc.data();
-        reports.push({
+        const { name, rut, examDate} = doc.data();
+        exams.push({
           id: doc.id,
-          deliveryDate,
-          contractHour,
-          accreditsHour
+          name,
+          rut,
+          examDate
         });
       });
-      setReports(reports);
+      setExams(exams);
     });
   }, []);
 
-  var criticalDate = (deliveryDate) => {
+  var criticalDate = (examDate) => {
     
     var day = new Date().getDate(); 
     var month = new Date().getMonth() + 1; 
@@ -38,12 +38,12 @@ const ListReportFTEScreen = (props) => {
 
     var todayDate = year + "-" + month + "-" + day;
 
-    var subtractionDates = new Date(todayDate).getTime() - new Date(deliveryDate).getTime();
-    var numericDeliveryDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+    var subtractionDates = new Date(todayDate).getTime() - new Date(examDate).getTime();
+    var numericExamDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
     var critical = false;
 
-    if((numericDeliveryDate >= -30)){
+    if(numericExamDate >= -30){
       critical = true;
     }
     return critical;
@@ -52,14 +52,14 @@ const ListReportFTEScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title = "Agregar Reporte FTE" onPress = {() => props.navigation.navigate('Agregar Reporte FTE')}/>
+        <Button title = "Agregar Examen" onPress = {() => props.navigation.navigate('Agregar Examen')}/>
         {
-          reports.map(report => {
+          exams.map(exam => {
             return(
-              <ListItem key={report.id} bottomDivider
+              <ListItem key={exam.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Reporte FTE", {
-                    reportId: report.id,
+                  props.navigation.navigate("Detalles del Examen", {
+                    examId: exam.id,
                   });
                 }}
               >
@@ -68,11 +68,10 @@ const ListReportFTEScreen = (props) => {
                   source={require('./IconoValorice.png')}
                   rounded
                 />
-                <View style={criticalDate(report.deliveryDate) ? styles.red : styles.blue}>
+                <View style={criticalDate(exam.examDate) ? styles.red : styles.blue}>
                   <ListItem.Content>
-                    <ListItem.Title style={styles.text} >{"Fecha de Envío: " + report.deliveryDate}</ListItem.Title>
-                    <ListItem.Subtitle style={styles.text} >{"Envío a SPA: " + report.contractHour}</ListItem.Subtitle>
-                    <ListItem.Subtitle style={styles.text} >{"Envío a Acredita: " + report. accreditsHour}</ListItem.Subtitle>
+                    <ListItem.Title style={styles.text} >{exam.name}</ListItem.Title>
+                    <ListItem.Subtitle style={styles.text} >{exam.examDate}</ListItem.Subtitle>
                   </ListItem.Content>
                 </View>
               </ListItem>
@@ -123,4 +122,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ListReportFTEScreen;
+export default ListOccupationalExamsScreen;

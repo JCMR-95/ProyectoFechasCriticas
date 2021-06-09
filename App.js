@@ -19,6 +19,10 @@ import SPENCEListPickupTruckScreen from './Screens/PickupTrucksSPENCE/ListPickup
 import SPENCEAddPickupTruckScreen from './Screens/PickupTrucksSPENCE/AddPickupTruckScreen';
 import SPENCEDetailsPickupTruckScreen from './Screens/PickupTrucksSPENCE/DetailsPickupTruckScreen';
 
+import ListOccupationalExamsScreen from './Screens/OccupationalExams/ListOccupationalExamsScreen';
+import AddOccupationalExamsScreen from './Screens/OccupationalExams/AddOccupationalExamsScreen';
+import DetailsOccupationalExamsScreen from './Screens/OccupationalExams/DetailsOccupationalExamsScreen';
+
 import ListReportFTEScreen from './Screens/ReportFTE/ListReportFTEScreen';
 import AddReportFTEScreen from './Screens/ReportFTE/AddReportFTEScreen';
 import DetailsReportFTEScreen from './Screens/ReportFTE/DetailsReportFTEScreen';
@@ -48,6 +52,10 @@ export default function App() {
           <Stack.Screen name="Lista de Camionetas SPENCE" component={SPENCEListPickupTruckScreen} />
           <Stack.Screen name="Agregar Camioneta SPENCE" component={SPENCEAddPickupTruckScreen} />
           <Stack.Screen name="Detalles de Camioneta SPENCE" component={SPENCEDetailsPickupTruckScreen} />
+
+          <Stack.Screen name="Lista de Exámenes" component={ListOccupationalExamsScreen} />
+          <Stack.Screen name="Agregar Examen" component={AddOccupationalExamsScreen} />
+          <Stack.Screen name="Detalles del Examen" component={DetailsOccupationalExamsScreen} />
 
           <Stack.Screen name="Lista de Reportes FTE" component={ListReportFTEScreen} />
           <Stack.Screen name="Agregar Reporte FTE" component={AddReportFTEScreen} />

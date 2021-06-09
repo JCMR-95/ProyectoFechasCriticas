@@ -40,10 +40,7 @@ const ListLimitKilometresScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={{
-                    uri:
-                      "https://static.thenounproject.com/png/3117331-200.png",
-                  }}
+                  source={require('./IconoValorice.png')}
                   rounded
                 />
                 <View style={styles.blue}>

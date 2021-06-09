@@ -111,7 +111,7 @@ const DetailsReportFTEScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "contractHour")}
-                    value={report.contractHour}
+                    value={"Hora de envío a SPA: " +report.contractHour}
                     editable={false}
                 />
             </View>
@@ -119,7 +119,7 @@ const DetailsReportFTEScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "accreditsHour")}
-                    value={report.accreditsHour}
+                    value={"Hora de envío a Acredita: " +report.accreditsHour}
                     editable={false}
                 />
             </View>

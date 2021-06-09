@@ -93,7 +93,7 @@ const AddDriverScreen = (props) => {
                 style={{width: 250}}
                 date={state.examDate}
                 mode="date"
-                placeholder="Ingrese Fecha de Vencimiento de Examen"
+                placeholder="Ingrese Fecha de Vencimiento de Examen Ocupacional"
                 format="YYYY-MM-DD"
                 minDate="2019-05-01"
                 confirmBtnText="Confirm"
