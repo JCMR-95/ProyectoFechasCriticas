@@ -31,6 +31,11 @@ import ListLimitKilometresScreen from './Screens/LimitKilometres/ListLimitKilome
 import AddLimitKilometresScreen from './Screens/LimitKilometres/AddLimitKilometresScreen';
 import DetailsLimitKilometresScreen from './Screens/LimitKilometres/DetailsLimitKilometresScreen';
 
+import ListTrainingsScreen from './Screens/Trainings/ListTrainingsScreen';
+import AddTrainingsScreen from './Screens/Trainings/AddTrainingsScreen';
+import DetailsTrainingsScreen from './Screens/Trainings/DetailsTrainingsScreen';
+
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -64,6 +69,11 @@ export default function App() {
           <Stack.Screen name="Lista de Kilómetros" component={ListLimitKilometresScreen} />
           <Stack.Screen name="Agregar Kilómetros" component={AddLimitKilometresScreen} />
           <Stack.Screen name="Detalles de Kilómetros" component={DetailsLimitKilometresScreen} />
+
+          <Stack.Screen name="Lista de Capacitaciones" component={ListTrainingsScreen} />
+          <Stack.Screen name="Agregar Capacitación" component={AddTrainingsScreen} />
+          <Stack.Screen name="Detalles de Capacitación" component={DetailsTrainingsScreen} />
+
 
         </Stack.Navigator>
       </NavigationContainer>

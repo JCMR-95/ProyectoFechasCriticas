@@ -40,11 +40,19 @@ class LoginScreen extends Component {
     }
 
     if(correctName == true && correctPassword == true){
+
+      //loginApp()
       Alert.alert("Bienvenido")
       this.props.navigation.navigate('Secciones')
     }else{
       Alert.alert("Usuario o Contraseña incorrecta")
     }
+
+  }
+
+  op = async() => { 
+
+    this.props.navigation.navigate('Secciones')
 
   }
 
@@ -64,6 +72,10 @@ class LoginScreen extends Component {
         </View>
         <View style = {styles.button}>
           <Button title = "Ingresar" onPress = {this.confirmacion}/>
+        </View>
+
+        <View style = {styles.button}>
+          <Button title = "OP" onPress = {this.op}/>
         </View>
 
       </View>
