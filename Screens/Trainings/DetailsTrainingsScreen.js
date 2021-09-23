@@ -67,7 +67,7 @@ const DetailsTrainingsScreen = (props) => {
 
         var critical = false
 
-        if((numericValue >= -30)){
+        if((numericValue >= -60)){
             critical = true;
         }
         return critical

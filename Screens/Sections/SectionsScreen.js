@@ -16,6 +16,9 @@ const SectionsScreen = (props) => {
         <Button title ="Conductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
       </View>
       <View style={styles.button}>
+        <Button title ="Capacitaciones" onPress = {() => props.navigation.navigate('Lista de Capacitaciones')}/>
+      </View>
+      <View style={styles.button}>
         <Button title ="Exámenes Ocupacionales" onPress = {() => props.navigation.navigate('Lista de Exámenes')}/>
       </View>
       <View style={styles.button}>
@@ -23,10 +26,7 @@ const SectionsScreen = (props) => {
       </View>
       <View style={styles.button}>
         <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Capacitaciones" onPress = {() => props.navigation.navigate('Lista de Capacitaciones')}/>
-      </View>
+      </View>  
       
     </View>
   );

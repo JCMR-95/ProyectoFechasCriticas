@@ -73,11 +73,15 @@ const ListTrainingsScreen = (props) => {
                 }}
               >
                 <ListItem.Chevron />
+                <Avatar
+                  source={require('./IconoValorice.png')}
+                  rounded
+                />
                 
                 <View style={criticalDate(training.expirationDate) ? styles.red : styles.blue}>
                   <ListItem.Content>
-                    <ListItem.Title style={styles.text} >{"Nombre: " + training.nameTraining}</ListItem.Title>
-                    <ListItem.Subtitle style={styles.text} >{"Envío de Vencimiento: " + training.expirationDate}</ListItem.Subtitle>
+                    <ListItem.Title style={styles.text} >{training.nameTraining}</ListItem.Title>
+                    <ListItem.Subtitle style={styles.text} >{"Fecha de Vencimiento: " + training.expirationDate}</ListItem.Subtitle>
                   </ListItem.Content>
                 </View>
               </ListItem>
