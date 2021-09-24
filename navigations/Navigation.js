@@ -35,6 +35,7 @@ import ListTrainingsScreen from '../Screens/Trainings/ListTrainingsScreen';
 import AddTrainingsScreen from '../Screens/Trainings/AddTrainingsScreen';
 import DetailsTrainingsScreen from '../Screens/Trainings/DetailsTrainingsScreen';
 
+import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,8 @@ export default function Navigation() {
           <Stack.Screen name="Lista de Capacitaciones" component={ListTrainingsScreen} />
           <Stack.Screen name="Agregar Capacitación" component={AddTrainingsScreen} />
           <Stack.Screen name="Detalles de Capacitación" component={DetailsTrainingsScreen} />
+
+          <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
 
 
         </Stack.Navigator>

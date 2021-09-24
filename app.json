@@ -25,7 +25,12 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.fechascriticas.ProyectoFechasCriticas",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA_ROLL",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

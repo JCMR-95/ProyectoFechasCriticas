@@ -27,6 +27,9 @@ const SectionsScreen = (props) => {
       <View style={styles.button}>
         <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
       </View>  
+      <View style={styles.button}>
+        <Button title ="Subir Imagen" onPress = {() => props.navigation.navigate('Subir Imagen')}/>
+      </View>  
       
     </View>
   );
