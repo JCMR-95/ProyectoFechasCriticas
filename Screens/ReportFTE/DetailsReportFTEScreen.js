@@ -124,9 +124,7 @@ const DetailsReportFTEScreen = (props) => {
                 />
             </View>
       
-            <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Reporte" onPress = {() => confirmationAlert()}/>
-            </View>
+            <Button color = "red" title ="Eliminar Reporte" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>

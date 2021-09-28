@@ -98,9 +98,7 @@ const DetailsLimitKilometresScreen = (props) => {
                 />
             </View>
       
-            <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Kilómetros" onPress = {() => confirmationAlert()}/>
-            </View>
+            <Button color = "red" title ="Eliminar Kilómetros" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>

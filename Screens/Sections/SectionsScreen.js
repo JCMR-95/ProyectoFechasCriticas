@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, ScrollView } from 'react-native';
  
 const SectionsScreen = (props) => {
 
   return (
     <View style = {styles.container}>
-
-      <View style={styles.button}>
-        <Button title ="Camionetas - SPENCE" onPress = {() => props.navigation.navigate('Lista de Camionetas SPENCE')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Camionetas - CMCC" onPress = {() => props.navigation.navigate('Lista de Camionetas CMCC')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Conductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Capacitaciones" onPress = {() => props.navigation.navigate('Lista de Capacitaciones')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Exámenes Ocupacionales" onPress = {() => props.navigation.navigate('Lista de Exámenes')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Kilómetros de Camionetas" onPress = {() => props.navigation.navigate('Lista de Kilómetros')}/>
-      </View>
-      <View style={styles.button}>
-        <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
-      </View>  
-      <View style={styles.button}>
-        <Button title ="Subir Imagen" onPress = {() => props.navigation.navigate('Subir Imagen')}/>
-      </View>  
-      
+      <ScrollView>
+        <View style={styles.button}>
+          <Button title ="Camionetas - SPENCE" onPress = {() => props.navigation.navigate('Lista de Camionetas SPENCE')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Camionetas - CMCC" onPress = {() => props.navigation.navigate('Lista de Camionetas CMCC')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Conductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Capacitaciones" onPress = {() => props.navigation.navigate('Lista de Capacitaciones')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Exámenes Ocupacionales" onPress = {() => props.navigation.navigate('Lista de Exámenes')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Kilómetros de Camionetas" onPress = {() => props.navigation.navigate('Lista de Kilómetros')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title ="Reportes FTE" onPress = {() => props.navigation.navigate('Lista de Reportes FTE')}/>
+        </View>  
+        <View style={styles.button}>
+          <Button title ="Trabajadores de Contrato" onPress = {() => props.navigation.navigate('Lista de Trabajadores de Contrato')}/>
+        </View>  
+        <View style={styles.button}>
+          <Button title ="Subir Imagen" onPress = {() => props.navigation.navigate('Subir Imagen')}/>
+        </View>  
+      </ScrollView>
     </View>
   );
 }

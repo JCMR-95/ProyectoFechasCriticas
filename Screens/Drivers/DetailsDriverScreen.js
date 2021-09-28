@@ -152,9 +152,7 @@ const DetailsDriverScreen = (props) => {
                 />
             </View>    
       
-            <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Conductor" onPress = {() => confirmationAlert()}/>
-            </View>
+            <Button color = "red" title ="Eliminar Conductor" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>

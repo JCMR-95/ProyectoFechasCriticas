@@ -22,6 +22,11 @@ const ListDriverScreen = (props) => {
           internalLicenseDate
         });
       });
+      drivers.sort(function(a, b) {
+        var textA = a.nameDriver.toUpperCase();
+        var textB = b.nameDriver.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      });
       setDrivers(drivers);
     });
   }, []);

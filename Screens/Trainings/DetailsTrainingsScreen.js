@@ -75,21 +75,21 @@ const DetailsTrainingsScreen = (props) => {
 
     var getTodayDate = () => {
 
-        var day = new Date().getDate(); 
-        var month = new Date().getMonth() + 1; 
-        var year = new Date().getFullYear(); 
-    
-        if(day < 10){
-          day = "0" + day;
-        }
-        if(month < 10){
-          month = "0" + month;
-        }
-    
-        var todayDate = year + "-" + month + "-" + day;
-    
-        return todayDate;
+      var day = new Date().getDate(); 
+      var month = new Date().getMonth() + 1; 
+      var year = new Date().getFullYear(); 
+  
+      if(day < 10){
+        day = "0" + day;
       }
+      if(month < 10){
+        month = "0" + month;
+      }
+  
+      var todayDate = year + "-" + month + "-" + day;
+  
+      return todayDate;
+    }
 
 
     useEffect(() => {
@@ -140,9 +140,7 @@ const DetailsTrainingsScreen = (props) => {
                 />
             </View>
       
-            <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Capacitación" onPress = {() => confirmationAlert()}/>
-            </View>
+            <Button color = "red" title ="Eliminar Capacitación" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>

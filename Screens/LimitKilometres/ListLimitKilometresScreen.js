@@ -19,6 +19,11 @@ const ListLimitKilometresScreen = (props) => {
           nextKM
         });
       });
+      kilometres.sort(function(a, b) {
+        var textA = a.patentPickupTrack.toUpperCase();
+        var textB = b.patentPickupTrack.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      });
       setKilometres(kilometres);
     });
   }, []);

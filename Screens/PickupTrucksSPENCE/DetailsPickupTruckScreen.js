@@ -144,9 +144,7 @@ const DetailsPickupTruckScreen = (props) => {
                 />
             </View>   
       
-            <View style={styles.button}>
-                <Button color = "red" title ="Eliminar Camioneta" onPress = {() => confirmationAlert()}/>
-            </View>
+            <Button color = "red" title ="Eliminar Camioneta" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>

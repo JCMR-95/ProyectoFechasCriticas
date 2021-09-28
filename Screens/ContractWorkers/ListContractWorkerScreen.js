@@ -3,47 +3,53 @@ import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
-const ListTrainingsScreen = (props) => {
-
-  const [trainings, setTrainings] = useState([]);
+const ListContractWorkerScreen = (props) => {
+  
+  const [contracts, setContracts] = useState([]);
 
   useEffect(() => {
-    firebase.db.collection("Capacitaciones").onSnapshot((querySnapshot) => {
-      const trainings = [];
+    firebase.db.collection("TrabajadoresContrato").onSnapshot((querySnapshot) => {
+      const contracts = [];
       querySnapshot.docs.forEach((doc) => {
-        const { nameTraining, initiationDate, expirationDate, trainingPlace } = doc.data();
-        trainings.push({
+        const { nameWorker, contractAssigned, initiationDate, expirationDate} = doc.data();
+        contracts.push({
           id: doc.id,
-          nameTraining,
+          nameWorker,
+          contractAssigned,
           initiationDate,
-          expirationDate,
-          trainingPlace
-
+          expirationDate
         });
       });
-      trainings.sort(function(a, b) {
-        var textA = a.nameTraining.toUpperCase();
-        var textB = b.nameTraining.toUpperCase();
+      contracts.sort(function(a, b) {
+        var textA = a.nameWorker.toUpperCase();
+        var textB = b.nameWorker.toUpperCase();
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
       });
-      setTrainings(trainings);
+      setContracts(contracts);
     });
   }, []);
 
+  var sortArrayAlfabetically = (contracts) => {
+
+
+    return 0;
+  }
+
   var criticalDate = (expirationDate) => {
-    
+  
     var todayDate = getTodayDate();
 
     var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
-    var numericDeliveryDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+    var numericExpirationDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
     var critical = false;
 
-    if((numericDeliveryDate >= -60)){
+    if(numericExpirationDate >= -60){
       critical = true;
     }
     return critical;
   }
+
 
   var getTodayDate = () => {
 
@@ -66,30 +72,29 @@ const ListTrainingsScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title = "Agregar Capacitación" onPress = {() => props.navigation.navigate('Agregar Capacitación')}/>
+        <Button title = "Agregar Contrato asignado a un Trabajador" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
         {
-          trainings.map(training => {
+          contracts.map(contract => {
             return(
-              <ListItem key={training.id} bottomDivider
+              <ListItem key={contract.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Capacitación", {
-                    trainingId: training.id,
+                  props.navigation.navigate("Detalles de Trabajador de Contrato", {
+                    contractId: contract.id,
                   });
                 }}
               >
-                <ListItem.Chevron />
-                <Avatar
-                  source={require('./IconoValorice.png')}
-                  rounded
-                />
-                
-                <View style={criticalDate(training.expirationDate) ? styles.red : styles.blue}>
-                  <ListItem.Content>
-                    <ListItem.Title style={styles.text} >{training.nameTraining}</ListItem.Title>
-                    <ListItem.Subtitle style={styles.text} >{"Fecha de Vencimiento: " + training.expirationDate}</ListItem.Subtitle>
-                  </ListItem.Content>
-                </View>
-              </ListItem>
+              <ListItem.Chevron />
+              <Avatar
+                source={require('./IconoValorice.png')}
+                rounded
+              />
+              <View style={criticalDate(contract.expirationDate) ? styles.red : styles.blue}>
+                <ListItem.Content>
+                  <ListItem.Title style={styles.text} >{contract.nameWorker}</ListItem.Title>
+                  <ListItem.Subtitle style={styles.text} >{contract.expirationDate}</ListItem.Subtitle>
+                </ListItem.Content>
+              </View>
+            </ListItem>
             );
           })
         }
@@ -137,4 +142,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ListTrainingsScreen;
+export default ListContractWorkerScreen;

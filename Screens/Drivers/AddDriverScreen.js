@@ -20,7 +20,7 @@ const AddDriverScreen = (props) => {
       };
     
       const saveData = async () => {
-        if (state.nameDriver === "" || state.rutDriver === "" || state.inductionDate === "" || state.examDate === "" || state.municipalLicenseDate === "" || state.internalLicenseDate === "") {
+        if (state.nameDriver === "" || state.inductionDate === "" || state.examDate === "" || state.municipalLicenseDate === "" || state.internalLicenseDate === "") {
           Alert.alert("Debes completar los Campos")
         } else {
     
@@ -56,7 +56,7 @@ const AddDriverScreen = (props) => {
 
             <View style={styles.text}>
               < TextInput 
-                placeholder="  Ingrese RUT o Pasaporte"
+                placeholder="  Ingrese RUT o Pasaporte (Opcional)"
                 onChangeText={(value) => handleChangeText(value, "rutDriver")}
                 value={state.rutDriver}
               />

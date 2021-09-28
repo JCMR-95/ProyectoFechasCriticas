@@ -4,12 +4,13 @@ import { TextInput, View, StyleSheet, Button, Alert, ScrollView } from 'react-na
 import DatePicker from 'react-native-datepicker';
 import firebase from '../../database/firebase';
  
-const AddOccupationalExamsScreen = (props) => {
+const AddContractWorkerScreen = (props) => {
   
     const [state, setState] = useState({
-        name: '',
-        rut: '',
-        examDate: ''
+        nameWorker: '',
+        contractAssigned: '',
+        initiationDate: '',
+        expirationDate: ''
       });
     
       const handleChangeText = (value, dato) => {
@@ -17,18 +18,19 @@ const AddOccupationalExamsScreen = (props) => {
       };
     
       const saveData = async () => {
-        if (state.name === "" || state.examDate === "") {
+        if (state.nameWorker === "" || state.contractAssigned === "" || state.initiationDate === "" || state.expirationDate === "") {
           Alert.alert("Debes completar los Campos")
         } else {
     
           try {
-            await firebase.db.collection("Examenes").add({
-              name: state.name,
-              rut: state.rut,
-              examDate: state.examDate
+            await firebase.db.collection("TrabajadoresContrato").add({
+              nameWorker: state.nameWorker,
+              contractAssigned: state.contractAssigned,
+              initiationDate: state.initiationDate,
+              expirationDate: state.expirationDate
             });
             Alert.alert("Datos Ingresados!");
-            props.navigation.navigate('Lista de Exámenes');
+            props.navigation.navigate('Lista de Trabajadores de Contrato');
     
           } catch (error) {
             console.log(error)
@@ -43,25 +45,25 @@ const AddOccupationalExamsScreen = (props) => {
             <View style={styles.text}>
               < TextInput 
                 placeholder="  Ingrese Nombre del Trabajador"
-                onChangeText={(value) => handleChangeText(value, "name")}
-                value={state.name}
+                onChangeText={(value) => handleChangeText(value, "nameWorker")}
+                value={state.nameWorker}
               />
             </View>
 
             <View style={styles.text}>
               < TextInput 
-                placeholder="  RUT o Pasaporte del Trabajador (Opcional)"
-                onChangeText={(value) => handleChangeText(value, "rut")}
-                value={state.rut}
+                placeholder="  Contrato al que fue Asignado el Trabajador"
+                onChangeText={(value) => handleChangeText(value, "contractAssigned")}
+                value={state.contractAssigned}
               />
             </View>
 
             <View style={styles.text}>
               <DatePicker
                 style={{width: 250}}
-                date={state.examDate}
+                date={state.initiationDate}
                 mode="date"
-                placeholder="Ingrese Fecha de Vencimiento de Examen Ocupacional"
+                placeholder="Ingrese Fecha de Inicio del Contrato"
                 format="YYYY-MM-DD"
                 minDate="2019-05-01"
                 confirmBtnText="Confirm"
@@ -77,11 +79,37 @@ const AddOccupationalExamsScreen = (props) => {
                     marginLeft: 36
                   }
                 }}
-                onDateChange={(value) => handleChangeText(value, "examDate")}
-                value={state.examDate}
+                onDateChange={(value) => handleChangeText(value, "initiationDate")}
+                value={state.initiationDate}
               />
             </View>
 
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={state.expirationDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento del Contrato"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "expirationDate")}
+                value={state.expirationDate}
+              />
+            </View>
+      
             <View style={styles.button}>
               <Button title ="Guardar Datos" onPress = {() => saveData()}/>
             </View>
@@ -130,4 +158,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default AddOccupationalExamsScreen;
+export default AddContractWorkerScreen;

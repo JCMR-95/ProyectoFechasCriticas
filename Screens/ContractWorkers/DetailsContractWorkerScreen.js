@@ -10,45 +10,46 @@ import {
 } from "react-native";
 import firebase from '../../database/firebase';
 
-const DetailsOccupationalExamsScreen = (props) => {
+const DetailsContractWorkerScreen = (props) => {
 
     const initialState = {
-        name: '',
-        rut: '',
-        examDate: ''
+        nameWorker: '',
+        contractAssigned: '',
+        initiationDate: '',
+        expirationDate: ''
     };
 
-    const [exam, setExam] = useState(initialState);
+    const [contract, setContract] = useState(initialState);
     const [loading, setLoading] = useState(true);
 
     const handleChangeText = (value, dato) => {
-        setExam({ ...exam, [dato]: value });
+        setContract({ ...contract, [dato]: value });
     };
 
-    const getExam = async(id) => {
-        const dbRef = firebase.db.collection("Examenes").doc(id);
+    const getContract = async(id) => {
+        const dbRef = firebase.db.collection("TrabajadoresContrato").doc(id);
         const doc = await dbRef.get();
-        const exam = doc.data();
-        setExam({ ...exam, id: doc.id });
+        const contract = doc.data();
+        setContract({ ...contract, id: doc.id });
         setLoading(false);
     }
 
-    const deleteExam = async () => {
+    const deleteContract = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("Examenes")
-        .doc(props.route.params.examId);
+        .collection("TrabajadoresContrato")
+        .doc(props.route.params.contractId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Exámenes");
+        props.navigation.navigate("Lista de Trabajadores de Contrato");
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Examen",
-        "¿Estás seguro de borrar este Examen?",
+        "Borrar Conductor",
+        "¿Estás seguro de borrar este Contrato?",
         [
-            { text: "Sí", onPress: () => deleteExam() },
+            { text: "Sí", onPress: () => deleteContract() },
             { text: "No" },
         ],
         {
@@ -57,7 +58,7 @@ const DetailsOccupationalExamsScreen = (props) => {
         );
     };
 
-    var criticalDate = (limitDate) => {
+    var criticalDate = (expirationDate) => {
 
         var day = new Date().getDate(); 
         var month = new Date().getMonth() + 1; 
@@ -72,12 +73,12 @@ const DetailsOccupationalExamsScreen = (props) => {
 
         var todayDate = year + "-" + month + "-" + day;
 
-        var subtractionDates = new Date(todayDate).getTime() - new Date(limitDate).getTime();
+        var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
         var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
         var critical = false
 
-        if((numericValue >= -30)){
+        if((numericValue >= -60)){
             critical = true;
         }
         return critical
@@ -85,7 +86,7 @@ const DetailsOccupationalExamsScreen = (props) => {
 
 
     useEffect(() => {
-        getExam(props.route.params.examId)
+        getContract(props.route.params.contractId)
     }, [])
 
     if (loading) {
@@ -103,30 +104,39 @@ const DetailsOccupationalExamsScreen = (props) => {
       
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "name")}
-                    value={exam.name}
+                    onChangeText={(value) => handleChangeText(value, "nameWorker")}
+                    value={contract.nameWorker}
                     editable={false}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "rut")}
-                    value={exam.rut}
+                    onChangeText={(value) => handleChangeText(value, "contractAssigned")}
+                    value={contract.contractAssigned}
                     editable={false}
                 />
             </View>
 
-
-            <View style={criticalDate(exam.examDate) ? styles.criticalText : styles.text}>
+            <View style={styles.text}>
                 < TextInput
-                    value={"Fecha de Examen Ocupacional: " + exam.examDate}
+                    value={"Inicio del Contrato: " + contract.initiationDate}
                     editable={false}
-                    onChangeText={(value) => handleChangeText(value, "examDate")}
+                    onChangeText={(value) => handleChangeText(value, "initiationDate")}
+                />
+            </View>
+
+            <View style={criticalDate(contract.expirationDate) ? styles.criticalText : styles.text}>
+                < TextInput
+                    value={"Vencimiento del Contrato: " + contract.expirationDate}
+                    editable={false}
+                    onChangeText={(value) => handleChangeText(value, "eexpirationDate")}
                 />
             </View>  
-      
-            <Button color = "red" title ="Eliminar Examen" onPress = {() => confirmationAlert()}/>
+
+
+            <Button color = "red" title ="Eliminar Contrato" onPress = {() => confirmationAlert()}/>
+
             
           </ScrollView>
         </View>
@@ -171,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsOccupationalExamsScreen;
+export default DetailsContractWorkerScreen;

@@ -35,6 +35,10 @@ import ListTrainingsScreen from '../Screens/Trainings/ListTrainingsScreen';
 import AddTrainingsScreen from '../Screens/Trainings/AddTrainingsScreen';
 import DetailsTrainingsScreen from '../Screens/Trainings/DetailsTrainingsScreen';
 
+import ListContractWorkerScreen from '../Screens/ContractWorkers/ListContractWorkerScreen';
+import AddContractWorkerScreen from '../Screens/ContractWorkers/AddContractWorkerScreen';
+import DetailsContractWorkerScreen from '../Screens/ContractWorkers/DetailsContractWorkerScreen';
+
 import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 
 const Stack = createStackNavigator();
@@ -75,6 +79,10 @@ export default function Navigation() {
           <Stack.Screen name="Lista de Capacitaciones" component={ListTrainingsScreen} />
           <Stack.Screen name="Agregar Capacitación" component={AddTrainingsScreen} />
           <Stack.Screen name="Detalles de Capacitación" component={DetailsTrainingsScreen} />
+
+          <Stack.Screen name="Lista de Trabajadores de Contrato" component={ListContractWorkerScreen} />
+          <Stack.Screen name="Agregar Trabajador de Contrato" component={AddContractWorkerScreen} />
+          <Stack.Screen name="Detalles de Trabajador de Contrato" component={DetailsContractWorkerScreen} />
 
           <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
 
