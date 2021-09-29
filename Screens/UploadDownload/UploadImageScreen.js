@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, PanResponder } from 'react-native';
+import { Button, Image, View, Platform, TextInput, StyleSheet, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from '../../database/firebase';
 import 'firebase/storage';
 
 export default function UploadImageScreen() {
+
   const [image, setImage] = useState(null);
+  const [state, setState] = useState({
+    name: ''
+  });
+  const handleChangeText = (value, dato) => {
+    setState({ ...state, [dato]: value });
+  };
 
   useEffect(() => {
     (async () => {
@@ -19,46 +26,90 @@ export default function UploadImageScreen() {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
 
-    UploadImage(result.uri);
-    console.log(result);
+    if(state.name == ""){
+      Alert.alert("Debes agregar un nombre");
+    }else{
 
-    if (!result.cancelled) {
-      setImage(result.uri);
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.cancelled) {
+        setImage(result.uri);
+        uploadImage(result.uri);
+      }
     }
   };
 
-  const UploadImage = async (uri) => {
+  const uploadImage = async (uri) => {
+
     const response = await fetch(uri);
     const blob = await response.blob();
 
-    var randomString = generateString();
-
-    var path = "FilesStorage/" + randomString;
-
+    var path = "FilesStorage/" + state.name;
     const ref = firebase.storage.ref().child(path);
+
+    Alert.alert("Imagen Subida!");
+
     return ref.put(blob);
-
-  };
-
-  const generateString = () => {
-    var result           = '';
-    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = 8;
-    for ( var i = 0; i < 8; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
+    <View style={styles.container}>
+      <ScrollView style={styles.scroll}>
+        <View style={styles.text}>
+            < TextInput 
+              placeholder="  Ingrese un Nombre del Archivo"
+              onChangeText={(value) => handleChangeText(value, "name")}
+              value={state.name}
+            />
+          </View>
+          <View style={styles.text}>
+            <Button title="Elegir y Subir Imagen" onPress={pickImage} />
+          </View>
+
+
+      </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#100c4c',
+  },
+  scroll: {
+    flex: 1,
+    padding: 35,
+  },
+  button: {
+      elevation: 8,
+      backgroundColor: "#1C1488",
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      width: 250,
+      height: 60
+  },
+  text: {
+      padding: 0,
+      marginBottom: 15,
+      borderBottomWidth: 1,
+      borderRadius: 8,
+      borderBottomColor: "#cccccc",
+      backgroundColor: "white",
+  },
+  loader: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
+  },
+});

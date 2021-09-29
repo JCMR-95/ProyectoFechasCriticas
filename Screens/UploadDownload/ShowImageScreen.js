@@ -18,17 +18,7 @@ export default function ShowImageScreen() {
     })();
   }, []);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    UploadImage(result.uri);
-
-  };
-
-  const uploadImage = async (uri) => {
+  const showImage = async (uri) => {
 
     firebase.storage.ref('FilesStorage/asd').getDownloadURL().then((url) => {
         setImage(url);
@@ -36,22 +26,11 @@ export default function ShowImageScreen() {
       });
 
     return 0;
-
-  };
-
-  const generateString = () => {
-    var result           = '';
-    var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = 8;
-    for ( var i = 0; i < 8; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
   };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={uploadImage} />
+      <Button title="Pick an image from camera roll" onPress={showImage} />
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );
