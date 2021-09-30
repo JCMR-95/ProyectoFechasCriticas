@@ -41,6 +41,7 @@ import DetailsContractWorkerScreen from '../Screens/ContractWorkers/DetailsContr
 
 import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 import ShowImageScreen from '../Screens/UploadDownload/ShowImageScreen';
+import ListImagesStorageScreen from '../Screens/UploadDownload/ListImagesStorageScreen';
 
 const Stack = createStackNavigator();
 
@@ -87,6 +88,7 @@ export default function Navigation() {
 
           <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
           <Stack.Screen name="Ver Imagen" component={ShowImageScreen} />
+          <Stack.Screen name="Lista de Imagenes" component={ListImagesStorageScreen} />
 
 
         </Stack.Navigator>

@@ -4,23 +4,34 @@ import * as ImagePicker from 'expo-image-picker';
 import firebase from '../../database/firebase';
 import 'firebase/storage';
 
-export default function ShowImageScreen() {
+const ShowImageScreen = (props) => {
+
+  const initialState = {
+    name: ''
+  };
+
   const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState(initialState);
 
   useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
+    getImage(props.route.params.imageNameId)
+  }, [])
+
+  const getImage = async(id) => {
+    const dbRef = firebase.db.collection("NombreImagenes").doc(id);
+    const doc = await dbRef.get();
+    const imageName = doc.data();
+    setImageName({ ...imageName, id: doc.id });
+    setLoading(false);
+  }
 
   const showImage = async (uri) => {
 
-    firebase.storage.ref('FilesStorage/asd').getDownloadURL().then((url) => {
+    var path = "FilesStorage/" + imageName.name;
+    console.log("AHH");
+    console.log(path);
+
+    firebase.storage.ref(path).getDownloadURL().then((url) => {
         setImage(url);
         console.log(url);
       });
@@ -36,3 +47,5 @@ export default function ShowImageScreen() {
   );
   
 }
+
+export default ShowImageScreen;

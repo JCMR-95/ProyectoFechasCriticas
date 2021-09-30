@@ -34,7 +34,7 @@ const SectionsScreen = (props) => {
           <Button title ="Subir Imagen" onPress = {() => props.navigation.navigate('Subir Imagen')}/>
         </View>  
         <View style={styles.buttonUpload}>
-          <Button title ="Ver Imagen" onPress = {() => props.navigation.navigate('Ver Imagen')}/>
+          <Button title ="Ver Imágenes" onPress = {() => props.navigation.navigate('Lista de Imagenes')}/>
         </View>  
       </ScrollView>
     </View>

@@ -51,10 +51,23 @@ export default function UploadImageScreen() {
     var path = "FilesStorage/" + state.name;
     const ref = firebase.storage.ref().child(path);
 
-    Alert.alert("Imagen Subida!");
+    addNameDB();
 
     return ref.put(blob);
   };
+
+  const addNameDB = () => {
+    try {
+      firebase.db.collection("NombreImagenes").add({
+        name: state.name
+      });
+
+    } catch (error) {
+      console.log(error)
+    }
+
+    Alert.alert("Imagen Subida!");
+  }
 
   return (
 
