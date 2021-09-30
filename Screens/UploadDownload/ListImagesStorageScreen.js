@@ -29,7 +29,6 @@ const ListImagesStorageScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title = "Agregar Examen" onPress = {() => props.navigation.navigate('Agregar Examen')}/>
         {
           imagesNames.map(imageName => {
 
