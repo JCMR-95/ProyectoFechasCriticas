@@ -8,12 +8,12 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
+import DatePicker from 'react-native-datepicker';
 import firebase from '../../database/firebase';
 
-const DetailsContractWorkerScreen = (props) => {
+const EditContractWorkerScreen = (props) => {
 
     const initialState = {
-        id: '',
         nameWorker: '',
         contractAssigned: '',
         initiationDate: '',
@@ -35,22 +35,35 @@ const DetailsContractWorkerScreen = (props) => {
         setLoading(false);
     }
 
-    const deleteContract = async () => {
+    const editContract = async () => {
         setLoading(true)
         const dbRef = firebase.db
         .collection("TrabajadoresContrato")
         .doc(props.route.params.contractId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Trabajadores de Contrato");
+
+        try {
+            await firebase.db.collection("TrabajadoresContrato").add({
+              nameWorker: contract.nameWorker,
+              contractAssigned: contract.contractAssigned,
+              initiationDate: contract.initiationDate,
+              expirationDate: contract.expirationDate
+            });
+            Alert.alert("Datos Actualizados!");
+            props.navigation.navigate('Lista de Trabajadores de Contrato');
+    
+          } catch (error) {
+            console.log(error)
+          }
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Conductor",
-        "¿Estás seguro de borrar este Contrato?",
+            "Guardar Cambios",
+            "¿Estás seguro de guardar estos cambios?",
         [
-            { text: "Sí", onPress: () => deleteContract() },
+            { text: "Sí", onPress: () => editContract() },
             { text: "No" },
         ],
         {
@@ -58,33 +71,6 @@ const DetailsContractWorkerScreen = (props) => {
         }
         );
     };
-
-    var criticalDate = (expirationDate) => {
-
-        var day = new Date().getDate(); 
-        var month = new Date().getMonth() + 1; 
-        var year = new Date().getFullYear(); 
-
-        if(day < 10){
-            day = "0" + day
-        }
-        if(month < 10){
-            month = "0" + month
-        }
-
-        var todayDate = year + "-" + month + "-" + day;
-
-        var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
-        var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
-
-        var critical = false
-
-        if((numericValue >= -60)){
-            critical = true;
-        }
-        return critical
-    }
-
 
     useEffect(() => {
         getContract(props.route.params.contractId)
@@ -98,7 +84,6 @@ const DetailsContractWorkerScreen = (props) => {
         );
     }
 
-
     return (
         <View style={styles.container}>
           <ScrollView style={styles.scroll}>
@@ -107,7 +92,6 @@ const DetailsContractWorkerScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "nameWorker")}
                     value={contract.nameWorker}
-                    editable={false}
                 />
             </View>
 
@@ -115,32 +99,62 @@ const DetailsContractWorkerScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "contractAssigned")}
                     value={contract.contractAssigned}
-                    editable={false}
                 />
             </View>
 
             <View style={styles.text}>
-                < TextInput
-                    value={"Inicio del Contrato: " + contract.initiationDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "initiationDate")}
-                />
+              <DatePicker
+                style={{width: 250}}
+                date={contract.initiationDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Inicio del Contrato"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "initiationDate")}
+                value={contract.initiationDate}
+              />
             </View>
 
-            <View style={criticalDate(contract.expirationDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Vencimiento del Contrato: " + contract.expirationDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "eexpirationDate")}
-                />
-            </View>  
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={contract.expirationDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento del Contrato"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "expirationDate")}
+                value={contract.expirationDate}
+              />
+            </View>
 
-            <Button color = "blue" title ="Modificar Datos" onPress = {() => {
-              props.navigation.navigate("Modificar Trabajador de Contrato", {
-                contractId: contract.id,
-              });
-            }}/>
-            <Button color = "red" title ="Eliminar Contrato" onPress = {() => confirmationAlert()}/>
+            <Button color = "blue" title ="Guardar" onPress = {() => confirmationAlert()}/>
 
           </ScrollView>
         </View>
@@ -185,4 +199,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsContractWorkerScreen;
+export default EditContractWorkerScreen;

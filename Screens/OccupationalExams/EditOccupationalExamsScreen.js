@@ -8,12 +8,12 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
+import DatePicker from 'react-native-datepicker';
 import firebase from '../../database/firebase';
 
-const DetailsOccupationalExamsScreen = (props) => {
+const EditOccupationalExamsScreen = (props) => {
 
     const initialState = {
-        id: '',
         name: '',
         rut: '',
         examDate: ''
@@ -34,22 +34,34 @@ const DetailsOccupationalExamsScreen = (props) => {
         setLoading(false);
     }
 
-    const deleteExam = async () => {
+    const editExam = async () => {
         setLoading(true)
         const dbRef = firebase.db
         .collection("Examenes")
         .doc(props.route.params.examId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Exámenes");
+
+        try {
+            await firebase.db.collection("Examenes").add({
+              name: exam.name,
+              rut: exam.rut,
+              examDate: exam.examDate
+            });
+            Alert.alert("Datos Actualizados!");
+            props.navigation.navigate('Lista de Exámenes');
+    
+          } catch (error) {
+            console.log(error)
+          }
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Examen",
-        "¿Estás seguro de borrar este Examen?",
+            "Guardar Cambios",
+            "¿Estás seguro de guardar estos cambios?",
         [
-            { text: "Sí", onPress: () => deleteExam() },
+            { text: "Sí", onPress: () => editExam() },
             { text: "No" },
         ],
         {
@@ -57,33 +69,6 @@ const DetailsOccupationalExamsScreen = (props) => {
         }
         );
     };
-
-    var criticalDate = (limitDate) => {
-
-        var day = new Date().getDate(); 
-        var month = new Date().getMonth() + 1; 
-        var year = new Date().getFullYear(); 
-
-        if(day < 10){
-            day = "0" + day
-        }
-        if(month < 10){
-            month = "0" + month
-        }
-
-        var todayDate = year + "-" + month + "-" + day;
-
-        var subtractionDates = new Date(todayDate).getTime() - new Date(limitDate).getTime();
-        var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
-
-        var critical = false
-
-        if((numericValue >= -30)){
-            critical = true;
-        }
-        return critical
-    }
-
 
     useEffect(() => {
         getExam(props.route.params.examId)
@@ -97,7 +82,6 @@ const DetailsOccupationalExamsScreen = (props) => {
         );
     }
 
-
     return (
         <View style={styles.container}>
           <ScrollView style={styles.scroll}>
@@ -106,7 +90,6 @@ const DetailsOccupationalExamsScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "name")}
                     value={exam.name}
-                    editable={false}
                 />
             </View>
 
@@ -114,25 +97,37 @@ const DetailsOccupationalExamsScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "rut")}
                     value={exam.rut}
-                    editable={false}
                 />
             </View>
 
 
-            <View style={criticalDate(exam.examDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Examen Ocupacional: " + exam.examDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "examDate")}
-                />
-            </View>  
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={exam.examDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento de Examen Ocupacional"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "examDate")}
+                value={exam.examDate}
+              />
+            </View>
       
-            <Button color = "blue" title ="Modificar Examen" onPress = {() => {
-              props.navigation.navigate("Modificar Examen", {
-                examId: exam.id,
-              });
-            }}/>
-            <Button color = "red" title ="Eliminar Examen" onPress = {() => confirmationAlert()}/>
+            <Button color = "blue" title ="Guardar" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>
@@ -177,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsOccupationalExamsScreen;
+export default EditOccupationalExamsScreen;

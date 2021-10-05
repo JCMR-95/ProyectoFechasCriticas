@@ -8,12 +8,12 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
+import DatePicker from 'react-native-datepicker';
 import firebase from '../../database/firebase';
 
-const DetailsReportFTEScreen = (props) => {
+const EditReportFTEScreen = (props) => {
 
     const initialState = {
-        id: '',
         deliveryDate: '',
         contractHour: '',
         accreditsHour: ''
@@ -34,22 +34,35 @@ const DetailsReportFTEScreen = (props) => {
         setLoading(false);
     }
 
-    const deleteReport = async () => {
+    const editReport = async () => {
         setLoading(true)
         const dbRef = firebase.db
         .collection("ReportesFTE")
         .doc(props.route.params.reportId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Reportes FTE");
+
+        try {
+            await firebase.db.collection("ReportesFTE").add({
+                deliveryDate: report.deliveryDate,
+                contractHour: report.contractHour,
+                accreditsHour: report.accreditsHour
+            });
+            Alert.alert("Datos Actualizados!");
+            props.navigation.navigate('Lista de Reportes FTE');
+    
+          } catch (error) {
+            console.log(error)
+          }
+
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Reporte",
-        "¿Estás seguro de borrar este Reporte?",
+          "Guardar Cambios",
+          "¿Estás seguro de guardar estos cambios?",
         [
-            { text: "Sí", onPress: () => deleteReport() },
+            { text: "Sí", onPress: () => editReport() },
             { text: "No" },
         ],
         {
@@ -57,33 +70,6 @@ const DetailsReportFTEScreen = (props) => {
         }
         );
     };
-
-    var criticalDate = (limitDate) => {
-
-        var day = new Date().getDate(); 
-        var month = new Date().getMonth() + 1; 
-        var year = new Date().getFullYear(); 
-
-        if(day < 10){
-            day = "0" + day
-        }
-        if(month < 10){
-            month = "0" + month
-        }
-
-        var todayDate = year + "-" + month + "-" + day;
-
-        var subtractionDates = new Date(todayDate).getTime() - new Date(limitDate).getTime();
-        var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
-
-        var critical = false
-
-        if((numericValue >= -30)){
-            critical = true;
-        }
-        return critical
-    }
-
 
     useEffect(() => {
         getReport(props.route.params.reportId)
@@ -101,36 +87,47 @@ const DetailsReportFTEScreen = (props) => {
         <View style={styles.container}>
           <ScrollView style={styles.scroll}>
 
-            <View style={criticalDate(report.deliveryDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Licencia Interna: " + report.deliveryDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "deliveryDate")}
-                />
-            </View>   
+          <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={report.deliveryDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Entrega de Reporte FTE"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "deliveryDate")}
+                value={report.deliveryDate}
+              />
+            </View>
       
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "contractHour")}
-                    value={"Hora de envío a SPA: " +report.contractHour}
-                    editable={false}
+                    value={report.contractHour}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "accreditsHour")}
-                    value={"Hora de envío a Acredita: " +report.accreditsHour}
-                    editable={false}
+                    value={report.accreditsHour}
                 />
             </View>
       
-            <Button color = "blue" title ="Modificar Reporte FTE" onPress = {() => {
-              props.navigation.navigate("Modificar Reporte FTE", {
-                reportId: report.id,
-              });
-            }}/>
-            <Button color = "red" title ="Eliminar Reporte" onPress = {() => confirmationAlert()}/>
+            <Button color = "blue" title ="Guardar" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>
@@ -175,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsReportFTEScreen;
+export default EditReportFTEScreen;

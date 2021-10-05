@@ -13,6 +13,7 @@ import firebase from '../../database/firebase';
 const DetailsPickupTruckScreen = (props) => {
 
     const initialState = {
+        id: '',
         patentPickupTrack: '',
         circulationPermitDate: '',
         homologationPermitDate: '',
@@ -144,6 +145,11 @@ const DetailsPickupTruckScreen = (props) => {
                 />
             </View>   
       
+            <Button color = "blue" title ="Modificar Camioneta" onPress = {() => {
+              props.navigation.navigate("Modificar Camioneta SPENCE", {
+                pickupTruckId: pickupTruck.id,
+              });
+            }}/>
             <Button color = "red" title ="Eliminar Camioneta" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>

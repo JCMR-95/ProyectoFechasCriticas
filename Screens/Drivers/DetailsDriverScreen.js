@@ -13,6 +13,7 @@ import firebase from '../../database/firebase';
 const DetailsDriverScreen = (props) => {
 
     const initialState = {
+        id: '',
         nameDriver: '',
         rutDriver: '',
         inductionDate: '',
@@ -152,6 +153,11 @@ const DetailsDriverScreen = (props) => {
                 />
             </View>    
       
+            <Button color = "blue" title ="Modificar Conductor" onPress = {() => {
+              props.navigation.navigate("Modificar Conductor", {
+                driverId: driver.id,
+              });
+            }}/>
             <Button color = "red" title ="Eliminar Conductor" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>

@@ -10,13 +10,12 @@ import {
 } from "react-native";
 import firebase from '../../database/firebase';
 
-const DetailsLimitKilometresScreen = (props) => {
+const EditLimitKilometresScreen = (props) => {
 
     const initialState = {
-      id: '',
-      patentPickupTrack: '',
-      currentKM: '',
-      nextKM: ''
+        patentPickupTrack: '',
+        currentKM: '',
+        nextKM: ''
     };
 
     const [km, setKM] = useState(initialState);
@@ -34,22 +33,35 @@ const DetailsLimitKilometresScreen = (props) => {
         setLoading(false);
     }
 
-    const deleteKM = async () => {
+    const editKM = async () => {
         setLoading(true)
         const dbRef = firebase.db
         .collection("Kilometros")
         .doc(props.route.params.kmId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Kilómetros");
+
+        try {
+            await firebase.db.collection("Kilometros").add({
+              patentPickupTrack: km.patentPickupTrack,
+              currentKM: km.currentKM,
+              nextKM: km.nextKM
+            });
+            Alert.alert("Datos Actualizados!");
+            props.navigation.navigate('Lista de Kilómetros');
+    
+          } catch (error) {
+            console.log(error)
+          }
+
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Kilómetros",
-        "¿Estás seguro de borrar estos datos?",
+            "Guardar Cambios",
+            "¿Estás seguro de guardar estos cambios?",
         [
-            { text: "Sí", onPress: () => deleteKM() },
+            { text: "Sí", onPress: () => editKM() },
             { text: "No" },
         ],
         {
@@ -77,34 +89,26 @@ const DetailsLimitKilometresScreen = (props) => {
       
             <View style={styles.text}>
                 < TextInput
-                    value={"Patente de Camioneta: " + km.patentPickupTrack}
-                    editable={false}
+                    value={km.patentPickupTrack}
                     onChangeText={(value) => handleChangeText(value, "patentPickupTrack")}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput
-                    value={"Kilómetros Actuales: " + km.currentKM}
-                    editable={false}
+                    value={km.currentKM}
                     onChangeText={(value) => handleChangeText(value, "currentKM")}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput
-                    value={"Próximo KM de Mantención: " +km.nextKM}
-                    editable={false}
+                    value={km.nextKM}
                     onChangeText={(value) => handleChangeText(value, "nextKM")}
                 />
             </View>
       
-            <Button color = "blue" title ="Modificar Kilómetros" onPress = {() => {
-              props.navigation.navigate("Modificar Kilómetros", {
-                kmId: km.id,
-              });
-            }}/>
-            <Button color = "red" title ="Eliminar Kilómetros" onPress = {() => confirmationAlert()}/>
+            <Button color = "blue" title ="Guardar" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>
@@ -149,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsLimitKilometresScreen;
+export default EditLimitKilometresScreen;

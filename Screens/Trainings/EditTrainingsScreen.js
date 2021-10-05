@@ -8,12 +8,12 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
+import DatePicker from 'react-native-datepicker';
 import firebase from '../../database/firebase';
 
-const DetailsTrainingsScreen = (props) => {
+const EditTrainingsScreen = (props) => {
 
     const initialState = {
-        id: '',
         nameTraining: '',
         initiationDate: '',
         expirationDate: '',
@@ -35,7 +35,7 @@ const DetailsTrainingsScreen = (props) => {
         setLoading(false);
     }
 
-    const deleteTraining = async () => {
+    const editTraining = async () => {
         setLoading(true)
         const dbRef = firebase.db
         .collection("Capacitaciones")
@@ -43,14 +43,28 @@ const DetailsTrainingsScreen = (props) => {
         await dbRef.delete();
         setLoading(false)
         props.navigation.navigate("Lista de Capacitaciones");
+
+        try {
+            await firebase.db.collection("Capacitaciones").add({
+                nameTraining: training.nameTraining,
+                initiationDate: training.initiationDate,
+                expirationDate: training.expirationDate,
+                trainingPlace: training.trainingPlace,
+            });
+            Alert.alert("Datos Actualizados!");
+            props.navigation.navigate('Lista de Capacitaciones');
+    
+          } catch (error) {
+            console.log(error)
+          }
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Capacitación",
-        "¿Estás seguro de borrar esta Capacitación?",
+        "Guardar Cambios",
+        "¿Estás seguro de guardar estos cambios?",
         [
-            { text: "Sí", onPress: () => deleteTraining() },
+            { text: "Sí", onPress: () => editTraining() },
             { text: "No" },
         ],
         {
@@ -58,40 +72,6 @@ const DetailsTrainingsScreen = (props) => {
         }
         );
     };
-
-    var criticalDate = (expirationDate) => {
-
-        var todayDate = getTodayDate();
-
-        var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
-        var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
-
-        var critical = false
-
-        if((numericValue >= -60)){
-            critical = true;
-        }
-        return critical
-    }
-
-    var getTodayDate = () => {
-
-      var day = new Date().getDate(); 
-      var month = new Date().getMonth() + 1; 
-      var year = new Date().getFullYear(); 
-  
-      if(day < 10){
-        day = "0" + day;
-      }
-      if(month < 10){
-        month = "0" + month;
-      }
-  
-      var todayDate = year + "-" + month + "-" + day;
-  
-      return todayDate;
-    }
-
 
     useEffect(() => {
         getTraining(props.route.params.trainingId)
@@ -112,41 +92,70 @@ const DetailsTrainingsScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "nameTraining")}
-                    value={"Nombre de Capacitación: " +training.nameTraining}
-                    editable={false}
+                    value={training.nameTraining}
                 />
             </View>
 
             <View style={styles.text}>
-                < TextInput
-                    value={"Fecha de Inicio: " + training.initiationDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "initiationDate")}
-                />
-            </View>   
-      
-            <View style={criticalDate(training.expirationDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Fecha de Vencimiento: " + training.expirationDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "expirationDate")}
-                />
-            </View>  
+              <DatePicker
+                style={{width: 250}}
+                date={training.initiationDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Inicio de Capacitación"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "initiationDate")}
+                value={training.initiationDate}
+              />
+            </View>
+
+            <View style={styles.text}>
+              <DatePicker
+                style={{width: 250}}
+                date={training.expirationDate}
+                mode="date"
+                placeholder="Ingrese Fecha de Vencimiento de Capacitación"
+                format="YYYY-MM-DD"
+                minDate="2019-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                }}
+                onDateChange={(value) => handleChangeText(value, "expirationDate")}
+                value={training.expirationDate}
+              />
+            </View>
 
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "trainingPlace")}
-                    value={"Lugar de Capacitación: " +training.trainingPlace}
-                    editable={false}
+                    value={training.trainingPlace}
                 />
             </View>
       
-            <Button color = "blue" title ="Modificar Capacitación" onPress = {() => {
-              props.navigation.navigate("Modificar Capacitación", {
-                trainingId: training.id,
-              });
-            }}/>
-            <Button color = "red" title ="Eliminar Capacitación" onPress = {() => confirmationAlert()}/>
+            <Button color = "blue" title ="Guardar" onPress = {() => confirmationAlert()}/>
             
           </ScrollView>
         </View>
@@ -191,4 +200,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsTrainingsScreen;
+export default EditTrainingsScreen;
