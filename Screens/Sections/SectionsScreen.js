@@ -7,6 +7,9 @@ const SectionsScreen = (props) => {
     <View style = {styles.container}>
       <ScrollView>
         <View style={styles.button}>
+          <Button title ="Acreditaciones de Minería" onPress = {() => props.navigation.navigate('Sección Acreditaciones de Minería')}/>
+        </View> 
+        <View style={styles.button}>
           <Button title ="Camionetas - SPENCE" onPress = {() => props.navigation.navigate('Lista de Camionetas SPENCE')}/>
         </View>
         <View style={styles.button}>

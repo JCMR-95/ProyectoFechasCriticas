@@ -47,6 +47,12 @@ import AddContractWorkerScreen from '../Screens/ContractWorkers/AddContractWorke
 import DetailsContractWorkerScreen from '../Screens/ContractWorkers/DetailsContractWorkerScreen';
 import EditContractWorkerScreen from '../Screens/ContractWorkers/EditContractWorkerScreen';
 
+import MiningSectionsScreen from '../Screens/Sections/MiningSectionsScreen';
+
+import ListAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/ListAccreditationsMELScreen';
+import AddAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/AddAccreditationsMELScreen';
+import DetailsAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/DetailsAccreditationsMELScreen';
+
 import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 import ShowImageScreen from '../Screens/UploadDownload/ShowImageScreen';
 import ListImagesStorageScreen from '../Screens/UploadDownload/ListImagesStorageScreen';
@@ -101,6 +107,12 @@ export default function Navigation() {
           <Stack.Screen name="Agregar Trabajador de Contrato" component={AddContractWorkerScreen} />
           <Stack.Screen name="Detalles de Trabajador de Contrato" component={DetailsContractWorkerScreen} />
           <Stack.Screen name="Modificar Trabajador de Contrato" component={EditContractWorkerScreen} />
+
+          <Stack.Screen name="Sección Acreditaciones de Minería" component={MiningSectionsScreen} />     
+
+          <Stack.Screen name="Lista de Acreditaciones MEL" component={ListAccreditationsMELScreen} /> 
+          <Stack.Screen name="Agregar Acreditación MEL" component={AddAccreditationsMELScreen} /> 
+          <Stack.Screen name="Detalles de Acreditación MEL" component={DetailsAccreditationsMELScreen} />      
 
           <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
           <Stack.Screen name="Ver Imagen" component={ShowImageScreen} />
