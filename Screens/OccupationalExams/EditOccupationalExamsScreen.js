@@ -35,6 +35,11 @@ const EditOccupationalExamsScreen = (props) => {
     }
 
     const editExam = async () => {
+
+      if (exam.name === "" || exam.examDate === "") {
+        Alert.alert("Debes completar los Campos")
+      } else {
+
         setLoading(true)
         const dbRef = firebase.db
         .collection("Examenes")
@@ -51,9 +56,10 @@ const EditOccupationalExamsScreen = (props) => {
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Exámenes');
     
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        }
+      }
     };
 
     const confirmationAlert = () => {

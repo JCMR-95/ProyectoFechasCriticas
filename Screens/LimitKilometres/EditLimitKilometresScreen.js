@@ -34,6 +34,10 @@ const EditLimitKilometresScreen = (props) => {
     }
 
     const editKM = async () => {
+
+      if (km.patentPickupTrack === "" || km.currentKM === "" || km.nextKM === "" ) {
+        Alert.alert("Debes completar los Campos")
+      } else {
         setLoading(true)
         const dbRef = firebase.db
         .collection("Kilometros")
@@ -50,10 +54,10 @@ const EditLimitKilometresScreen = (props) => {
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Kilómetros');
     
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
-
+        }
+      }
     };
 
     const confirmationAlert = () => {

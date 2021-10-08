@@ -82,7 +82,7 @@ const ListDriverScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('./IconoValorice.png')}
+                  source={require('../../logos/IconoValorice.png')}
                   rounded
                 />
                 <View style={criticalDate(driver.inductionDate, driver.examDate, driver.municipalLicenseDate, driver.internalLicenseDate) ? styles.red : styles.blue}>

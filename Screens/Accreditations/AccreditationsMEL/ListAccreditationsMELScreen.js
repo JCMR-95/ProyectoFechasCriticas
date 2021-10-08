@@ -43,7 +43,10 @@ const ListAccreditationsMELScreen = (props) => {
                 }}
               >
                 <ListItem.Chevron />
-
+                <Avatar
+                  source={require('../../../logos/IconoValorice.png')}
+                  rounded
+                />
                 <View style={styles.blue}>
                   <ListItem.Content>
                     <ListItem.Title style={styles.text} >{accreditationMEL.nameAccreditation}</ListItem.Title>

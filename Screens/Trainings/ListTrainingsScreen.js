@@ -79,7 +79,7 @@ const ListTrainingsScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('./IconoValorice.png')}
+                  source={require('../../logos/IconoValorice.png')}
                   rounded
                 />
                 

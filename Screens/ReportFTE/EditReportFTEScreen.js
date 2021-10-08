@@ -35,6 +35,10 @@ const EditReportFTEScreen = (props) => {
     }
 
     const editReport = async () => {
+
+      if (report.deliveryDate === "" || report.contractHour === "" || report.accreditsHour === "") {
+        Alert.alert("Debes completar los Campos")
+      } else {
         setLoading(true)
         const dbRef = firebase.db
         .collection("ReportesFTE")
@@ -43,17 +47,18 @@ const EditReportFTEScreen = (props) => {
         setLoading(false)
 
         try {
-            await firebase.db.collection("ReportesFTE").add({
-                deliveryDate: report.deliveryDate,
-                contractHour: report.contractHour,
-                accreditsHour: report.accreditsHour
-            });
-            Alert.alert("Datos Actualizados!");
-            props.navigation.navigate('Lista de Reportes FTE');
+          await firebase.db.collection("ReportesFTE").add({
+              deliveryDate: report.deliveryDate,
+              contractHour: report.contractHour,
+              accreditsHour: report.accreditsHour
+          });
+          Alert.alert("Datos Actualizados!");
+          props.navigation.navigate('Lista de Reportes FTE');
     
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        }
+      }
 
     };
 

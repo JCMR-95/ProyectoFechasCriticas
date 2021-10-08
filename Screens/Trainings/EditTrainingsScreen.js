@@ -36,6 +36,11 @@ const EditTrainingsScreen = (props) => {
     }
 
     const editTraining = async () => {
+
+      if (training.nameTraining === "" || training.initiationDate === "" || training.expirationDate === "" || training.trainingPlace === "") {
+        Alert.alert("Debes completar los Campos")
+      } else {
+
         setLoading(true)
         const dbRef = firebase.db
         .collection("Capacitaciones")
@@ -45,18 +50,19 @@ const EditTrainingsScreen = (props) => {
         props.navigation.navigate("Lista de Capacitaciones");
 
         try {
-            await firebase.db.collection("Capacitaciones").add({
-                nameTraining: training.nameTraining,
-                initiationDate: training.initiationDate,
-                expirationDate: training.expirationDate,
-                trainingPlace: training.trainingPlace,
-            });
-            Alert.alert("Datos Actualizados!");
-            props.navigation.navigate('Lista de Capacitaciones');
-    
-          } catch (error) {
-            console.log(error)
-          }
+          await firebase.db.collection("Capacitaciones").add({
+              nameTraining: training.nameTraining,
+              initiationDate: training.initiationDate,
+              expirationDate: training.expirationDate,
+              trainingPlace: training.trainingPlace,
+          });
+          Alert.alert("Datos Actualizados!");
+          props.navigation.navigate('Lista de Capacitaciones');
+  
+        } catch (error) {
+          console.log(error)
+        }
+      }
     };
 
     const confirmationAlert = () => {

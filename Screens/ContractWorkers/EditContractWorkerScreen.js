@@ -36,6 +36,11 @@ const EditContractWorkerScreen = (props) => {
     }
 
     const editContract = async () => {
+      
+      if (contract.nameWorker === "" || contract.contractAssigned === "" || contract.initiationDate === "" || contract.expirationDate === "") {
+        Alert.alert("Debes completar los Campos");
+      } else {
+        
         setLoading(true)
         const dbRef = firebase.db
         .collection("TrabajadoresContrato")
@@ -44,18 +49,19 @@ const EditContractWorkerScreen = (props) => {
         setLoading(false)
 
         try {
-            await firebase.db.collection("TrabajadoresContrato").add({
-              nameWorker: contract.nameWorker,
-              contractAssigned: contract.contractAssigned,
-              initiationDate: contract.initiationDate,
-              expirationDate: contract.expirationDate
-            });
-            Alert.alert("Datos Actualizados!");
-            props.navigation.navigate('Lista de Trabajadores de Contrato');
-    
-          } catch (error) {
-            console.log(error)
-          }
+          await firebase.db.collection("TrabajadoresContrato").add({
+            nameWorker: contract.nameWorker,
+            contractAssigned: contract.contractAssigned,
+            initiationDate: contract.initiationDate,
+            expirationDate: contract.expirationDate
+          });
+          Alert.alert("Datos Actualizados!");
+          props.navigation.navigate('Lista de Trabajadores de Contrato');
+  
+        } catch (error) {
+          console.log(error)
+        }
+      }
     };
 
     const confirmationAlert = () => {

@@ -37,6 +37,11 @@ const EditPickupTruckScreen = (props) => {
     }
 
     const editPickupTruck = async () => {
+
+        if (pickupTruck.patentPickupTrack === "" || pickupTruck.circulationPermitDate === "" || pickupTruck.homologationPermitDate === "" || pickupTruck.accidentInsuranceDate === "" || pickupTruck.tagDate === "") {
+            Alert.alert("Debes completar los Campos")
+        } else {
+
         setLoading(true)
         const dbRef = firebase.db
         .collection("CamionetasCMCC")
@@ -55,8 +60,9 @@ const EditPickupTruckScreen = (props) => {
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Camionetas CMCC');
     
-        } catch (error) {
+            } catch (error) {
             console.log(error)
+            }
         }
     };
 

@@ -81,7 +81,7 @@ const ListPickupTruckScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('./IconoValorice.png')}
+                  source={require('../../logos/IconoValorice.png')}
                   rounded
                 />
                 <View style={criticalDate(pickupTruck.circulationPermitDate, pickupTruck.homologationPermitDate, pickupTruck.accidentInsuranceDate, pickupTruck.tagDate) ? styles.red : styles.blue}>

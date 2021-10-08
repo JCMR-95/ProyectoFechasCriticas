@@ -37,26 +37,31 @@ const EditPickupTruckScreen = (props) => {
     }
 
     const editPickupTruck = async () => {
-        setLoading(true)
-        const dbRef = firebase.db
-        .collection("CamionetasSPENCE")
-        .doc(props.route.params.pickupTruckId);
-        await dbRef.delete();
-        setLoading(false)
 
-        try {
-            await firebase.db.collection("CamionetasSPENCE").add({
-                patentPickupTrack: pickupTruck.patentPickupTrack,
-                circulationPermitDate: pickupTruck.circulationPermitDate,
-                homologationPermitDate: pickupTruck.homologationPermitDate,
-                accidentInsuranceDate: pickupTruck.accidentInsuranceDate,
-                tagDate: pickupTruck.tagDate
-            });
-            Alert.alert("Datos Actualizados!");
-            props.navigation.navigate('Lista de Camionetas SPENCE');
-    
-        } catch (error) {
-            console.log(error)
+        if (pickupTruck.patentPickupTrack === "" || pickupTruck.circulationPermitDate === "" || pickupTruck.homologationPermitDate === "" || pickupTruck.accidentInsuranceDate === "" || pickupTruck.tagDate === "") {
+            Alert.alert("Debes completar los Campos")
+        } else {
+            setLoading(true)
+            const dbRef = firebase.db
+            .collection("CamionetasSPENCE")
+            .doc(props.route.params.pickupTruckId);
+            await dbRef.delete();
+            setLoading(false)
+
+            try {
+                await firebase.db.collection("CamionetasSPENCE").add({
+                    patentPickupTrack: pickupTruck.patentPickupTrack,
+                    circulationPermitDate: pickupTruck.circulationPermitDate,
+                    homologationPermitDate: pickupTruck.homologationPermitDate,
+                    accidentInsuranceDate: pickupTruck.accidentInsuranceDate,
+                    tagDate: pickupTruck.tagDate
+                });
+                Alert.alert("Datos Actualizados!");
+                props.navigation.navigate('Lista de Camionetas SPENCE');
+        
+            } catch (error) {
+                console.log(error)
+            }
         }
     };
 

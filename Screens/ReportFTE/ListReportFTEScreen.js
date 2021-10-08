@@ -65,7 +65,7 @@ const ListReportFTEScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('./IconoValorice.png')}
+                  source={require('../../logos/IconoValorice.png')}
                   rounded
                 />
                 <View style={criticalDate(report.deliveryDate) ? styles.red : styles.blue}>

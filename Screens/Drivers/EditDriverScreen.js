@@ -38,6 +38,11 @@ const DetailsDriverScreen = (props) => {
     }
 
     const editDriver = async () => {
+
+      if (driver.nameDriver === "" || driver.inductionDate === "" || driver.examDate === "" || driver.municipalLicenseDate === "" || driver.internalLicenseDate === "") {
+        Alert.alert("Debes completar los Campos")
+      } else {
+
         setLoading(true)
         const dbRef = firebase.db
         .collection("Conductores")
@@ -57,9 +62,10 @@ const DetailsDriverScreen = (props) => {
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Conductores');
     
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        }
+      }
     };
 
     const confirmationAlert = () => {
