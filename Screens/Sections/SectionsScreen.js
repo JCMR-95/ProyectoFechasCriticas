@@ -39,6 +39,10 @@ const SectionsScreen = (props) => {
         <View style={styles.buttonUpload}>
           <Button title ="Ver Imágenes" onPress = {() => props.navigation.navigate('Lista de Imagenes')}/>
         </View>  
+        <View style={styles.buttonUpload}>
+          <Button title = "Cerrar Sesión" onPress = {() => props.navigation.navigate('Iniciar Sesión')}/>
+        </View>  
+
       </ScrollView>
     </View>
   );
@@ -62,6 +66,15 @@ const styles = StyleSheet.create({
     height: 60
   },
   buttonUpload: {
+    elevation: 8,
+    backgroundColor: "#3227C7",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    width: 250,
+    height: 60
+  },
+  buttonLogout: {
     elevation: 8,
     backgroundColor: "#3227C7",
     borderRadius: 10,

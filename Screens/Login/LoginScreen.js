@@ -7,46 +7,30 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userName: " ",
+      email: " ",
       password: " "
     }
   }
 
   confirmacion = async() => { 
 
-    const getAmountAdmins = firebase.db.collection("CantAdministradores").doc("cantID")
-    const getDoc = await getAmountAdmins.get();
-    const amountAdmins = getDoc.data();
-    
-    var correctName = false
-    var correctPassword = false
-
-    for (var i = 1; i <= amountAdmins.cantidad; i++) {
-      
-      var ID = "admin" + i
-      const getAdmin = firebase.db.collection("Administradores").doc(ID)
-      const doc = await getAdmin.get();
-      const administrator = doc.data();
-
-      if(this.state.userName == administrator.usuario){
-        var correctName = true
-        if(this.state.password == administrator.contrasena){
-          var correctPassword = true
-        }
-      }
-      if(correctName == true && correctPassword == true){
-        break
-      }
-    }
-
-    if(correctName == true && correctPassword == true){
-
-      //loginApp()
-      Alert.alert("Bienvenido")
+    firebase.firebaseApp
+    .auth()
+    .signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then((res) => {
+      console.log(res)
+      console.log('User logged-in successfully!')
+      this.setState({
+        isLoading: false,
+        email: '', 
+        password: ''
+      })
       this.props.navigation.navigate('Secciones')
-    }else{
-      Alert.alert("Usuario o Contraseña incorrecta")
-    }
+    })
+    .catch(error => {
+      Alert.alert("Usuario o Contraseña incorrecta");
+      this.setState({ errorMessage: error.message })
+    })  
 
   }
 
@@ -66,7 +50,7 @@ class LoginScreen extends Component {
 
         <View style = {styles.placeholder}>
           <TextInput placeholder = "   Usuario" 
-                    onChangeText = { (userName) => this.setState({userName})}/>
+                    onChangeText = { (email) => this.setState({email})}/>
           <TextInput placeholder = "   Contraseña" secureTextEntry={true}
                     onChangeText = { (password) => this.setState({password})}/>
         </View>
