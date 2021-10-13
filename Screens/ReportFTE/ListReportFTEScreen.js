@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
 const ListReportFTEScreen = (props) => {
 
   const [reports, setReports] = useState([]);
+
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
+  useEffect(
+    () => {
+      loading.isLoading = false;
+    },
+    []
+  );
 
   useEffect(() => {
     firebase.db.collection("ReportesFTE").onSnapshot((querySnapshot) => {
@@ -52,6 +63,7 @@ const ListReportFTEScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Reporte FTE" onPress = {() => props.navigation.navigate('Agregar Reporte FTE')}/>
         {
           reports.map(report => {

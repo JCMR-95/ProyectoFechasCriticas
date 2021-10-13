@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
 const ListLimitKilometresScreen = (props) => {
 
   const [kilometres, setKilometres] = useState([]);
+
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
+  useEffect(
+    () => {
+      loading.isLoading = false;
+    },
+    []
+  );
 
   useEffect(() => {
     firebase.db.collection("Kilometros").onSnapshot((querySnapshot) => {
@@ -32,6 +43,7 @@ const ListLimitKilometresScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Kilómetros" onPress = {() => props.navigation.navigate('Agregar Kilómetros')}/>
         {
           kilometres.map(km => {

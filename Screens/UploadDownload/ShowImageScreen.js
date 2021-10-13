@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, StyleSheet, Alert } from 'react-native';
+import { ActivityIndicator, Button, Image, View, StyleSheet, Alert } from 'react-native';
 import firebase from '../../database/firebase';
 import 'firebase/storage';
 
@@ -12,9 +12,14 @@ const ShowImageScreen = (props) => {
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState(initialState);
 
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
   useEffect(() => {
     getImage(props.route.params.imageNameId);
     showImage();
+    loading.isLoading = false;
   }, [])
 
   const getImage = async(id) => {
@@ -24,12 +29,9 @@ const ShowImageScreen = (props) => {
     setImageName({ ...imageName, id: doc.id });
 
     var path = "FilesStorage/" + imageName.name;
-    console.log("AHH");
-    console.log(path);
 
     firebase.storage.ref(path).getDownloadURL().then((url) => {
       setImage(url);
-      console.log(url);
     });
 
   }
@@ -37,8 +39,6 @@ const ShowImageScreen = (props) => {
   const showImage = async () => {
 
     var path = "FilesStorage/" + imageName.name;
-    console.log("AHH");
-    console.log(path);
 
     firebase.storage.ref(path).getDownloadURL().then((url) => {
       setImage(url);
@@ -54,6 +54,7 @@ const ShowImageScreen = (props) => {
 
     <View style={styles.container}>
       <Button title = "Eliminar Imagen" onPress = {deleteImage}/>
+      <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {image && <Image source={{ uri: image }} style={{ width: 350, height: 350 }} />}
       </View>

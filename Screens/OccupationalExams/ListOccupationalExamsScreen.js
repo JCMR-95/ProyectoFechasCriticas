@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
 const ListOccupationalExamsScreen = (props) => {
 
   const [exams, setExams] = useState([]);
+
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
+  useEffect(
+    () => {
+      loading.isLoading = false;
+    },
+    []
+  );
 
   useEffect(() => {
     firebase.db.collection("Examenes").onSnapshot((querySnapshot) => {
@@ -57,6 +68,7 @@ const ListOccupationalExamsScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Examen" onPress = {() => props.navigation.navigate('Agregar Examen')}/>
         {
           exams.map(exam => {

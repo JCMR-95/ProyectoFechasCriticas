@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../../database/firebase';
 
 const ListAccreditationsMELScreen = (props) => {
 
   const [accreditationsMEL, setAccreditationsMEL] = useState([]);
+
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
+  useEffect(
+    () => {
+      loading.isLoading = false;
+    },
+    []
+  );
 
   useEffect(() => {
     firebase.db.collection("AcreditacionesMEL").onSnapshot((querySnapshot) => {
@@ -31,6 +42,7 @@ const ListAccreditationsMELScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Acreditación" onPress = {() => props.navigation.navigate('Agregar Acreditación MEL')}/>
         {
           accreditationsMEL.map(accreditationMEL => {

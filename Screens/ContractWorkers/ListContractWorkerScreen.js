@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
 const ListContractWorkerScreen = (props) => {
   
   const [contracts, setContracts] = useState([]);
+
+  const [loading, setLoading] = useState({
+    isLoading: true
+  });
+
+  useEffect(
+    () => {
+      loading.isLoading = false;
+    },
+    []
+  );
 
   useEffect(() => {
     firebase.db.collection("TrabajadoresContrato").onSnapshot((querySnapshot) => {
@@ -72,6 +83,7 @@ const ListContractWorkerScreen = (props) => {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Contrato asignado a un Trabajador" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
         {
           contracts.map(contract => {
