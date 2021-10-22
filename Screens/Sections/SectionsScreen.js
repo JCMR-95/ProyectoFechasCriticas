@@ -10,10 +10,7 @@ const SectionsScreen = (props) => {
           <Button title ="Acreditaciones de Minería" onPress = {() => props.navigation.navigate('Sección Acreditaciones de Minería')}/>
         </View> 
         <View style={styles.button}>
-          <Button title ="Camionetas - SPENCE" onPress = {() => props.navigation.navigate('Lista de Camionetas SPENCE')}/>
-        </View>
-        <View style={styles.button}>
-          <Button title ="Camionetas - CMCC" onPress = {() => props.navigation.navigate('Lista de Camionetas CMCC')}/>
+          <Button title ="Camionetas" onPress = {() => props.navigation.navigate('Sección Camionetas')}/>
         </View>
         <View style={styles.button}>
           <Button title ="Conductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>

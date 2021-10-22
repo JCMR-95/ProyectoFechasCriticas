@@ -9,7 +9,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import DatePicker from 'react-native-datepicker';
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
 const EditPickupTruckScreen = (props) => {
 

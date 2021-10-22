@@ -8,7 +8,7 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
 const DetailsPickupTruckScreen = (props) => {
 

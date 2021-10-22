@@ -17,19 +17,24 @@ const AddAccreditationsMELScreen = (props) => {
     const [antecedentsCertificate, setAntecedentsCertificate] = useState(false);
     const antecedentsCertificateSwitch = () => setAntecedentsCertificate(previousState => !previousState);
 
-    const [exampleCertificate, setExampleCertificate] = useState(false);
-    const exampleCertificateSwitch = () => setExampleCertificate(previousState => !previousState);
+    const [attachedContract, setAttachedContract] = useState(false);
+    const attachedContractSwitch = () => setAttachedContract(previousState => !previousState);
+
+    const [currentExam, setCurrentExam] = useState(false);
+    const currentExamSwitch = () => setCurrentExam(previousState => !previousState);
 
     const saveData = async () => {
 
-        var antecedentsCertificateString = convertToStringAntecedentsCertificate();
-        var exampleCertificateString = convertToStringExampleCertificate();
+        var antecedentsCertificateString = convertToString(antecedentsCertificate);
+        var attachedContractString = convertToString(attachedContract);
+        var currentExamContractString = convertToString(currentExam);
 
         try {
             await firebase.db.collection("AcreditacionesMEL").add({
                 nameAccreditation: state.nameAccreditation,
                 antecedentsCertificate: antecedentsCertificateString,
-                exampleCertificate: exampleCertificateString
+                attachedContract: attachedContractString,
+                currentExam: currentExamContractString
             });
             Alert.alert("Datos Ingresados!");
             props.navigation.navigate('Lista de Acreditaciones MEL');
@@ -40,18 +45,9 @@ const AddAccreditationsMELScreen = (props) => {
         
     };
 
-    const convertToStringAntecedentsCertificate = () => {
+    const convertToString = (switchToString) => {
         
-        if(antecedentsCertificate){
-            return "Sí";
-        }else{
-            return "No";
-        }
-    };
-
-    const convertToStringExampleCertificate = () => {
-        
-        if(exampleCertificate){
+        if(switchToString){
             return "Sí";
         }else{
             return "No";
@@ -88,18 +84,36 @@ const AddAccreditationsMELScreen = (props) => {
                 </View>
 
                 <Text style={styles.textTitle}>
-                    {"  ¿Certificado de Ejemplo?"}
+                    {"  ¿Está adjunto el contrato de trabajo?"}
                 </Text>
 
-                <Switch
-                    trackColor={{ false: "#767577", true: "#81b0ff" }}
-                    thumbColor={exampleCertificate ? "#f5dd4b" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={exampleCertificateSwitch}
-                    value={exampleCertificate}
-                    activeText={'Sí'}
-                    inActiveText={'No'}
-                />
+                <View style={styles.switch}>
+                    <Switch
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={attachedContract ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={attachedContractSwitch}
+                        value={attachedContract}
+                        activeText={'Sí'}
+                        inActiveText={'No'}
+                    />
+                </View>
+
+                <Text style={styles.textTitle}>
+                    {"  ¿Está listo el Examen Ocupacional?"}
+                </Text>
+
+                <View style={styles.switch}>
+                    <Switch
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={attachedContract ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={currentExamSwitch}
+                        value={currentExam}
+                        activeText={'Sí'}
+                        inActiveText={'No'}
+                    />
+                </View>
             
                 <View style={styles.button}>
                     <Button title ="Guardar Datos" onPress = {() => saveData()}/>
@@ -149,7 +163,6 @@ const styles = StyleSheet.create({
     switch: {
         padding: 0,
         marginBottom: 15,
-        borderBottomWidth: 1,
         borderRadius: 8,
     },
     loader: {

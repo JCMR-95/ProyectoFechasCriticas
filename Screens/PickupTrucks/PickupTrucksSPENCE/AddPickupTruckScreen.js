@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, View, StyleSheet, Button, Alert, ScrollView } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
  
 const AddPickupTruckScreen = (props) => {
   

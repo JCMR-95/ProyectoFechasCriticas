@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
 const ListPickupTruckScreen = (props) => {
 
@@ -93,7 +93,7 @@ const ListPickupTruckScreen = (props) => {
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('../../logos/IconoValorice.png')}
+                  source={require('../../../logos/IconoValorice.png')}
                   rounded
                 />
                 <View style={criticalDate(pickupTruck.circulationPermitDate, pickupTruck.homologationPermitDate, pickupTruck.accidentInsuranceDate, pickupTruck.tagDate) ? styles.red : styles.blue}>

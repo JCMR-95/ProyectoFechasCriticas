@@ -10,13 +10,14 @@ import {
 } from "react-native";
 import firebase from '../../../database/firebase';
 
-const DetailsDriverScreen = (props) => {
+const DetailsAccreditationsMELScreen = (props) => {
 
     const initialState = {
         id: '',
         nameAccreditation: '',
         antecedentsCertificate: '',
-        exampleCertificate: ''
+        attachedContract: '',
+        currentExam: ''
     };
 
     const [accreditationMEL, setAccreditationMEL] = useState(initialState);
@@ -86,18 +87,32 @@ const DetailsDriverScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "antecedentsCertificate")}
-                    value={"¿Certificado de antecedentes vigente? " +accreditationMEL.antecedentsCertificate}
+                    value={"Certificado de antecedentes vigente: " + accreditationMEL.antecedentsCertificate}
                     editable={false}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "exampleCertificate")}
-                    value={"¿Certificado de Ejemplo? " +accreditationMEL.exampleCertificate}
+                    onChangeText={(value) => handleChangeText(value, "attachedContract")}
+                    value={"Está adjunto el contrato de trabajo: " + accreditationMEL.attachedContract}
                     editable={false}
                 />
             </View>
+
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "currentExam")}
+                    value={"Está listo el Examen Ocupacional: " + accreditationMEL.currentExam}
+                    editable={false}
+                />
+            </View>
+
+            <Button color = "blue" title ="Modificar Acreditación" onPress = {() => {
+              props.navigation.navigate("Modificar Acreditación MEL", {
+                accreditationMELId: accreditationMEL.id,
+              });
+            }}/>
 
             <Button color = "red" title ="Eliminar Acreditación" onPress = {() => confirmationAlert()}/>
             
@@ -144,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsDriverScreen;
+export default DetailsAccreditationsMELScreen;
