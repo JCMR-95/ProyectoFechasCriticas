@@ -6,12 +6,14 @@ const MiningSectionsScreen = (props) => {
   return (
     <View style = {styles.container}>
       <ScrollView>
+
         <View style={styles.button}>
-          <Button title ="Acreditaciones CODELCO" onPress = {() => props.navigation.navigate('Lista de Acreditaciones CODELCO')}/>
+          <Button title ="Capacitaciones Externas" onPress = {() => props.navigation.navigate('Lista de Capacitaciones Externas')}/>
         </View>
         <View style={styles.button}>
-          <Button title ="Acreditaciones MEL" onPress = {() => props.navigation.navigate('Lista de Acreditaciones MEL')}/>
+          <Button title ="Capacitaciones Internas" onPress = {() => props.navigation.navigate('Lista de Capacitaciones Internas')}/>
         </View>
+        
       </ScrollView>
     </View>
   );

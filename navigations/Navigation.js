@@ -5,11 +5,20 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 
 import LoginScreen from '../Screens/Login/LoginScreen';
+import SectionsScreen from '../Screens/Sections/SectionsScreen';
+import PickupTrucksSectionsScreen from '../Screens/Sections/PickupTrucksSectionsScreen';
+import MiningSectionsScreen from '../Screens/Sections/MiningSectionsScreen';
+import TrainingSectionsScreen from '../Screens/Sections/TrainingSectionsScreen';
 
 import ListAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/ListAccreditationsMELScreen';
 import AddAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/AddAccreditationsMELScreen';
 import DetailsAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/DetailsAccreditationsMELScreen';
 import EditAccreditationsMELScreen from '../Screens/Accreditations/AccreditationsMEL/EditAccreditationsMELScreen';
+
+import ListAccreditationsCODELCOScreen from '../Screens/Accreditations/AccreditationsCODELCO/ListAccreditationsCODELCOScreen';
+import AddAccreditationsCODELCOScreen from '../Screens/Accreditations/AccreditationsCODELCO/AddAccreditationsCODELCOScreen';
+import DetailsAccreditationsCODELCOScreen from '../Screens/Accreditations/AccreditationsCODELCO/DetailsAccreditationsCODELCOScreen';
+import EditAccreditationsCODELCOScreen from '../Screens/Accreditations/AccreditationsCODELCO/EditAccreditationsCODELCOScreen';
 
 import ListContractWorkerScreen from '../Screens/ContractWorkers/ListContractWorkerScreen';
 import AddContractWorkerScreen from '../Screens/ContractWorkers/AddContractWorkerScreen';
@@ -46,15 +55,15 @@ import AddReportFTEScreen from '../Screens/ReportFTE/AddReportFTEScreen';
 import DetailsReportFTEScreen from '../Screens/ReportFTE/DetailsReportFTEScreen';
 import EditReportFTEScreen from '../Screens/ReportFTE/EditReportFTEScreen';
 
-import SectionsScreen from '../Screens/Sections/SectionsScreen';
-import PickupTrucksSectionsScreen from '../Screens/Sections/PickupTrucksSectionsScreen';
-import MiningSectionsScreen from '../Screens/Sections/MiningSectionsScreen';
+import ListInternalTrainingsScreen from '../Screens/Trainings/InternalTrainings/ListInternalTrainingsScreen';
+import AddInternalTrainingsScreen from '../Screens/Trainings/InternalTrainings/AddInternalTrainingsScreen';
+import DetailsInternalTrainingsScreen from '../Screens/Trainings/InternalTrainings/DetailsInternalTrainingsScreen';
+import EditInternalTrainingsScreen from '../Screens/Trainings/InternalTrainings/EditInternalTrainingsScreen';
 
-
-import ListTrainingsScreen from '../Screens/Trainings/ListTrainingsScreen';
-import AddTrainingsScreen from '../Screens/Trainings/AddTrainingsScreen';
-import DetailsTrainingsScreen from '../Screens/Trainings/DetailsTrainingsScreen';
-import EditTrainingsScreen from '../Screens/Trainings/EditTrainingsScreen';
+import ListExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/ListExternalTrainingsScreen';
+import AddExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/AddExternalTrainingsScreen';
+import DetailsExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/DetailsExternalTrainingsScreen';
+import EditExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/EditExternalTrainingsScreen';
 
 import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 import ShowImageScreen from '../Screens/UploadDownload/ShowImageScreen';
@@ -69,11 +78,20 @@ export default function Navigation() {
         <Stack.Navigator>
 
           <Stack.Screen name="Iniciar Sesión" component={LoginScreen} />
+          <Stack.Screen name="Secciones" component={SectionsScreen} />
+          <Stack.Screen name="Sección Camionetas" component={PickupTrucksSectionsScreen} />  
+          <Stack.Screen name="Sección Acreditaciones de Minería" component={MiningSectionsScreen} />   
+          <Stack.Screen name="Sección Capacitaciones" component={TrainingSectionsScreen} /> 
 
           <Stack.Screen name="Lista de Acreditaciones MEL" component={ListAccreditationsMELScreen} /> 
           <Stack.Screen name="Agregar Acreditación MEL" component={AddAccreditationsMELScreen} /> 
           <Stack.Screen name="Detalles de Acreditación MEL" component={DetailsAccreditationsMELScreen} /> 
           <Stack.Screen name="Modificar Acreditación MEL" component={EditAccreditationsMELScreen} /> 
+
+          <Stack.Screen name="Lista de Acreditaciones CODELCO" component={ListAccreditationsCODELCOScreen} /> 
+          <Stack.Screen name="Agregar Acreditación CODELCO" component={AddAccreditationsCODELCOScreen} /> 
+          <Stack.Screen name="Detalles de Acreditación CODELCO" component={DetailsAccreditationsCODELCOScreen} /> 
+          <Stack.Screen name="Modificar Acreditación CODELCO" component={EditAccreditationsCODELCOScreen} /> 
 
           <Stack.Screen name="Lista de Trabajadores de Contrato" component={ListContractWorkerScreen} />
           <Stack.Screen name="Agregar Trabajador de Contrato" component={AddContractWorkerScreen} />
@@ -110,14 +128,15 @@ export default function Navigation() {
           <Stack.Screen name="Detalles de Reporte FTE" component={DetailsReportFTEScreen} />
           <Stack.Screen name="Modificar Reporte FTE" component={EditReportFTEScreen} />
 
-          <Stack.Screen name="Secciones" component={SectionsScreen} />
-          <Stack.Screen name="Sección Camionetas" component={PickupTrucksSectionsScreen} />  
-          <Stack.Screen name="Sección Acreditaciones de Minería" component={MiningSectionsScreen} />   
+          <Stack.Screen name="Lista de Capacitaciones Internas" component={ListInternalTrainingsScreen} />
+          <Stack.Screen name="Agregar Capacitación Interna" component={AddInternalTrainingsScreen} />
+          <Stack.Screen name="Detalles de Capacitación Interna" component={DetailsInternalTrainingsScreen} />
+          <Stack.Screen name="Modificar Capacitación Interna" component={EditInternalTrainingsScreen} />
 
-          <Stack.Screen name="Lista de Capacitaciones" component={ListTrainingsScreen} />
-          <Stack.Screen name="Agregar Capacitación" component={AddTrainingsScreen} />
-          <Stack.Screen name="Detalles de Capacitación" component={DetailsTrainingsScreen} />
-          <Stack.Screen name="Modificar Capacitación" component={EditTrainingsScreen} />
+          <Stack.Screen name="Lista de Capacitaciones Externas" component={ListExternalTrainingsScreen} />
+          <Stack.Screen name="Agregar Capacitación Externa" component={AddExternalTrainingsScreen} />
+          <Stack.Screen name="Detalles de Capacitación Externa" component={DetailsExternalTrainingsScreen} />
+          <Stack.Screen name="Modificar Capacitación Externa" component={EditExternalTrainingsScreen} />
 
           <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
           <Stack.Screen name="Ver Imagen" component={ShowImageScreen} />

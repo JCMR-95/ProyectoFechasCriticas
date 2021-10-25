@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
-const ListTrainingsScreen = (props) => {
+const ListExternalTrainingsScreen = (props) => {
 
   const [trainings, setTrainings] = useState([]);
 
@@ -19,7 +19,7 @@ const ListTrainingsScreen = (props) => {
   );
 
   useEffect(() => {
-    firebase.db.collection("Capacitaciones").onSnapshot((querySnapshot) => {
+    firebase.db.collection("CapacitacionesExternas").onSnapshot((querySnapshot) => {
       const trainings = [];
       querySnapshot.docs.forEach((doc) => {
         const { nameTraining, initiationDate, expirationDate, trainingPlace } = doc.data();
@@ -78,20 +78,20 @@ const ListTrainingsScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Capacitación" onPress = {() => props.navigation.navigate('Agregar Capacitación')}/>
+        <Button title = "Agregar Capacitación Externa" onPress = {() => props.navigation.navigate('Agregar Capacitación Externa')}/>
         {
           trainings.map(training => {
             return(
               <ListItem key={training.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Capacitación", {
+                  props.navigation.navigate("Detalles de Capacitación Externa", {
                     trainingId: training.id,
                   });
                 }}
               >
                 <ListItem.Chevron />
                 <Avatar
-                  source={require('../../logos/IconoValorice.png')}
+                  source={require('../../../logos/IconoValorice.png')}
                   rounded
                 />
                 
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ListTrainingsScreen;
+export default ListExternalTrainingsScreen;

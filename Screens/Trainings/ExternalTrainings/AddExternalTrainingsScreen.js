@@ -1,41 +1,61 @@
   
 import React, { useState } from 'react';
-import { TextInput, View, StyleSheet, Button, Alert, ScrollView } from 'react-native';
+import { TextInput, View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
+import { Switch } from 'react-native-switch';
  
-const AddTrainingsScreen = (props) => {
+const AddExternalTrainingsScreen = (props) => {
   
-    const [state, setState] = useState({
+      const [state, setState] = useState({
         nameTraining: '',
         initiationDate: '',
         expirationDate: '',
-        trainingPlace: ''
+        trainingPlace: '',
+        miningCompany: '',
+        rapporteurTraining: ''
 
       });
+
+      const [associatedCost, setAssociatedCost] = useState(false);
+      const associatedCostSwitch = () => setAssociatedCost(previousState => !previousState);
     
       const handleChangeText = (value, dato) => {
         setState({ ...state, [dato]: value });
       };
     
       const saveData = async () => {
-        if (state.nameTraining === "" || state.initiationDate === "" || state.expirationDate === "" || state.trainingPlace === "") {
+        if (state.nameTraining === "" || state.initiationDate === "" || state.expirationDate === "" || state.trainingPlace === "" || state.miningCompany == "" || state.rapporteurTraining === "") {
           Alert.alert("Debes completar los Campos")
         } else {
+
+          var associatedCostString = convertToString(associatedCost);
     
           try {
-            await firebase.db.collection("Capacitaciones").add({
+            await firebase.db.collection("CapacitacionesExternas").add({
                 nameTraining: state.nameTraining,
                 initiationDate: state.initiationDate,
                 expirationDate: state.expirationDate,
                 trainingPlace: state.trainingPlace,
+                miningCompany: state.miningCompany,
+                rapporteurTraining: state.rapporteurTraining,
+                associatedCost: associatedCostString
             });
             Alert.alert("Datos Ingresados!");
-            props.navigation.navigate('Lista de Capacitaciones');
+            props.navigation.navigate('Lista de Capacitaciones Externas');
     
           } catch (error) {
             console.log(error)
           }
+        }
+      };
+
+      const convertToString = (switchToString) => {
+        
+        if(switchToString){
+            return "Sí";
+        }else{
+            return "No";
         }
       };
     
@@ -110,6 +130,38 @@ const AddTrainingsScreen = (props) => {
                 value={state.trainingPlace}
               />
             </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Compañía minera"
+                onChangeText={(value) => handleChangeText(value, "miningCompany")}
+                value={state.miningCompany}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Relator de Capacitación"
+                onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
+                value={state.rapporteurTraining}
+              />
+            </View>
+
+            <Text style={styles.textTitle}>
+                    {"  ¿Tiene un costo asociado?"}
+            </Text>
+
+            <View style={styles.switch}>
+                    <Switch
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={associatedCost ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={associatedCostSwitch}
+                        value={associatedCost}
+                        activeText={'Sí'}
+                        inActiveText={'No'}
+                    />
+                </View>
       
             <View style={styles.button}>
               <Button title ="Guardar Datos" onPress = {() => saveData()}/>
@@ -148,6 +200,14 @@ const styles = StyleSheet.create({
         borderBottomColor: "#cccccc",
         backgroundColor: "white",
     },
+    textTitle: {
+      padding: 0,
+      marginBottom: 15,
+      borderBottomWidth: 1,
+      borderRadius: 8,
+      borderBottomColor: "#cccccc",
+      backgroundColor: "#B6B6B6",
+    },
     loader: {
         left: 0,
         right: 0,
@@ -157,6 +217,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    switch: {
+      padding: 0,
+      marginBottom: 15,
+      borderRadius: 8,
+  },
   });
 
-export default AddTrainingsScreen;
+export default AddExternalTrainingsScreen;

@@ -8,9 +8,9 @@ import {
   Alert,
   ActivityIndicator
 } from "react-native";
-import firebase from '../../database/firebase';
+import firebase from '../../../database/firebase';
 
-const DetailsTrainingsScreen = (props) => {
+const DetailsInternalTrainingsScreen = (props) => {
 
     const initialState = {
         id: '',
@@ -28,7 +28,7 @@ const DetailsTrainingsScreen = (props) => {
     };
 
     const getTraining = async(id) => {
-        const dbRef = firebase.db.collection("Capacitaciones").doc(id);
+        const dbRef = firebase.db.collection("CapacitacionesInternas").doc(id);
         const doc = await dbRef.get();
         const training = doc.data();
         setTraining({ ...training, id: doc.id });
@@ -38,11 +38,11 @@ const DetailsTrainingsScreen = (props) => {
     const deleteTraining = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("Capacitaciones")
+        .collection("CapacitacionesInternas")
         .doc(props.route.params.trainingId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Capacitaciones");
+        props.navigation.navigate("Lista de Capacitaciones Internas");
     };
 
     const confirmationAlert = () => {
@@ -142,7 +142,7 @@ const DetailsTrainingsScreen = (props) => {
             </View>
       
             <Button color = "blue" title ="Modificar Capacitación" onPress = {() => {
-              props.navigation.navigate("Modificar Capacitación", {
+              props.navigation.navigate("Modificar Capacitación Interna", {
                 trainingId: training.id,
               });
             }}/>
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsTrainingsScreen;
+export default DetailsInternalTrainingsScreen;

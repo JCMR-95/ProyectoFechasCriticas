@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import firebase from '../../../database/firebase';
 
-const DetailsAccreditationsMELScreen = (props) => {
+const DetailsAccreditationsCODELCOScreen = (props) => {
 
     const initialState = {
         id: '',
@@ -20,29 +20,29 @@ const DetailsAccreditationsMELScreen = (props) => {
         currentExam: ''
     };
 
-    const [accreditationMEL, setAccreditationMEL] = useState(initialState);
+    const [accreditationCODELCO, setAccreditationCODELCO] = useState(initialState);
     const [loading, setLoading] = useState(true);
 
     const handleChangeText = (value, dato) => {
-        setAccreditationMEL({ ...accreditationMEL, [dato]: value });
+        setAccreditationCODELCO({ ...accreditationCODELCO, [dato]: value });
     };
 
-    const getAccreditationMEL = async(id) => {
-        const dbRef = firebase.db.collection("AcreditacionesMEL").doc(id);
+    const getAccreditationCODELCO = async(id) => {
+        const dbRef = firebase.db.collection("AcreditacionesCODELCO").doc(id);
         const doc = await dbRef.get();
-        const accreditationMEL = doc.data();
-        setAccreditationMEL({ ...accreditationMEL, id: doc.id });
+        const accreditationCODELCO = doc.data();
+        setAccreditationCODELCO({ ...accreditationCODELCO, id: doc.id });
         setLoading(false);
     }
 
-    const deleteAccreditationMEL = async () => {
+    const deleteAccreditationCODELCO = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("AcreditacionesMEL")
+        .collection("AcreditacionesCODELCO")
         .doc(props.route.params.accreditationId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Acreditaciones MEL");
+        props.navigation.navigate("Lista de Acreditaciones CODELCO");
     };
 
     const confirmationAlert = () => {
@@ -50,7 +50,7 @@ const DetailsAccreditationsMELScreen = (props) => {
         "Borrar Acreditación",
         "¿Estás seguro de borrar esta Acreditación?",
         [
-            { text: "Sí", onPress: () => deleteAccreditationMEL() },
+            { text: "Sí", onPress: () => deleteAccreditationCODELCO() },
             { text: "No" },
         ],
         {
@@ -60,7 +60,7 @@ const DetailsAccreditationsMELScreen = (props) => {
     };
 
     useEffect(() => {
-        getAccreditationMEL(props.route.params.accreditationId)
+        getAccreditationCODELCO(props.route.params.accreditationId)
     }, [])
 
     if (loading) {
@@ -79,7 +79,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "nameAccreditation")}
-                    value={accreditationMEL.nameAccreditation}
+                    value={accreditationCODELCO.nameAccreditation}
                     editable={false}
                 />
             </View>
@@ -87,7 +87,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "antecedentsCertificate")}
-                    value={"Certificado de antecedentes vigente: " + accreditationMEL.antecedentsCertificate}
+                    value={"Certificado de antecedentes vigente: " + accreditationCODELCO.antecedentsCertificate}
                     editable={false}
                 />
             </View>
@@ -95,7 +95,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "attachedContract")}
-                    value={"Contrato de trabajo adjunto: " + accreditationMEL.attachedContract}
+                    value={"Contrato de trabajo adjunto: " + accreditationCODELCO.attachedContract}
                     editable={false}
                 />
             </View>
@@ -103,14 +103,14 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "currentExam")}
-                    value={"Examen Ocupacional: " + accreditationMEL.currentExam}
+                    value={"Examen Ocupacional: " + accreditationCODELCO.currentExam}
                     editable={false}
                 />
             </View>
 
             <Button color = "blue" title ="Modificar Acreditación" onPress = {() => {
-              props.navigation.navigate("Modificar Acreditación MEL", {
-                accreditationMELId: accreditationMEL.id,
+              props.navigation.navigate("Modificar Acreditación CODELCO", {
+                accreditationCODELCOId: accreditationCODELCO.id,
               });
             }}/>
 
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsAccreditationsMELScreen;
+export default DetailsAccreditationsCODELCOScreen;

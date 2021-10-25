@@ -4,7 +4,7 @@ import { Text, TextInput, View, StyleSheet, Button, Alert, ScrollView } from 're
 import { Switch } from 'react-native-switch';
 import firebase from '../../../database/firebase';
  
-const AddAccreditationsMELScreen = (props) => {
+const AddAccreditationsCODELCOScreen = (props) => {
   
     const [state, setState] = useState({
         nameAccreditation: ''
@@ -30,14 +30,14 @@ const AddAccreditationsMELScreen = (props) => {
         var currentExamContractString = convertToString(currentExam);
 
         try {
-            await firebase.db.collection("AcreditacionesMEL").add({
+            await firebase.db.collection("AcreditacionesCODELCO").add({
                 nameAccreditation: state.nameAccreditation,
                 antecedentsCertificate: antecedentsCertificateString,
                 attachedContract: attachedContractString,
                 currentExam: currentExamContractString
             });
             Alert.alert("Datos Ingresados!");
-            props.navigation.navigate('Lista de Acreditaciones MEL');
+            props.navigation.navigate('Lista de Acreditaciones CODELCO');
 
         } catch (error) {
         console.log(error)
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default AddAccreditationsMELScreen;
+export default AddAccreditationsCODELCOScreen;
