@@ -10,7 +10,8 @@ const AddInternalTrainingsScreen = (props) => {
         nameTraining: '',
         initiationDate: '',
         expirationDate: '',
-        trainingPlace: ''
+        trainingPlace: '',
+        rapporteurTraining: ''
 
       });
     
@@ -19,7 +20,7 @@ const AddInternalTrainingsScreen = (props) => {
       };
     
       const saveData = async () => {
-        if (state.nameTraining === "" || state.initiationDate === "" || state.expirationDate === "" || state.trainingPlace === "") {
+        if (state.nameTraining === "" || state.initiationDate === "" || state.expirationDate === "" || state.trainingPlace === "" || state.rapporteurTraining === "") {
           Alert.alert("Debes completar los Campos")
         } else {
     
@@ -29,6 +30,7 @@ const AddInternalTrainingsScreen = (props) => {
                 initiationDate: state.initiationDate,
                 expirationDate: state.expirationDate,
                 trainingPlace: state.trainingPlace,
+                rapporteurTraining: state.rapporteurTraining
             });
             Alert.alert("Datos Ingresados!");
             props.navigation.navigate('Lista de Capacitaciones Internas');
@@ -108,6 +110,14 @@ const AddInternalTrainingsScreen = (props) => {
                 placeholder="  Lugar donde se gestiona"
                 onChangeText={(value) => handleChangeText(value, "trainingPlace")}
                 value={state.trainingPlace}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Relator de Capacitación"
+                onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
+                value={state.rapporteurTraining}
               />
             </View>
       

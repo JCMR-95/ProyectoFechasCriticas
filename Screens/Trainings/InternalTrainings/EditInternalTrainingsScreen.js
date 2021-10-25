@@ -17,7 +17,8 @@ const EditInternalTrainingsScreen = (props) => {
         nameTraining: '',
         initiationDate: '',
         expirationDate: '',
-        trainingPlace: ''
+        trainingPlace: '',
+        rapporteurTraining: ''
     };
 
     const [training, setTraining] = useState(initialState);
@@ -37,7 +38,7 @@ const EditInternalTrainingsScreen = (props) => {
 
     const editTraining = async () => {
 
-      if (training.nameTraining === "" || training.initiationDate === "" || training.expirationDate === "" || training.trainingPlace === "") {
+      if (training.nameTraining === "" || training.initiationDate === "" || training.expirationDate === "" || training.trainingPlace === "" || training.rapporteurTraining === "") {
         Alert.alert("Debes completar los Campos")
       } else {
 
@@ -55,6 +56,7 @@ const EditInternalTrainingsScreen = (props) => {
               initiationDate: training.initiationDate,
               expirationDate: training.expirationDate,
               trainingPlace: training.trainingPlace,
+              rapporteurTraining: training.rapporteurTraining
           });
           Alert.alert("Datos Actualizados!");
           props.navigation.navigate('Lista de Capacitaciones Internas');
@@ -152,6 +154,13 @@ const EditInternalTrainingsScreen = (props) => {
                 onDateChange={(value) => handleChangeText(value, "expirationDate")}
                 value={training.expirationDate}
               />
+            </View>
+
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
+                    value={training.rapporteurTraining}
+                />
             </View>
 
             <View style={styles.text}>

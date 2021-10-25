@@ -17,7 +17,8 @@ const DetailsInternalTrainingsScreen = (props) => {
         nameTraining: '',
         initiationDate: '',
         expirationDate: '',
-        trainingPlace: ''
+        trainingPlace: '',
+        rapporteurTraining: ''
     };
 
     const [training, setTraining] = useState(initialState);
@@ -137,6 +138,14 @@ const DetailsInternalTrainingsScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "trainingPlace")}
                     value={"Lugar de Capacitación: " +training.trainingPlace}
+                    editable={false}
+                />
+            </View>
+
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
+                    value={"Relator: " +training.rapporteurTraining}
                     editable={false}
                 />
             </View>
