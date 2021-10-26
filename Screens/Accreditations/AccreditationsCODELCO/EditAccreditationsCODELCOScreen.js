@@ -41,14 +41,13 @@ const EditAccreditationsCODELCOScreen = (props) => {
         const doc = await dbRef.get();
         const accreditationCODELCO = doc.data();
         setAccreditationCODELCO({ ...accreditationCODELCO, id: doc.id });
+        setAntecedentsCertificate(accreditationCODELCO.antecedentsCertificate);
+        setAttachedContract(accreditationCODELCO.attachedContract);
+        setCurrentExam(accreditationCODELCO.currentExam);
         setLoading(false);
     }
 
     const editAccreditationCODELCO = async () => {
-
-      var antecedentsCertificateString = convertToString(antecedentsCertificate);
-      var attachedContractString = convertToString(attachedContract);
-      var currentExamContractString = convertToString(currentExam);
 
       if (accreditationCODELCO.nameAccreditation === "") {
         Alert.alert("Debes completar los Campos")
@@ -64,9 +63,9 @@ const EditAccreditationsCODELCOScreen = (props) => {
           try {
             await firebase.db.collection("AcreditacionesCODELCO").add({
               nameAccreditation: accreditationCODELCO.nameAccreditation,
-              antecedentsCertificate: antecedentsCertificateString,
-              attachedContract: attachedContractString,
-              currentExam: currentExamContractString
+              antecedentsCertificate: antecedentsCertificate,
+              attachedContract: attachedContract,
+              currentExam: currentExam
             });
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Acreditaciones CODELCO');
@@ -74,16 +73,6 @@ const EditAccreditationsCODELCOScreen = (props) => {
         } catch (error) {
             console.log(error)
         }
-      }
-    };
-
-    
-    const convertToString = (switchToString) => {
-        
-      if(switchToString){
-          return "Sí";
-      }else{
-          return "No";
       }
     };
 

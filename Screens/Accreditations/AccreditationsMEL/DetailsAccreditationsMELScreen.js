@@ -71,6 +71,15 @@ const DetailsAccreditationsMELScreen = (props) => {
         );
     }
 
+    const convertToString = (switchToString) => {
+        
+      if(switchToString){
+          return "Sí";
+      }else{
+          return "No";
+      }
+    };
+
 
     return (
         <View style={styles.container}>
@@ -87,7 +96,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "antecedentsCertificate")}
-                    value={"Certificado de antecedentes vigente: " + accreditationMEL.antecedentsCertificate}
+                    value={"Certificado de antecedentes vigente: " + convertToString(accreditationMEL.antecedentsCertificate)}
                     editable={false}
                 />
             </View>
@@ -95,7 +104,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "attachedContract")}
-                    value={"Contrato de trabajo adjunto: " + accreditationMEL.attachedContract}
+                    value={"Contrato de trabajo adjunto: " + convertToString(accreditationMEL.attachedContract)}
                     editable={false}
                 />
             </View>
@@ -103,7 +112,7 @@ const DetailsAccreditationsMELScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "currentExam")}
-                    value={"Examen Ocupacional: " + accreditationMEL.currentExam}
+                    value={"Examen Ocupacional: " + convertToString(accreditationMEL.currentExam)}
                     editable={false}
                 />
             </View>

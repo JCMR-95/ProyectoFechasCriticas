@@ -41,14 +41,13 @@ const EditAccreditationsMELScreen = (props) => {
         const doc = await dbRef.get();
         const accreditationMEL = doc.data();
         setAccreditationMEL({ ...accreditationMEL, id: doc.id });
+        setAntecedentsCertificate(accreditationMEL.antecedentsCertificate);
+        setAttachedContract(accreditationMEL.attachedContract);
+        setCurrentExam(accreditationMEL.currentExam);
         setLoading(false);
     }
 
     const editAccreditationMEL = async () => {
-
-      var antecedentsCertificateString = convertToString(antecedentsCertificate);
-      var attachedContractString = convertToString(attachedContract);
-      var currentExamContractString = convertToString(currentExam);
 
       if (accreditationMEL.nameAccreditation === "") {
         Alert.alert("Debes completar los Campos")
@@ -64,9 +63,9 @@ const EditAccreditationsMELScreen = (props) => {
           try {
             await firebase.db.collection("AcreditacionesMEL").add({
               nameAccreditation: accreditationMEL.nameAccreditation,
-              antecedentsCertificate: antecedentsCertificateString,
-              attachedContract: attachedContractString,
-              currentExam: currentExamContractString
+              antecedentsCertificate: antecedentsCertificate,
+              attachedContract: attachedContract,
+              currentExam: currentExam
             });
             Alert.alert("Datos Actualizados!");
             props.navigation.navigate('Lista de Acreditaciones MEL');
@@ -74,16 +73,6 @@ const EditAccreditationsMELScreen = (props) => {
         } catch (error) {
             console.log(error)
         }
-      }
-    };
-
-    
-    const convertToString = (switchToString) => {
-        
-      if(switchToString){
-          return "Sí";
-      }else{
-          return "No";
       }
     };
 

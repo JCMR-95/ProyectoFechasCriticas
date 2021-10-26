@@ -28,9 +28,7 @@ const AddExternalTrainingsScreen = (props) => {
         if (state.nameTraining === "" || state.initiationDate === "" || state.expirationDate === "" || state.trainingPlace === "" || state.miningCompany == "" || state.rapporteurTraining === "") {
           Alert.alert("Debes completar los Campos")
         } else {
-
-          var associatedCostString = convertToString(associatedCost);
-    
+ 
           try {
             await firebase.db.collection("CapacitacionesExternas").add({
                 nameTraining: state.nameTraining,
@@ -39,7 +37,7 @@ const AddExternalTrainingsScreen = (props) => {
                 trainingPlace: state.trainingPlace,
                 miningCompany: state.miningCompany,
                 rapporteurTraining: state.rapporteurTraining,
-                associatedCost: associatedCostString
+                associatedCost: associatedCost
             });
             Alert.alert("Datos Ingresados!");
             props.navigation.navigate('Lista de Capacitaciones Externas');
@@ -50,15 +48,6 @@ const AddExternalTrainingsScreen = (props) => {
         }
       };
 
-      const convertToString = (switchToString) => {
-        
-        if(switchToString){
-            return "Sí";
-        }else{
-            return "No";
-        }
-      };
-    
       return(
         <View style={styles.container}>
           <ScrollView style={styles.scroll}>

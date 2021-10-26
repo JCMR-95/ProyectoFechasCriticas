@@ -95,6 +95,15 @@ const DetailsExternalTrainingsScreen = (props) => {
       return todayDate;
     }
 
+    const convertToString = (switchToString) => {
+        
+      if(switchToString){
+          return "Sí";
+      }else{
+          return "No";
+      }
+    };
+
 
     useEffect(() => {
         getTraining(props.route.params.trainingId)
@@ -163,7 +172,7 @@ const DetailsExternalTrainingsScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "associatedCost")}
-                    value={"Costo asociado: " +training.associatedCost}
+                    value={"Costo asociado: " + convertToString(training.associatedCost)}
                     editable={false}
                 />
             </View>

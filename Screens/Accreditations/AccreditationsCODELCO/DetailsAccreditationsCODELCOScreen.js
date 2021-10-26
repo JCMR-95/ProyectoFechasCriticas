@@ -63,6 +63,15 @@ const DetailsAccreditationsCODELCOScreen = (props) => {
         getAccreditationCODELCO(props.route.params.accreditationId)
     }, [])
 
+    const convertToString = (switchToString) => {
+        
+      if(switchToString){
+          return "Sí";
+      }else{
+          return "No";
+      }
+    };
+
     if (loading) {
         return (
         <View style={styles.loader}>
@@ -70,7 +79,6 @@ const DetailsAccreditationsCODELCOScreen = (props) => {
         </View>
         );
     }
-
 
     return (
         <View style={styles.container}>
@@ -87,7 +95,7 @@ const DetailsAccreditationsCODELCOScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "antecedentsCertificate")}
-                    value={"Certificado de antecedentes vigente: " + accreditationCODELCO.antecedentsCertificate}
+                    value={"Certificado de antecedentes vigente: " + convertToString(accreditationCODELCO.antecedentsCertificate)}
                     editable={false}
                 />
             </View>
@@ -95,7 +103,7 @@ const DetailsAccreditationsCODELCOScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "attachedContract")}
-                    value={"Contrato de trabajo adjunto: " + accreditationCODELCO.attachedContract}
+                    value={"Contrato de trabajo adjunto: " + convertToString(accreditationCODELCO.attachedContract)}
                     editable={false}
                 />
             </View>
@@ -103,7 +111,7 @@ const DetailsAccreditationsCODELCOScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "currentExam")}
-                    value={"Examen Ocupacional: " + accreditationCODELCO.currentExam}
+                    value={"Examen Ocupacional: " + convertToString(accreditationCODELCO.currentExam)}
                     editable={false}
                 />
             </View>

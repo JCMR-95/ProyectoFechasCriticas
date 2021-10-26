@@ -25,16 +25,12 @@ const AddAccreditationsCODELCOScreen = (props) => {
 
     const saveData = async () => {
 
-        var antecedentsCertificateString = convertToString(antecedentsCertificate);
-        var attachedContractString = convertToString(attachedContract);
-        var currentExamContractString = convertToString(currentExam);
-
         try {
             await firebase.db.collection("AcreditacionesCODELCO").add({
                 nameAccreditation: state.nameAccreditation,
-                antecedentsCertificate: antecedentsCertificateString,
-                attachedContract: attachedContractString,
-                currentExam: currentExamContractString
+                antecedentsCertificate: antecedentsCertificate,
+                attachedContract: attachedContract,
+                currentExam: currentExam
             });
             Alert.alert("Datos Ingresados!");
             props.navigation.navigate('Lista de Acreditaciones CODELCO');
@@ -43,15 +39,6 @@ const AddAccreditationsCODELCOScreen = (props) => {
         console.log(error)
         }
         
-    };
-
-    const convertToString = (switchToString) => {
-        
-        if(switchToString){
-            return "Sí";
-        }else{
-            return "No";
-        }
     };
 
     return(

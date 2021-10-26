@@ -39,6 +39,7 @@ const EditExternalTrainingsScreen = (props) => {
         const doc = await dbRef.get();
         const training = doc.data();
         setTraining({ ...training, id: doc.id });
+        setAssociatedCost(training.associatedCost);
         setLoading(false);
     }
 
@@ -56,8 +57,6 @@ const EditExternalTrainingsScreen = (props) => {
         setLoading(false)
         props.navigation.navigate("Lista de Capacitaciones Externas");
 
-        var associatedCostString = convertToString(associatedCost);
-
         try {
           await firebase.db.collection("CapacitacionesExternas").add({
               nameTraining: training.nameTraining,
@@ -66,7 +65,7 @@ const EditExternalTrainingsScreen = (props) => {
               trainingPlace: training.trainingPlace,
               miningCompany: training.miningCompany,
               rapporteurTraining: training.rapporteurTraining,
-              associatedCost: associatedCostString
+              associatedCost: associatedCost
           });
           Alert.alert("Datos Actualizados!");
           props.navigation.navigate('Lista de Capacitaciones Externas');
@@ -74,15 +73,6 @@ const EditExternalTrainingsScreen = (props) => {
         } catch (error) {
           console.log(error)
         }
-      }
-    };
-
-    const convertToString = (switchToString) => {
-        
-      if(switchToString){
-          return "Sí";
-      }else{
-          return "No";
       }
     };
 
