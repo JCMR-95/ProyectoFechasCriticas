@@ -158,15 +158,15 @@ const EditInternalTrainingsScreen = (props) => {
 
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
-                    value={training.rapporteurTraining}
+                    onChangeText={(value) => handleChangeText(value, "trainingPlace")}
+                    value={training.trainingPlace}
                 />
             </View>
 
             <View style={styles.text}>
                 < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "trainingPlace")}
-                    value={training.trainingPlace}
+                    onChangeText={(value) => handleChangeText(value, "rapporteurTraining")}
+                    value={training.rapporteurTraining}
                 />
             </View>
       

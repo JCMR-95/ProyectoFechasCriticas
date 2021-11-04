@@ -34,12 +34,6 @@ class LoginScreen extends Component {
 
   }
 
-  op = async() => { 
-
-    this.props.navigation.navigate('Secciones')
-
-  }
-
   render() {
 
     return (
@@ -57,11 +51,6 @@ class LoginScreen extends Component {
         <View style = {styles.button}>
           <Button title = "Ingresar" onPress = {this.confirmacion}/>
         </View>
-
-        <View style = {styles.button}>
-          <Button title = "OP" onPress = {this.op}/>
-        </View>
-
       </View>
     )
   }
