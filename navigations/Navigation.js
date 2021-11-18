@@ -65,6 +65,11 @@ import AddExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/A
 import DetailsExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/DetailsExternalTrainingsScreen';
 import EditExternalTrainingsScreen from '../Screens/Trainings/ExternalTrainings/EditExternalTrainingsScreen';
 
+import ListHolidaysWorkersScreen from '../Screens/HolidaysWorkers/ListHolidaysWorkersScreen';
+import AddHolidaysWorkerScreen from '../Screens/HolidaysWorkers/AddHolidaysWorkerScreen';
+import DetailsHolidaysWorkerScreen from '../Screens/HolidaysWorkers/DetailsHolidaysWorkerScreen';
+import EditHolidaysWorkerScreen from '../Screens/HolidaysWorkers/EditHolidaysWorkerScreen';
+
 import UploadImageScreen from '../Screens/UploadDownload/UploadImageScreen';
 import ShowImageScreen from '../Screens/UploadDownload/ShowImageScreen';
 import ListImagesStorageScreen from '../Screens/UploadDownload/ListImagesStorageScreen';
@@ -137,6 +142,11 @@ export default function Navigation() {
           <Stack.Screen name="Agregar Capacitación Externa" component={AddExternalTrainingsScreen} />
           <Stack.Screen name="Detalles de Capacitación Externa" component={DetailsExternalTrainingsScreen} />
           <Stack.Screen name="Modificar Capacitación Externa" component={EditExternalTrainingsScreen} />
+
+          <Stack.Screen name="Lista de Vacaciones de Trabajador" component={ListHolidaysWorkersScreen} />
+          <Stack.Screen name="Agregar Vacaciones de Trabajador" component={AddHolidaysWorkerScreen} />
+          <Stack.Screen name="Detalles de Vacaciones de Trabajador" component={DetailsHolidaysWorkerScreen} />
+          <Stack.Screen name="Modificar Vacaciones de Trabajador" component={EditHolidaysWorkerScreen} />
 
           <Stack.Screen name="Subir Imagen" component={UploadImageScreen} />
           <Stack.Screen name="Ver Imagen" component={ShowImageScreen} />

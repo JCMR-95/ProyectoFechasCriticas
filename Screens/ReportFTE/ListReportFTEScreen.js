@@ -54,7 +54,7 @@ const ListReportFTEScreen = (props) => {
 
     var critical = false;
 
-    if((numericDeliveryDate >= -30)){
+    if((numericDeliveryDate >= -15)){
       critical = true;
     }
     return critical;

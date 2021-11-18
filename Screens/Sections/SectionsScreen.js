@@ -30,6 +30,9 @@ const SectionsScreen = (props) => {
         <View style={styles.button}>
           <Button title ="Trabajadores de Contrato" onPress = {() => props.navigation.navigate('Lista de Trabajadores de Contrato')}/>
         </View>  
+        <View style={styles.button}>
+          <Button title ="Vacaciones Trabajadores" onPress = {() => props.navigation.navigate('Lista de Vacaciones de Trabajador')}/>
+        </View> 
         <View style={styles.buttonUpload}>
           <Button title ="Subir Imagen" onPress = {() => props.navigation.navigate('Subir Imagen')}/>
         </View>  

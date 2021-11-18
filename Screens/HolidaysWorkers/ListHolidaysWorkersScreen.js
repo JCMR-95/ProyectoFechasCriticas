@@ -3,9 +3,9 @@ import { ActivityIndicator, Button, ScrollView, StyleSheet, View } from "react-n
 import { ListItem, Avatar } from "react-native-elements";
 import firebase from '../../database/firebase';
 
-const ListContractWorkerScreen = (props) => {
+const ListHolidaysWorkersScreen = (props) => {
   
-  const [contracts, setContracts] = useState([]);
+  const [holidays, setHolidays] = useState([]);
 
   const [loading, setLoading] = useState({
     isLoading: true
@@ -19,43 +19,38 @@ const ListContractWorkerScreen = (props) => {
   );
 
   useEffect(() => {
-    firebase.db.collection("TrabajadoresContrato").onSnapshot((querySnapshot) => {
-      const contracts = [];
+    firebase.db.collection("VacacionesTrabajadores").onSnapshot((querySnapshot) => {
+      const holidays = [];
       querySnapshot.docs.forEach((doc) => {
-        const { nameWorker, contractAssigned, initiationDate, expirationDate} = doc.data();
-        contracts.push({
+        const { nameWorker, entranceValoriceDate, beginningHolidaysDate, finishHolidaysDate} = doc.data();
+        holidays.push({
           id: doc.id,
           nameWorker,
-          contractAssigned,
-          initiationDate,
-          expirationDate
+          entranceValoriceDate,
+          beginningHolidaysDate,
+          finishHolidaysDate
         });
       });
-      contracts.sort(function(a, b) {
+      holidays.sort(function(a, b) {
         var textA = a.nameWorker.toUpperCase();
         var textB = b.nameWorker.toUpperCase();
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
       });
-      setContracts(contracts);
+      setHolidays(holidays);
     });
   }, []);
 
-  var sortArrayAlfabetically = (contracts) => {
 
-
-    return 0;
-  }
-
-  var criticalDate = (expirationDate) => {
+  var criticalDate = (entranceValoriceDate) => {
   
     var todayDate = getTodayDate();
 
-    var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
-    var numericExpirationDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+    var subtractionDates = new Date(todayDate).getTime() - new Date(entranceValoriceDate).getTime();
+    var numericEntranceValoriceDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
 
     var critical = false;
 
-    if(numericExpirationDate >= -60){
+    if(numericEntranceValoriceDate >= 365){
       critical = true;
     }
     return critical;
@@ -84,14 +79,14 @@ const ListContractWorkerScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Trabajador asignado a un Contrato" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
+        <Button title = "Agregar Vacaciones de Trabajador" onPress = {() => props.navigation.navigate('Agregar Vacaciones de Trabajador')}/>
         {
-          contracts.map(contract => {
+          holidays.map(holiday => {
             return(
-              <ListItem key={contract.id} bottomDivider
+              <ListItem key={holiday.id} bottomDivider
                 onPress={() => {
-                  props.navigation.navigate("Detalles de Trabajador de Contrato", {
-                    contractId: contract.id,
+                  props.navigation.navigate("Detalles de Vacaciones de Trabajador", {
+                    holidayId: holiday.id,
                   });
                 }}
               >
@@ -100,10 +95,10 @@ const ListContractWorkerScreen = (props) => {
                 source={require('../../logos/IconoValorice.png')}
                 rounded
               />
-              <View style={criticalDate(contract.expirationDate) ? styles.red : styles.blue}>
+              <View style={criticalDate(holiday.entranceValoriceDate) ? styles.red : styles.blue}>
                 <ListItem.Content>
-                  <ListItem.Title style={styles.text} >{contract.nameWorker}</ListItem.Title>
-                  <ListItem.Subtitle style={styles.text} >{"Vencimiento: " + contract.expirationDate}</ListItem.Subtitle>
+                  <ListItem.Title style={styles.text} >{holiday.nameWorker}</ListItem.Title>
+                  <ListItem.Subtitle style={styles.text} >{"Entrada a Valorice: " + holiday.entranceValoriceDate}</ListItem.Subtitle>
                 </ListItem.Content>
               </View>
             </ListItem>
@@ -154,4 +149,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ListContractWorkerScreen;
+export default ListHolidaysWorkersScreen;

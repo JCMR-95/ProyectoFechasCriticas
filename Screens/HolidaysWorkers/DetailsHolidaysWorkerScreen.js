@@ -10,47 +10,47 @@ import {
 } from "react-native";
 import firebase from '../../database/firebase';
 
-const DetailsContractWorkerScreen = (props) => {
+const DetailsHolidaysWorkerScreen = (props) => {
 
     const initialState = {
         id: '',
         nameWorker: '',
-        contractAssigned: '',
-        initiationDate: '',
-        expirationDate: ''
+        entranceValoriceDate: '',
+        beginningHolidaysDate: '',
+        finishHolidaysDate: ''
     };
 
-    const [contract, setContract] = useState(initialState);
+    const [holidays, setHolidays] = useState(initialState);
     const [loading, setLoading] = useState(true);
 
     const handleChangeText = (value, dato) => {
-        setContract({ ...contract, [dato]: value });
+        setHolidays({ ...holidays, [dato]: value });
     };
 
-    const getContract = async(id) => {
-        const dbRef = firebase.db.collection("TrabajadoresContrato").doc(id);
+    const getHolidays = async(id) => {
+        const dbRef = firebase.db.collection("VacacionesTrabajadores").doc(id);
         const doc = await dbRef.get();
-        const contract = doc.data();
-        setContract({ ...contract, id: doc.id });
+        const holidays = doc.data();
+        setHolidays({ ...holidays, id: doc.id });
         setLoading(false);
     }
 
-    const deleteContract = async () => {
+    const deleteHoliday = async () => {
         setLoading(true)
         const dbRef = firebase.db
-        .collection("TrabajadoresContrato")
-        .doc(props.route.params.contractId);
+        .collection("VacacionesTrabajadores")
+        .doc(props.route.params.holidayId);
         await dbRef.delete();
         setLoading(false)
-        props.navigation.navigate("Lista de Trabajadores de Contrato");
+        props.navigation.navigate("Lista de Vacaciones de Trabajador");
     };
 
     const confirmationAlert = () => {
         Alert.alert(
-        "Borrar Conductor",
-        "¿Estás seguro de borrar este Contrato?",
+        "Borrar Datos",
+        "¿Estás seguro de borrar estos datos?",
         [
-            { text: "Sí", onPress: () => deleteContract() },
+            { text: "Sí", onPress: () => deleteHoliday() },
             { text: "No" },
         ],
         {
@@ -59,35 +59,43 @@ const DetailsContractWorkerScreen = (props) => {
         );
     };
 
-    var criticalDate = (expirationDate) => {
-
+    var criticalDate = (entranceValoriceDate) => {
+  
+        var todayDate = getTodayDate();
+    
+        var subtractionDates = new Date(todayDate).getTime() - new Date(entranceValoriceDate).getTime();
+        var numericEntranceValoriceDate = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
+    
+        var critical = false;
+    
+        if(numericEntranceValoriceDate >= 365){
+          critical = true;
+        }
+        return critical;
+      }
+    
+    
+      var getTodayDate = () => {
+    
         var day = new Date().getDate(); 
         var month = new Date().getMonth() + 1; 
         var year = new Date().getFullYear(); 
-
+    
         if(day < 10){
-            day = "0" + day
+          day = "0" + day;
         }
         if(month < 10){
-            month = "0" + month
+          month = "0" + month;
         }
-
+    
         var todayDate = year + "-" + month + "-" + day;
-
-        var subtractionDates = new Date(todayDate).getTime() - new Date(expirationDate).getTime();
-        var numericValue = Math.floor(subtractionDates / (1000 * 60 * 60 * 24));
-
-        var critical = false
-
-        if((numericValue >= -60)){
-            critical = true;
-        }
-        return critical
-    }
+    
+        return todayDate;
+      }
 
 
     useEffect(() => {
-        getContract(props.route.params.contractId)
+        getHolidays(props.route.params.holidayId)
     }, [])
 
     if (loading) {
@@ -98,7 +106,6 @@ const DetailsContractWorkerScreen = (props) => {
         );
     }
 
-
     return (
         <View style={styles.container}>
           <ScrollView style={styles.scroll}>
@@ -106,41 +113,43 @@ const DetailsContractWorkerScreen = (props) => {
             <View style={styles.text}>
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "nameWorker")}
-                    value={contract.nameWorker}
+                    value={holidays.nameWorker}
                     editable={false}
                 />
             </View>
 
-            <View style={styles.text}>
-                < TextInput 
-                    onChangeText={(value) => handleChangeText(value, "contractAssigned")}
-                    value={contract.contractAssigned}
-                    editable={false}
-                />
-            </View>
-
-            <View style={styles.text}>
+            <View style={criticalDate(holidays.entranceValoriceDate) ? styles.criticalText : styles.text}>
                 < TextInput
-                    value={"Inicio del Contrato: " + contract.initiationDate}
+                    value={"Entrada a Valorice: " + holidays.entranceValoriceDate}
                     editable={false}
-                    onChangeText={(value) => handleChangeText(value, "initiationDate")}
-                />
-            </View>
-
-            <View style={criticalDate(contract.expirationDate) ? styles.criticalText : styles.text}>
-                < TextInput
-                    value={"Vencimiento del Contrato: " + contract.expirationDate}
-                    editable={false}
-                    onChangeText={(value) => handleChangeText(value, "expirationDate")}
+                    onChangeText={(value) => handleChangeText(value, "entranceValoriceDate")}
                 />
             </View>  
 
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "beginningHolidaysDate")}
+                    value={"Inicio de Vacaciones: " + holidays.beginningHolidaysDate}
+                    editable={false}
+                />
+            </View>
+
+            <View style={styles.text}>
+                < TextInput
+                    value={"Término de Vacaciones: " + holidays.finishHolidaysDate}
+                    editable={false}
+                    onChangeText={(value) => handleChangeText(value, "finishHolidaysDate")}
+                />
+            </View>
+
+
+
             <Button color = "blue" title ="Modificar Datos" onPress = {() => {
-              props.navigation.navigate("Modificar Trabajador de Contrato", {
-                contractId: contract.id,
+              props.navigation.navigate("Modificar Vacaciones de Trabajador", {
+                holidayId: holidays.id,
               });
             }}/>
-            <Button color = "red" title ="Eliminar Contrato" onPress = {() => confirmationAlert()}/>
+            <Button color = "red" title ="Eliminar Datos" onPress = {() => confirmationAlert()}/>
 
           </ScrollView>
         </View>
@@ -185,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsContractWorkerScreen;
+export default DetailsHolidaysWorkerScreen;

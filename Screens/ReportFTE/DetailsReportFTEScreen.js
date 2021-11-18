@@ -78,7 +78,7 @@ const DetailsReportFTEScreen = (props) => {
 
         var critical = false
 
-        if((numericValue >= -30)){
+        if((numericValue >= -15)){
             critical = true;
         }
         return critical

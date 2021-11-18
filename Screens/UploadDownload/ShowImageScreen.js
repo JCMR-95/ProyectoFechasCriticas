@@ -46,14 +46,30 @@ const ShowImageScreen = (props) => {
     });
   };
 
-  const deleteImage = () => {
-    return 0;
+  const deleteImage = async () => {
+    const dbRef = firebase.db.collection("NombreImagenes").doc(props.route.params.imageNameId);
+    await dbRef.delete();
+    props.navigation.navigate("Lista de Imagenes");
   }
+
+  const confirmationAlert = () => {
+    Alert.alert(
+    "Borrar Imagen",
+    "¿Estás seguro de borrar esta Imagen?",
+    [
+        { text: "Sí", onPress: () => deleteImage() },
+        { text: "No" },
+    ],
+    {
+        cancelable: true,
+    }
+    );
+};
 
   return (
 
     <View style={styles.container}>
-      <Button title = "Eliminar Imagen" onPress = {deleteImage}/>
+      <Button title = "Eliminar Imagen" onPress = {confirmationAlert}/>
       <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {image && <Image source={{ uri: image }} style={{ width: 350, height: 350 }} />}
