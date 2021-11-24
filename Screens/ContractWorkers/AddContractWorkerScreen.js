@@ -9,6 +9,8 @@ const AddContractWorkerScreen = (props) => {
     const [state, setState] = useState({
         nameWorker: '',
         contractAssigned: '',
+        directLeadership: '',
+        phoneNumber: '',
         initiationDate: '',
         expirationDate: ''
       });
@@ -18,7 +20,7 @@ const AddContractWorkerScreen = (props) => {
       };
     
       const saveData = async () => {
-        if (state.nameWorker === "" || state.contractAssigned === "" || state.initiationDate === "" || state.expirationDate === "") {
+        if (state.nameWorker === "" || state.contractAssigned === "" || state.directLeadership === "" || state.phoneNumber === "" || state.initiationDate === "" || state.expirationDate === "") {
           Alert.alert("Debes completar los Campos")
         } else {
     
@@ -26,6 +28,8 @@ const AddContractWorkerScreen = (props) => {
             await firebase.db.collection("TrabajadoresContrato").add({
               nameWorker: state.nameWorker,
               contractAssigned: state.contractAssigned,
+              directLeadership: state.directLeadership,
+              phoneNumber: state.phoneNumber,
               initiationDate: state.initiationDate,
               expirationDate: state.expirationDate
             });
@@ -55,6 +59,22 @@ const AddContractWorkerScreen = (props) => {
                 placeholder="  Contrato al que fue Asignado el Trabajador"
                 onChangeText={(value) => handleChangeText(value, "contractAssigned")}
                 value={state.contractAssigned}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Jefatura directa"
+                onChangeText={(value) => handleChangeText(value, "directLeadership")}
+                value={state.directLeadership}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Número telefónico"
+                onChangeText={(value) => handleChangeText(value, "phoneNumber")}
+                value={state.phoneNumber}
               />
             </View>
 

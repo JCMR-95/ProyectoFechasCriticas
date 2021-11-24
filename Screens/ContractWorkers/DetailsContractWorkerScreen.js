@@ -16,6 +16,8 @@ const DetailsContractWorkerScreen = (props) => {
         id: '',
         nameWorker: '',
         contractAssigned: '',
+        directLeadership: '',
+        phoneNumber: '',
         initiationDate: '',
         expirationDate: ''
     };
@@ -115,6 +117,22 @@ const DetailsContractWorkerScreen = (props) => {
                 < TextInput 
                     onChangeText={(value) => handleChangeText(value, "contractAssigned")}
                     value={contract.contractAssigned}
+                    editable={false}
+                />
+            </View>
+
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "directLeadership")}
+                    value={contract.directLeadership}
+                    editable={false}
+                />
+            </View>
+
+            <View style={styles.text}>
+                < TextInput 
+                    onChangeText={(value) => handleChangeText(value, "phoneNumber")}
+                    value={contract.phoneNumber}
                     editable={false}
                 />
             </View>

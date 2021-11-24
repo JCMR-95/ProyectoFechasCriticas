@@ -10,7 +10,8 @@ const AddPickupTruckScreen = (props) => {
         circulationPermitDate: '',
         homologationPermitDate: '',
         accidentInsuranceDate: '',
-        tagDate: ''
+        tagDate: '',
+        extinguisherDate: ''
     });
     
     const handleChangeText = (value, dato) => {
@@ -18,7 +19,7 @@ const AddPickupTruckScreen = (props) => {
     };
     
     const saveData = async () => {
-        if (state.patentPickupTrack === "" || state.circulationPermitDate === "" || state.homologationPermitDate === "" || state.accidentInsuranceDate === "" || state.tagDate === "") {
+        if (state.patentPickupTrack === "" || state.circulationPermitDate === "" || state.homologationPermitDate === "" || state.accidentInsuranceDate === "" || state.tagDate === "" || state.extinguisherDate === "") {
             Alert.alert("Debes completar los Campos")
         } else {
     
@@ -28,7 +29,8 @@ const AddPickupTruckScreen = (props) => {
                     circulationPermitDate: state.circulationPermitDate,
                     homologationPermitDate: state.homologationPermitDate,
                     accidentInsuranceDate: state.accidentInsuranceDate,
-                    tagDate: state.tagDate
+                    tagDate: state.tagDate,
+                    extinguisherDate: state.extinguisherDate
                 });
                 Alert.alert("Datos Ingresados!");
                 props.navigation.navigate('Lista de Camionetas SPENCE');
@@ -152,6 +154,32 @@ const AddPickupTruckScreen = (props) => {
                     }}
                     onDateChange={(value) => handleChangeText(value, "tagDate")}
                     value={state.tagDate}
+                />
+                </View>
+
+                <View style={styles.text}>
+                <DatePicker
+                    style={{width: 250}}
+                    date={state.extinguisherDate}
+                    mode="date"
+                    placeholder="Ingrese Fecha de Vencimiento de Extintor"
+                    format="YYYY-MM-DD"
+                    minDate="2019-05-01"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    }}
+                    onDateChange={(value) => handleChangeText(value, "extinguisherDate")}
+                    value={state.extinguisherDate}
                 />
                 </View>
        

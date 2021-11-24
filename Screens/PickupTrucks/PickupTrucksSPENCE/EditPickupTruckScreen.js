@@ -18,7 +18,8 @@ const EditPickupTruckScreen = (props) => {
         circulationPermitDate: '',
         homologationPermitDate: '',
         accidentInsuranceDate: '',
-        tagDate: ''
+        tagDate: '',
+        extinguisherDate: ''
     };
 
     const [pickupTruck, setPickupTruck] = useState(initialState);
@@ -38,7 +39,7 @@ const EditPickupTruckScreen = (props) => {
 
     const editPickupTruck = async () => {
 
-        if (pickupTruck.patentPickupTrack === "" || pickupTruck.circulationPermitDate === "" || pickupTruck.homologationPermitDate === "" || pickupTruck.accidentInsuranceDate === "" || pickupTruck.tagDate === "") {
+        if (pickupTruck.patentPickupTrack === "" || pickupTruck.circulationPermitDate === "" || pickupTruck.homologationPermitDate === "" || pickupTruck.accidentInsuranceDate === "" || pickupTruck.tagDate === "" || pickupTruck.extinguisherDate === "") {
             Alert.alert("Debes completar los Campos")
         } else {
             setLoading(true)
@@ -54,7 +55,8 @@ const EditPickupTruckScreen = (props) => {
                     circulationPermitDate: pickupTruck.circulationPermitDate,
                     homologationPermitDate: pickupTruck.homologationPermitDate,
                     accidentInsuranceDate: pickupTruck.accidentInsuranceDate,
-                    tagDate: pickupTruck.tagDate
+                    tagDate: pickupTruck.tagDate,
+                    extinguisherDate: pickupTruck.extinguisherDate
                 });
                 Alert.alert("Datos Actualizados!");
                 props.navigation.navigate('Lista de Camionetas SPENCE');
@@ -204,6 +206,32 @@ const EditPickupTruckScreen = (props) => {
                     }}
                     onDateChange={(value) => handleChangeText(value, "tagDate")}
                     value={pickupTruck.tagDate}
+                />
+                </View>
+
+                <View style={styles.text}>
+                <DatePicker
+                    style={{width: 250}}
+                    date={pickupTruck.extinguisherDate}
+                    mode="date"
+                    placeholder="Ingrese Fecha de Vencimiento de Extintor"
+                    format="YYYY-MM-DD"
+                    minDate="2019-05-01"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    }}
+                    onDateChange={(value) => handleChangeText(value, "extinguisherDate")}
+                    value={pickupTruck.extinguisherDate}
                 />
                 </View>
       

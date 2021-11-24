@@ -10,7 +10,7 @@ const SectionsScreen = (props) => {
           <Button title ="Acreditaciones de Minería" onPress = {() => props.navigation.navigate('Sección Acreditaciones de Minería')}/>
         </View> 
         <View style={styles.button}>
-          <Button title ="Camionetas" onPress = {() => props.navigation.navigate('Sección Camionetas')}/>
+          <Button title ="Camionetas SPC" onPress = {() => props.navigation.navigate('Lista de Camionetas SPENCE')}/>
         </View>
         <View style={styles.button}>
           <Button title ="Conductores" onPress = {() => props.navigation.navigate('Lista de Conductores')}/>
@@ -40,7 +40,7 @@ const SectionsScreen = (props) => {
           <Button title ="Ver Imágenes" onPress = {() => props.navigation.navigate('Lista de Imagenes')}/>
         </View>  
         <View style={styles.buttonUpload}>
-          <Button title = "Cerrar Sesión" onPress = {() => props.navigation.navigate('Iniciar Sesión')}/>
+          <Button title = "Cerrar Sesión" onPress = {() => props.navigation.reset({index: 0, routes: [{name: 'Iniciar Sesión'}],})}/>
         </View>  
 
       </ScrollView>

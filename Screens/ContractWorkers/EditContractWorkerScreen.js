@@ -16,6 +16,8 @@ const EditContractWorkerScreen = (props) => {
     const initialState = {
         nameWorker: '',
         contractAssigned: '',
+        directLeadership: '',
+        phoneNumber: '',
         initiationDate: '',
         expirationDate: ''
     };
@@ -37,7 +39,7 @@ const EditContractWorkerScreen = (props) => {
 
     const editContract = async () => {
       
-      if (contract.nameWorker === "" || contract.contractAssigned === "" || contract.initiationDate === "" || contract.expirationDate === "") {
+      if (contract.nameWorker === "" || contract.contractAssigned === "" || contract.directLeadership === "" || contract.phoneNumber === "" || contract.initiationDate === "" || contract.expirationDate === "") {
         Alert.alert("Debes completar los Campos");
       } else {
         
@@ -52,6 +54,8 @@ const EditContractWorkerScreen = (props) => {
           await firebase.db.collection("TrabajadoresContrato").add({
             nameWorker: contract.nameWorker,
             contractAssigned: contract.contractAssigned,
+            directLeadership: contract.directLeadership,
+            phoneNumber: contract.phoneNumber,
             initiationDate: contract.initiationDate,
             expirationDate: contract.expirationDate
           });
@@ -106,6 +110,22 @@ const EditContractWorkerScreen = (props) => {
                     onChangeText={(value) => handleChangeText(value, "contractAssigned")}
                     value={contract.contractAssigned}
                 />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Jefatura directa"
+                onChangeText={(value) => handleChangeText(value, "directLeadership")}
+                value={contract.directLeadership}
+              />
+            </View>
+
+            <View style={styles.text}>
+              < TextInput 
+                placeholder="  Número telefónico"
+                onChangeText={(value) => handleChangeText(value, "phoneNumber")}
+                value={contract.phoneNumber}
+              />
             </View>
 
             <View style={styles.text}>
