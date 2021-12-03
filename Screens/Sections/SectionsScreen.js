@@ -31,6 +31,9 @@ const SectionsScreen = (props) => {
           <Button title ="Trabajadores de Contrato" onPress = {() => props.navigation.navigate('Lista de Trabajadores de Contrato')}/>
         </View>  
         <View style={styles.button}>
+          <Button title ="Turnos de Levantamientos" onPress = {() => props.navigation.navigate('Lista Turnos de Levantamientos')}/>
+        </View>
+        <View style={styles.button}>
           <Button title ="Vacaciones Trabajadores" onPress = {() => props.navigation.navigate('Lista de Vacaciones de Trabajador')}/>
         </View> 
         <View style={styles.buttonUpload}>
@@ -38,6 +41,9 @@ const SectionsScreen = (props) => {
         </View>  
         <View style={styles.buttonUpload}>
           <Button title ="Ver Imágenes" onPress = {() => props.navigation.navigate('Lista de Imagenes')}/>
+        </View>  
+        <View style={styles.buttonUpload}>
+          <Button title ="Cambiar contraseña" onPress = {() => props.navigation.navigate('Cambiar contraseña')}/>
         </View>  
         <View style={styles.buttonUpload}>
           <Button title = "Cerrar Sesión" onPress = {() => props.navigation.reset({index: 0, routes: [{name: 'Iniciar Sesión'}],})}/>

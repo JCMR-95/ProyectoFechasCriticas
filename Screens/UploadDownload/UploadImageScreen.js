@@ -33,7 +33,7 @@ export default function UploadImageScreen() {
 
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
-        aspect: [5, 5],
+        aspect: [3, 4],
         quality: 1,
       });
 

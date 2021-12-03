@@ -72,7 +72,7 @@ const ShowImageScreen = (props) => {
       <Button title = "Eliminar Imagen" onPress = {confirmationAlert}/>
       <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {image && <Image source={{ uri: image }} style={{ width: 350, height: 350 }} />}
+        {image && <Image source={{ uri: image }} style={{ width: 300, height: 400 }} />}
       </View>
     </View>
   );
