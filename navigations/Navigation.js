@@ -61,6 +61,11 @@ import SPENCEAddPickupTruckScreen from '../Screens/PickupTrucks/PickupTrucksSPEN
 import SPENCEDetailsPickupTruckScreen from '../Screens/PickupTrucks/PickupTrucksSPENCE/DetailsPickupTruckScreen';
 import SPENCEEditPickupTruckScreen from '../Screens/PickupTrucks/PickupTrucksSPENCE/EditPickupTruckScreen';
 
+import ListRecordsDeliveryScreen from '../Screens/RecordsDelivery/ListRecordsDeliveryScreen';
+import AddRecordDeliveryScreen from '../Screens/RecordsDelivery/AddRecordDeliveryScreen';
+import DetailsRecordDeliveryScreen from '../Screens/RecordsDelivery/DetailsRecordDeliveryScreen';
+import EditRecordDeliveryScreen from '../Screens/RecordsDelivery/EditRecordDeliveryScreen';
+
 import ListReportFTEScreen from '../Screens/ReportFTE/ListReportFTEScreen';
 import AddReportFTEScreen from '../Screens/ReportFTE/AddReportFTEScreen';
 import DetailsReportFTEScreen from '../Screens/ReportFTE/DetailsReportFTEScreen';
@@ -144,6 +149,11 @@ export default function Navigation() {
           <Stack.Screen name="Agregar Camioneta SPENCE" component={SPENCEAddPickupTruckScreen} />
           <Stack.Screen name="Detalles de Camioneta SPENCE" component={SPENCEDetailsPickupTruckScreen} />
           <Stack.Screen name="Modificar Camioneta SPENCE" component={SPENCEEditPickupTruckScreen} />
+
+          <Stack.Screen name="Lista Entregas de Expedientes" component={ListRecordsDeliveryScreen} />
+          <Stack.Screen name="Agregar Entrega de Expediente" component={AddRecordDeliveryScreen} />
+          <Stack.Screen name="Detalles de Entrega de Expediente" component={DetailsRecordDeliveryScreen} />
+          <Stack.Screen name="Modificar Entrega de Expediente" component={EditRecordDeliveryScreen} />
 
           <Stack.Screen name="Lista de Reportes FTE" component={ListReportFTEScreen} />
           <Stack.Screen name="Agregar Reporte FTE" component={AddReportFTEScreen} />
