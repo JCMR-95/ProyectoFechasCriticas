@@ -5,21 +5,20 @@ import firebase from '../../database/firebase';
 
 const ListImagesStorageScreen = (props) => {
 
+  const [state, setState] = useState({
+    section: ''
+  });
+
   const [imagesNames, setImagesNames] = useState([]);
 
   const [loading, setLoading] = useState({
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
 
-  useEffect(() => {
-    firebase.db.collection("NombreImagenes").onSnapshot((querySnapshot) => {
+  const getNamesImages = async (section) => {
+    state.section = section;
+    firebase.db.collection("NombreImagenes").where('section', '==', section).onSnapshot((querySnapshot) => {
       const imagesNames = [];
       querySnapshot.docs.forEach((doc) => {
         const { name } = doc.data();
@@ -35,6 +34,12 @@ const ListImagesStorageScreen = (props) => {
       });
       setImagesNames(imagesNames);
     });
+};
+
+  useEffect(() => {
+    loading.isLoading = false;
+    getNamesImages(props.route.params.section);  
+    console.log(state.section);
   }, []);
 
   return (
@@ -49,6 +54,7 @@ const ListImagesStorageScreen = (props) => {
                 onPress={() => {
                   props.navigation.navigate("Ver Imagen", {
                     imageNameId: imageName.id,
+                    section: state.section
                   });
                 }}
               >

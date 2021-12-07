@@ -6,7 +6,8 @@ import 'firebase/storage';
 const ShowImageScreen = (props) => {
 
   const initialState = {
-    name: ''
+    name: '',
+    section: ''
   };
 
   const [image, setImage] = useState(null);
@@ -18,6 +19,7 @@ const ShowImageScreen = (props) => {
 
   useEffect(() => {
     getImage(props.route.params.imageNameId);
+    imageName.section = props.route.params.section;
     showImage();
     loading.isLoading = false;
   }, [])
@@ -28,7 +30,7 @@ const ShowImageScreen = (props) => {
     const imageName = doc.data();
     setImageName({ ...imageName, id: doc.id });
 
-    var path = "FilesStorage/" + imageName.name;
+    var path = imageName.section + imageName.name;
 
     firebase.storage.ref(path).getDownloadURL().then((url) => {
       setImage(url);
@@ -38,7 +40,7 @@ const ShowImageScreen = (props) => {
 
   const showImage = async () => {
 
-    var path = "FilesStorage/" + imageName.name;
+    var path = imageName.section + imageName.name;
 
     firebase.storage.ref(path).getDownloadURL().then((url) => {
       setImage(url);

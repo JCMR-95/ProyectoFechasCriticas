@@ -85,6 +85,11 @@ const ListContractWorkerScreen = (props) => {
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Trabajador asignado a un Contrato" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
+        <Button title = "Ver Imágenes" onPress = {() => {
+          props.navigation.navigate("Lista de Imagenes", {
+            section: "TrabajadoresContrato/",
+            });
+        }}/>
         {
           contracts.map(contract => {
             return(

@@ -80,6 +80,11 @@ const ListHolidaysWorkersScreen = (props) => {
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
         <Button title = "Agregar Vacaciones de Trabajador" onPress = {() => props.navigation.navigate('Agregar Vacaciones de Trabajador')}/>
+        <Button title = "Ver Imágenes" onPress = {() => {
+          props.navigation.navigate("Lista de Imagenes", {
+            section: "VacacionesTrabajadores/",
+            });
+        }}/>
         {
           holidays.map(holiday => {
             return(

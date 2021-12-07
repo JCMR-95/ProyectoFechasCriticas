@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, TextInput, StyleSheet, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firebase from '../../database/firebase';
+import RNPickerSelect from 'react-native-picker-select';
 import 'firebase/storage';
 
 export default function UploadImageScreen() {
 
   const [image, setImage] = useState(null);
   const [state, setState] = useState({
-    name: ''
+    name: '',
+    section: ''
   });
   const handleChangeText = (value, dato) => {
     setState({ ...state, [dato]: value });
@@ -27,7 +29,7 @@ export default function UploadImageScreen() {
 
   const pickImage = async () => {
 
-    if(state.name == ""){
+    if(state.name == "" || state.section === ""){
       Alert.alert("Debes agregar un nombre");
     }else{
 
@@ -49,7 +51,7 @@ export default function UploadImageScreen() {
     const response = await fetch(uri);
     const blob = await response.blob();
 
-    var path = "FilesStorage/" + state.name;
+    var path = state.section + state.name;
     const ref = firebase.storage.ref().child(path);
 
     addNameDB();
@@ -60,7 +62,8 @@ export default function UploadImageScreen() {
   const addNameDB = () => {
     try {
       firebase.db.collection("NombreImagenes").add({
-        name: state.name
+        name: state.name,
+        section: state.section
       });
 
     } catch (error) {
@@ -79,6 +82,25 @@ export default function UploadImageScreen() {
               placeholder="  Ingrese un Nombre del Archivo"
               onChangeText={(value) => handleChangeText(value, "name")}
               value={state.name}
+            />
+          </View>
+          <View style={styles.text}>
+            <RNPickerSelect
+              onValueChange={(value) => handleChangeText(value, "section")}
+              items={[
+                  { label: 'Acreditaciones de Minería', value: 'AcreditacionesMineria/' },
+                  { label: 'Camionetas', value: 'Camionetas/' },
+                  { label: 'Conductores', value: 'Conductores/' },
+                  { label: 'Capacitaciones', value: 'Capacitaciones/' },
+                  { label: 'Entrega de Expedientes', value: 'EntregaExpedientes/' },
+                  { label: 'Exámenes Ocupacionales', value: 'ExamenesOcupaciones/' },
+                  { label: 'KM de Camionetas', value: 'KMcamionetas/' },
+                  { label: 'Reportes FTE', value: 'ReportesFTE/' },
+                  { label: 'Trabajadores de Contrato', value: 'TrabajadoresContrato/' },
+                  { label: 'Turnos de Levantamientos', value: 'TurnosLevantamientos/' },
+                  { label: 'Vacaciones de Trabajadores', value: 'VacacionesTrabajadores/' },
+              ]}
+              value={state.section}
             />
           </View>
           <View style={styles.text}>
