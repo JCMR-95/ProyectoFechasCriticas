@@ -11,14 +11,8 @@ const ListExternalTrainingsScreen = (props) => {
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
-
   useEffect(() => {
+    loading.isLoading = false;
     firebase.db.collection("CapacitacionesExternas").onSnapshot((querySnapshot) => {
       const trainings = [];
       querySnapshot.docs.forEach((doc) => {
@@ -78,7 +72,16 @@ const ListExternalTrainingsScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Capacitación Externa" onPress = {() => props.navigation.navigate('Agregar Capacitación Externa')}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Capacitación Externa" onPress = {() => props.navigation.navigate('Agregar Capacitación Externa')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "Capacitaciones/",
+              });
+          }}/>
+        </View>
         {
           trainings.map(training => {
             return(
@@ -119,12 +122,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

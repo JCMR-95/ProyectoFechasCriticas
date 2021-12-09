@@ -11,14 +11,8 @@ const ListHolidaysWorkersScreen = (props) => {
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
-
   useEffect(() => {
+    loading.isLoading = false;
     firebase.db.collection("VacacionesTrabajadores").onSnapshot((querySnapshot) => {
       const holidays = [];
       querySnapshot.docs.forEach((doc) => {
@@ -79,12 +73,16 @@ const ListHolidaysWorkersScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Vacaciones de Trabajador" onPress = {() => props.navigation.navigate('Agregar Vacaciones de Trabajador')}/>
-        <Button title = "Ver Imágenes" onPress = {() => {
-          props.navigation.navigate("Lista de Imagenes", {
-            section: "VacacionesTrabajadores/",
-            });
-        }}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Vacaciones de Trabajador" onPress = {() => props.navigation.navigate('Agregar Vacaciones de Trabajador')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "VacacionesTrabajadores/",
+              });
+          }}/>
+        </View>
         {
           holidays.map(holiday => {
             return(
@@ -124,12 +122,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

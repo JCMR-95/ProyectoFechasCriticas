@@ -11,14 +11,8 @@ const ListRecordsDeliveryScreen = (props) => {
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
-
   useEffect(() => {
+    loading.isLoading = false;
     firebase.db.collection("EntregaExpedientes").onSnapshot((querySnapshot) => {
       const records = [];
       querySnapshot.docs.forEach((doc) => {
@@ -72,7 +66,16 @@ const ListRecordsDeliveryScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Expediente" onPress = {() => props.navigation.navigate('Agregar Entrega de Expediente')}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Expediente" onPress = {() => props.navigation.navigate('Agregar Entrega de Expediente')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "EntregaExpedientes/",
+              });
+          }}/>
+        </View>
         {
           records.map(record => {
             return(
@@ -112,12 +115,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

@@ -11,14 +11,8 @@ const ListLiftingShiftScreen = (props) => {
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
-
   useEffect(() => {
+    loading.isLoading = false;
     firebase.db.collection("TurnosLevantamientos").onSnapshot((querySnapshot) => {
       const liftingShifts = [];
       querySnapshot.docs.forEach((doc) => {
@@ -70,7 +64,16 @@ const ListLiftingShiftScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Turno de Levantamiento" onPress = {() => props.navigation.navigate('Agregar Turno de Levantamiento')}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Turno de Levantamiento" onPress = {() => props.navigation.navigate('Agregar Turno de Levantamiento')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "TurnosLevantamientos/",
+              });
+          }}/>
+        </View>
         {
             liftingShifts.map(liftingShift => {
             return(
@@ -110,12 +113,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

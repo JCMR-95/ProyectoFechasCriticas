@@ -44,7 +44,16 @@ const ListLimitKilometresScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Kilómetros" onPress = {() => props.navigation.navigate('Agregar Kilómetros')}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Kilómetros" onPress = {() => props.navigation.navigate('Agregar Kilómetros')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "KMcamionetas/",
+              });
+          }}/>
+        </View>
         {
           kilometres.map(km => {
             return(
@@ -85,12 +94,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

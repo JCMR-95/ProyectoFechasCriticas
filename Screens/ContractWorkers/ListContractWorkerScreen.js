@@ -84,12 +84,16 @@ const ListContractWorkerScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Trabajador asignado a un Contrato" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
-        <Button title = "Ver Imágenes" onPress = {() => {
-          props.navigation.navigate("Lista de Imagenes", {
-            section: "TrabajadoresContrato/",
-            });
-        }}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Trabajador asignado a un Contrato" onPress = {() => props.navigation.navigate('Agregar Trabajador de Contrato')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "TrabajadoresContrato/",
+              });
+          }}/>
+        </View>
         {
           contracts.map(contract => {
             return(
@@ -129,12 +133,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,

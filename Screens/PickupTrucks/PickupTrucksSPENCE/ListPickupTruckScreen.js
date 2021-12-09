@@ -11,14 +11,8 @@ const ListPickupTruckScreen = (props) => {
     isLoading: true
   });
 
-  useEffect(
-    () => {
-      loading.isLoading = false;
-    },
-    []
-  );
-
   useEffect(() => {
+    loading.isLoading = false;
     firebase.db.collection("CamionetasSPENCE").onSnapshot((querySnapshot) => {
       const pickupTrucks = [];
       querySnapshot.docs.forEach((doc) => {
@@ -84,7 +78,16 @@ const ListPickupTruckScreen = (props) => {
     <View style={styles.container}>
       <ScrollView>
         <ActivityIndicator size="small" color="#00ff00" animating={loading.isLoading} />
-        <Button title = "Agregar Camioneta" onPress = {() => props.navigation.navigate('Agregar Camioneta SPENCE')}/>
+        <View style={styles.button}>
+          <Button title = "Agregar Camioneta" onPress = {() => props.navigation.navigate('Agregar Camioneta SPENCE')}/>
+        </View>
+        <View style={styles.button}>
+          <Button title = "Ver Imágenes" onPress = {() => {
+            props.navigation.navigate("Lista de Imagenes", {
+              section: "Camionetas/",
+              });
+          }}/>
+        </View>
         {
           pickupTrucks.map(pickupTruck => {
             return(
@@ -123,12 +126,7 @@ const styles = StyleSheet.create({
     },
     button: {
       elevation: 8,
-      backgroundColor: "#009688",
       borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      width: 250,
-      height: 60
     },
     red: {
       elevation: 8,
