@@ -29,8 +29,8 @@ export default function UploadImageScreen() {
 
   const pickImage = async () => {
 
-    if(state.name == "" || state.section === ""){
-      Alert.alert("Debes agregar un nombre");
+    if(state.name == "" || state.section === "" || state.section === "Seleccione sección"){
+      Alert.alert("Debes completar todos los campos");
     }else{
 
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -86,6 +86,7 @@ export default function UploadImageScreen() {
           </View>
           <View style={styles.text}>
             <RNPickerSelect
+              placeholder={{ label: "Seleccione sección", value: state.section }}
               onValueChange={(value) => handleChangeText(value, "section")}
               items={[
                   { label: 'Acreditaciones de Minería', value: 'AcreditacionesMineria/' },

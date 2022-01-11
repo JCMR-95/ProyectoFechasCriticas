@@ -92,7 +92,7 @@ const ListLiftingShiftScreen = (props) => {
                 <View style={criticalDate(liftingShift.riseDate) ? styles.red : styles.blue}>
                   <ListItem.Content>
                     <ListItem.Title style={styles.text} >{liftingShift.nameWorker}</ListItem.Title>
-                    <ListItem.Subtitle style={styles.text} >{liftingShift.mineSite}</ListItem.Subtitle>
+                    <ListItem.Subtitle style={styles.text} >{"Fecha de Subida: " +liftingShift.riseDate}</ListItem.Subtitle>
                   </ListItem.Content>
                 </View>
               </ListItem>
