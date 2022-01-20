@@ -94,6 +94,7 @@ export default function UploadImageScreen() {
                   { label: 'Conductores', value: 'Conductores/' },
                   { label: 'Capacitaciones', value: 'Capacitaciones/' },
                   { label: 'Entrega de Expedientes', value: 'EntregaExpedientes/' },
+                  { label: 'Envíos EPPs', value: 'EPPs/' },
                   { label: 'Exámenes Ocupacionales', value: 'ExamenesOcupaciones/' },
                   { label: 'KM de Camionetas', value: 'KMcamionetas/' },
                   { label: 'Reportes FTE', value: 'ReportesFTE/' },

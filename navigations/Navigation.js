@@ -31,6 +31,11 @@ import AddDriverScreen from '../Screens/Drivers/AddDriverScreen';
 import DetailsDriverScreen from '../Screens/Drivers/DetailsDriverScreen';
 import EditDriverScreen from '../Screens/Drivers/EditDriverScreen';
 
+import ListEPPsDeliveryScreen from '../Screens/EPPsDelivery/ListEPPsDeliveryScreen';
+import AddEPPsDeliveryScreen from '../Screens/EPPsDelivery/AddEPPsDeliveryScreen';
+import DetailsEPPsDeliveryScreen from '../Screens/EPPsDelivery/DetailsEPPsDeliveryScreen';
+import EditEPPsDeliveryScreen from '../Screens/EPPsDelivery/EditEPPsDeliveryScreen';
+
 import ListHolidaysWorkersScreen from '../Screens/HolidaysWorkers/ListHolidaysWorkersScreen';
 import AddHolidaysWorkerScreen from '../Screens/HolidaysWorkers/AddHolidaysWorkerScreen';
 import DetailsHolidaysWorkerScreen from '../Screens/HolidaysWorkers/DetailsHolidaysWorkerScreen';
@@ -119,6 +124,11 @@ export default function Navigation() {
           <Stack.Screen name="Agregar Conductor" component={AddDriverScreen} />
           <Stack.Screen name="Detalles del Conductor" component={DetailsDriverScreen} />
           <Stack.Screen name="Modificar Conductor" component={EditDriverScreen} />
+
+          <Stack.Screen name="Lista Envios EPPs" component={ListEPPsDeliveryScreen} />
+          <Stack.Screen name="Agregar Envio EPPs" component={AddEPPsDeliveryScreen} />
+          <Stack.Screen name="Detalles de EPP" component={DetailsEPPsDeliveryScreen} />
+          <Stack.Screen name="Modificar EPPs" component={EditEPPsDeliveryScreen} />
 
           <Stack.Screen name="Lista de Vacaciones de Trabajador" component={ListHolidaysWorkersScreen} />
           <Stack.Screen name="Agregar Vacaciones de Trabajador" component={AddHolidaysWorkerScreen} />
