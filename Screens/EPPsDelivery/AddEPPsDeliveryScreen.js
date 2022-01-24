@@ -21,24 +21,32 @@ const AddEPPsDeliveryScreen = (props) => {
     
       const saveData = async () => {
         if (state.invoiceNumber === "" || state.deliveryDate === "" || state.idDelivery === "" || state.nameWorker === "" || state.position === "" || state.numberEPP === "") {
-          Alert.alert("Debes completar los Campos")
+          Alert.alert("Debes completar los Campos");
         } else {
-    
-          try {
-            await firebase.db.collection("EntregasEPP").add({
-                invoiceNumber: state.invoiceNumber,
-                deliveryDate: state.deliveryDate,
-                idDelivery: state.idDelivery,
-                nameWorker: state.nameWorker,
-                position: state.position,
-                numberEPP: state.numberEPP
-            });
-            Alert.alert("Datos Ingresados!");
-            props.navigation.navigate('Lista Envios EPPs');
-    
-          } catch (error) {
-            console.log(error)
+
+          if(isNaN(state.invoiceNumber)){
+            Alert.alert("N° de Folio debe ser un número");
+
+          }else{
+
+            try {
+              await firebase.db.collection("EntregasEPP").add({
+                  invoiceNumber: state.invoiceNumber,
+                  deliveryDate: state.deliveryDate,
+                  idDelivery: state.idDelivery,
+                  nameWorker: state.nameWorker,
+                  position: state.position,
+                  numberEPP: state.numberEPP
+              });
+              Alert.alert("Datos Ingresados!");
+              props.navigation.navigate('Lista Envios EPPs');
+      
+            } catch (error) {
+              console.log(error)
+            }
+            
           }
+
         }
       };
     

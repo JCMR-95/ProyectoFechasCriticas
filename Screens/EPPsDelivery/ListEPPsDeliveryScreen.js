@@ -33,7 +33,7 @@ const ListEPPsDeliveryScreen = (props) => {
       EPPs.sort(function(a, b) {
         var textA = a.invoiceNumber.toUpperCase();
         var textB = b.invoiceNumber.toUpperCase();
-        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        return textA - textB;
       });
       setEPPs(EPPs);
     });
